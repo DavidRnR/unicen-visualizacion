@@ -1,6 +1,6 @@
 var ctx = document.getElementById("canvas").getContext("2d");
 
-var width = 500;
+var width = 900;
 var height = 600;
 
 var imageData = ctx.createImageData(width, height);
@@ -10,7 +10,7 @@ var g = 0;
 var b = 0;
 var a = 255;
 
-var MAX = width / 2;
+var middleWidth = width / 2;
 
 for (let x = 0; x < width / 2; x++) {
 
@@ -23,10 +23,19 @@ for (let x = 0; x < width / 2; x++) {
     g = 0;
 }
 
+/**
+ * Get Color value for the first half of the figure
+ * @param {*} x 
+ */
+function getColorVal(x) {
+    return Math.floor(x / middleWidth * 255);
+}
+
 // Set R and B by default
 r = 255;
 b = 0;
 g = 0;
+
 for (let x = width / 2; x < width; x++) {
 
     for (let y = 0; y < height; y++) {
@@ -37,12 +46,12 @@ for (let x = width / 2; x < width; x++) {
 
 }
 
-function getColorVal(x) {
-    return Math.floor((x / width) * 255);
-}
-
+/**
+ * Get Color value for the second half of the figure
+ * @param {*} x 
+ */
 function getColorValDesplazado(x) {
-    return Math.floor(255 - (((x - MAX) / MAX) * 255));
+    return Math.floor(255 - (((x - middleWidth) / middleWidth) * 255));
 }
 
 ctx.putImageData(imageData, 0, 0);
