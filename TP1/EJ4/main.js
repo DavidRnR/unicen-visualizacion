@@ -80,7 +80,8 @@ image1.onload = function () {
     imageData = ctx.getImageData(0, 0, this.width, this.height);
     // getFilterBlackWhite(imageData);
     // getFilterNegative(imageData);
-    getFilterSepia(imageData);
+    // getFilterSepia(imageData);
+    getFilterBinary(imageData);
     ctx.putImageData(imageData, 0, 0);
 }
 
@@ -131,6 +132,22 @@ function getFilterSepia(imageData) {
             let outputBlue = (getRed(imageData, x, y) * .272) + (getGreen(imageData, x, y) * .534) + (getBlue(imageData, x, y) * .131);
 
             setPixel(imageData, x, y,  outputRed,  outputGreen,  outputBlue, 255);
+        }
+    }
+}
+
+function getFilterBinary(imageData) {
+
+    for (var y = 0; y < imageData.height; y++) {
+        for (var x = 0; x < imageData.width; x++) {
+            var avg = (getRed(imageData, x, y) + getGreen(imageData, x, y) + getBlue(imageData, x, y)) / 3;
+            if(avg > 130)  {
+                 setPixel(imageData,x,y, 0, 0, 0, 255);
+            }
+            else {
+                 setPixel(imageData,x,y, 255, 255, 255, 255);
+            }
+           
         }
     }
 }
