@@ -1,14 +1,18 @@
 const canvasFilterWidth = 240;
 const canvasFilterHeith = 320;
 
+// Original 
 var ctx = null;
+var imageDataOriginal = null;
+
+// Filter Canvas
 var ctxBW = null;
 var ctxNegative = null;
 var ctxSepia = null;
 var ctxBinary = null;
 
 var imageOrigin = new Image();
-var imageFileDefault;
+
 
 /**
  * On load page, render the menu
@@ -45,7 +49,6 @@ function renderHtml(url) {
 
                     // Add Button "Descargar" to the NavBar
                     document.querySelector("nav").innerHTML += '<button class="btn btn-primary download-image-button" onclick="onDownloadImage()">Descargar</button>';
-
                     break;
                 case 'html/image-filters.html':
                     document.getElementById('filters').innerHTML = data;
@@ -72,7 +75,6 @@ function setImageFromInput() {
         };
         reader.readAsDataURL(fileInput.files[0]);
 
-        imageFileDefault = reader.result;
         // Render Image Processed
         renderHtml('html/image-processed.html');
 
@@ -111,19 +113,38 @@ function onLoadImage() {
     imageOrigin.onload = function () {
 
         // Responsive Canvas
-        ctx.canvas.width =  this.width;
+        ctx.canvas.width = this.width;
         ctx.canvas.height = this.height;
 
         ctx.drawImage(this, 0, 0, this.width, this.height);
-
+        
         imageData = ctx.getImageData(0, 0, this.width, this.height);
-
+        
+        // Save imageData to restore to original any time
+        setImageDataOriginal (imageData);
+       
         ctx.putImageData(imageData, 0, 0);
     }
 
+
 }
 
+/**
+ * Save imageData to restore to original any time
+ * @param {*} imageData 
+ */
+function setImageDataOriginal (imageData) {
+    imageDataOriginal = imageData;
+  
+}
+/**
+ * On Set Filter
+ * @param {*} filter 
+ */
 function onSetFilter(filter) {
+    
+    // Set original image data before apply the filter
+    ctx.putImageData(imageDataOriginal, 0, 0);
     let imageData = ctx.getImageData(0, 0, imageOrigin.width, imageOrigin.height);
 
     switch (filter) {
@@ -144,23 +165,20 @@ function onSetFilter(filter) {
     }
     ctx.putImageData(imageData, 0, 0);
 }
+ 
 
-function setPixel(imageData, x, y, r, g, b, a) {
+//****************************************************************************** */
 
-    index = (x + y * imageData.width) * 4;
-    imageData.data[index + 0] = r;
-    imageData.data[index + 1] = g;
-    imageData.data[index + 2] = b;
-    imageData.data[index + 3] = a;
-
-}
-
-
+/**
+ * Get value to Resize Image
+ * @param {*} imgW 
+ * @param {*} imgH 
+ * @param {*} maxW 
+ * @param {*} maxH 
+ */
 function scalePreserveAspectRatio(imgW, imgH, maxW, maxH) {
     return (Math.min((maxW / imgW), (maxH / imgH)));
 }
-
-//****************************************************************************** */
 
 /**
 * On Load Images Filters

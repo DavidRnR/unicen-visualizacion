@@ -64,3 +64,25 @@ function getFilterBinary(imageData) {
         }
     }
 }
+
+//*************************************************************************** */
+
+/**
+ * On set Pixel
+ * @param {*} imageData 
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} r Color
+ * @param {*} g Color
+ * @param {*} b Color
+ * @param {*} a Transparency
+ */
+function setPixel(imageData, x, y, r, g, b, a) {
+
+    index = (x + y * imageData.width) * 4;
+    imageData.data[index + 0] = r;
+    imageData.data[index + 1] = g;
+    imageData.data[index + 2] = b;
+    imageData.data[index + 3] = a;
+
+}
