@@ -1,3 +1,5 @@
+const canvasFilterWidth = 240;
+const canvasFilterHeith = 320;
 
 var ctx = null;
 var ctxBW = null;
@@ -11,35 +13,41 @@ var imageFileDefault;
 /**
  * On load page, render the menu
  */
-renderHtml('./menu.html');
+renderHtml('html/menu.html');
 
 /**
  * Render HTML
  * @param {url} url 
  */
 function renderHtml(url) {
-    var headers = new Headers();
+    let headers = new Headers();
     headers.append("Content-Type", "text/html");
 
-    fetch(url, headers)
+    let options = {
+        headers: headers,
+        mode: 'no-cors',
+        cache: 'default'
+    };
+
+    fetch(url, options)
         .then(response => {
             return response.text();
         }).then(data => {
             switch (url) {
-                case './menu.html':
+                case 'html/menu.html':
                     document.getElementById('app-loader').innerHTML = data;
                     setImageFromInput();
                     break;
-                case './image-processed.html':
+                case 'html/image-processed.html':
                     document.getElementById('app-loader').innerHTML = data;
-                    onSetCanva();
+                    onSetCanvas();
                     onLoadImage();
 
                     // Add Button "Descargar" to the NavBar
                     document.querySelector("nav").innerHTML += '<button class="btn btn-primary download-image-button" onclick="onDownloadImage()">Descargar</button>';
 
                     break;
-                case './image-filters.html':
+                case 'html/image-filters.html':
                     document.getElementById('filters').innerHTML = data;
                     onSetCanvasFilters();
                     onLoadImagesFilters();
@@ -66,19 +74,19 @@ function setImageFromInput() {
 
         imageFileDefault = reader.result;
         // Render Image Processed
-        renderHtml('./image-processed.html');
+        renderHtml('html/image-processed.html');
 
         // Render Image Filters
-        renderHtml('./image-filters.html');
+        renderHtml('html/image-filters.html');
     }
     document.querySelector("#uploadImage").onchange = imageFile;
 
 }
 
 /**
- * Set Canvas 
+ * Set Main Canvas
  */
-function onSetCanva() {
+function onSetCanvas() {
     // Main Canvas
     ctx = document.getElementById("canvas").getContext("2d");
 }
@@ -101,7 +109,12 @@ function onSetCanvasFilters() {
 function onLoadImage() {
 
     imageOrigin.onload = function () {
-        ctx.drawImage(this, 0, 0);
+
+        // Responsive Canvas
+        ctx.canvas.width =  this.width;
+        ctx.canvas.height = this.height;
+
+        ctx.drawImage(this, 0, 0, this.width, this.height);
 
         imageData = ctx.getImageData(0, 0, this.width, this.height);
 
@@ -160,10 +173,14 @@ function onLoadImagesFilters() {
 
     imageBlackWhite.onload = function () {
 
-        var w = imageBlackWhite.width;
-        var h = imageBlackWhite.height;
+        let w = imageBlackWhite.width;
+        let h = imageBlackWhite.height;
 
-        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+        // Responsive canvas
+        ctxBW.canvas.width = w * sizer;
+        ctxBW.canvas.heith = h * sizer;
 
         ctxBW.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
@@ -183,10 +200,14 @@ function onLoadImagesFilters() {
 
     imageNegative.onload = function () {
 
-        var w = imageNegative.width;
-        var h = imageNegative.height;
+        let w = imageNegative.width;
+        let h = imageNegative.height;
 
-        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+        // Responsive canvas
+        ctxNegative.canvas.width = w * sizer;
+        ctxNegative.canvas.heith = h * sizer;
 
         ctxNegative.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
@@ -206,10 +227,14 @@ function onLoadImagesFilters() {
 
     imageSepia.onload = function () {
 
-        var w = imageSepia.width;
-        var h = imageSepia.height;
+        let w = imageSepia.width;
+        let h = imageSepia.height;
 
-        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+         // Responsive canvas
+        ctxSepia.canvas.width = w * sizer;
+        ctxSepia.canvas.heith = h * sizer;
 
         ctxSepia.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
@@ -230,10 +255,10 @@ function onLoadImagesFilters() {
 
     imageBinary.onload = function () {
 
-        var w = this.width;
-        var h = this.height;
+        let w = this.width;
+        let h = this.height;
 
-        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
 
         ctxBinary.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
@@ -254,10 +279,32 @@ function onLoadImagesFilters() {
  */
 function onDownloadImage() {
 
-    // Open dialog to save the image
-    // window.open(ctx.canvas.toDataURL('image/png'));
-    
-    // document.execCommand('SaveAs','1','TudaiPic.jpg');
+    // Save the image as a file
+    let urlImg = ctx.canvas.toDataURL('image/png');
+
+    let download = document.createElement('a');
+    download.href = urlImg;
+    download.download = 'tudai.jpg';
+
+    // Firefox 1.0+
+    let isFirefox = typeof InstallTrigger !== 'undefined';
+
+    if (isFirefox) {
+        let fireOnThis = download;
+        if (document.createEvent) {
+            let evObj = document.createEvent('MouseEvents');
+            evObj.initEvent('click', true, false);
+            fireOnThis.dispatchEvent(evObj);
+        } else if (document.createEventObject) {
+            let evObj = document.createEventObject();
+            fireOnThis.fireEvent('on' + 'click', evObj);
+        }
+    }
+    // Chrome - Opera
+    else {
+        download.click();
+    }
+
 }
 
 
