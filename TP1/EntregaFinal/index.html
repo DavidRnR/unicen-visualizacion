@@ -14,16 +14,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <canvas id="canvas" class="img-fluid rounded mx-auto d-block" width="480" height="640" style="border:#000 solid 1px;" />
+            <div class="col-md-8" id="app-loader">
+              
             </div>
             <div class="col-md-2"></div>
         </div>
         <div class="row">
-            <canvas id="canvas-black-white" class="img-fluid rounded mx-1" width="120" height="160" onclick="onSetFilter('bw')"></canvas>
-            <canvas id="canvas-sepia"  class="img-fluid rounded mx-1" width="120" height="160"></canvas>
-            <canvas id="canvas-binary" class="img-fluid rounded mx-1" width="120" height="160"></canvas>
-            <canvas id="canvas-negative" class="img-fluid rounded mx-1" width="120" height="160"></canvas>
+            <canvas id="canvas-black-white" class="img-fluid rounded mx-1" width="120" height="160" onclick="onSetFilter('bwFilter')"></canvas>
+            <canvas id="canvas-negative" class="img-fluid rounded mx-1" width="120" height="160" onclick="onSetFilter('negativeFilter')"></canvas>
+            <canvas id="canvas-sepia"  class="img-fluid rounded mx-1" width="120" height="160" onclick="onSetFilter('sepiaFilter')"></canvas>
+            <canvas id="canvas-binary" class="img-fluid rounded mx-1" width="120" height="160" onclick="onSetFilter('binaryFilter')"></canvas>
         </div>
     </div>
 </body>
