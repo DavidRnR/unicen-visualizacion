@@ -1,3 +1,22 @@
+.tudai-title {
+    font-weight: lighter;
+    color: #65768E;
+    letter-spacing: 2px;
+}
+
+.tudai-sub-title {
+    font-size: 15px;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    color: #65768E;
+}
+
 .upload-img {
     cursor: pointer;
 }
+
+.download-image-button {
+    position: absolute;
+    right: 15px;
+}
+

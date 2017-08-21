@@ -1,10 +1,12 @@
+
 var ctx = null;
 var ctxBW = null;
 var ctxNegative = null;
-var ctxBinary = null;
 var ctxSepia = null;
+var ctxBinary = null;
 
 var imageOrigin = new Image();
+var imageFileDefault;
 
 /**
  * On load page, render the menu
@@ -32,6 +34,10 @@ function renderHtml(url) {
                     document.getElementById('app-loader').innerHTML = data;
                     onSetCanva();
                     onLoadImage();
+
+                    // Add Button "Descargar" to the NavBar
+                    document.querySelector("nav").innerHTML += '<button class="btn btn-primary download-image-button" onclick="onDownloadImage()">Descargar</button>';
+
                     break;
                 case './image-filters.html':
                     document.getElementById('filters').innerHTML = data;
@@ -48,7 +54,7 @@ function renderHtml(url) {
  * On Set Image from Input
  */
 function setImageFromInput() {
-    var imageFile = function () {
+    let imageFile = function () {
         var fileInput = document.querySelector("#uploadImage");
 
         // File Reader and set SRC
@@ -58,11 +64,12 @@ function setImageFromInput() {
         };
         reader.readAsDataURL(fileInput.files[0]);
 
+        imageFileDefault = reader.result;
         // Render Image Processed
         renderHtml('./image-processed.html');
 
-         // Render Image Filters
-         renderHtml('./image-filters.html');
+        // Render Image Filters
+        renderHtml('./image-filters.html');
     }
     document.querySelector("#uploadImage").onchange = imageFile;
 
@@ -99,42 +106,12 @@ function onLoadImage() {
         imageData = ctx.getImageData(0, 0, this.width, this.height);
 
         ctx.putImageData(imageData, 0, 0);
-    }    
-
-}
-
-/**
-* On Load Images Filters
-*/
-function onLoadImagesFilters() {
-
-   var imageBlackWhite = new Image();
-   imageBlackWhite.src = imageOrigin.src;
-
-   imageBlackWhite.onload = function () {
-
-       var w = imageBlackWhite.width;
-       var h = imageBlackWhite.height;
-
-       var sizer = scalePreserveAspectRatio(w, h, 120, 160);
-
-       ctxBW.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
-
-       imageData = ctxBW.getImageData(0, 0, this.width, this.height);
-
-       getFilterBlackWhite(imageData);
-
-       ctxBW.canvas.width = w * sizer;
-       ctxBW.canvas.height = h * sizer;
-
-       ctxBW.putImageData(imageData, 0, 0);
-   }
+    }
 
 }
 
 function onSetFilter(filter) {
-
-    imageData = ctx.getImageData(0, 0, imageOrigin.width, imageOrigin.height);
+    let imageData = ctx.getImageData(0, 0, imageOrigin.width, imageOrigin.height);
 
     switch (filter) {
         case 'bwFilter':
@@ -170,72 +147,118 @@ function scalePreserveAspectRatio(imgW, imgH, maxW, maxH) {
     return (Math.min((maxW / imgW), (maxH / imgH)));
 }
 
-function getRed(imageData, x, y) {
-    index = (x + y * imageData.width) * 4;
-    return imageData.data[index + 0];
-}
-
-function getGreen(imageData, x, y) {
-    index = (x + y * imageData.width) * 4;
-    return imageData.data[index + 1];
-}
-function getBlue(imageData, x, y) {
-    index = (x + y * imageData.width) * 4;
-    return imageData.data[index + 2];
-}
-
-function getFilterBlackWhite(imageData) {
-
-    for (var y = 0; y < imageData.height; y++) {
-        for (var x = 0; x < imageData.width; x++) {
-            var i = (y * 4) * imageData.width + x * 4;
-            var avg = (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
-            imageData.data[i] = avg;
-            imageData.data[i + 1] = avg;
-            imageData.data[i + 2] = avg;
-        }
-    }
-}
-
-function getFilterNegative(imageData) {
-
-    for (var y = 0; y < imageData.height; y++) {
-        for (var x = 0; x < imageData.width; x++) {
-            setPixel(imageData, x, y, 255 - getRed(imageData, x, y), 255 - getBlue(imageData, x, y), 255 - getGreen(imageData, x, y), 255);
-        }
-    }
-}
-
-function getFilterSepia(imageData) {
-
-
-    for (var y = 0; y < imageData.height; y++) {
-        for (var x = 0; x < imageData.width; x++) {
-
-            let outputRed = (getRed(imageData, x, y) * .393) + (getGreen(imageData, x, y) * .769) + (getBlue(imageData, x, y) * .189);
-            let outputGreen = (getRed(imageData, x, y) * .349) + (getGreen(imageData, x, y) * .686) + (getBlue(imageData, x, y) * .168);
-            let outputBlue = (getRed(imageData, x, y) * .272) + (getGreen(imageData, x, y) * .534) + (getBlue(imageData, x, y) * .131);
-
-            setPixel(imageData, x, y, outputRed, outputGreen, outputBlue, 255);
-        }
-    }
-}
-
-function getFilterBinary(imageData) {
-
-    for (var y = 0; y < imageData.height; y++) {
-        for (var x = 0; x < imageData.width; x++) {
-            var avg = (getRed(imageData, x, y) + getGreen(imageData, x, y) + getBlue(imageData, x, y)) / 3;
-            if (avg > 130) {
-                setPixel(imageData, x, y, 0, 0, 0, 255);
-            }
-            else {
-                setPixel(imageData, x, y, 255, 255, 255, 255);
-            }
-
-        }
-    }
-}
-
 //****************************************************************************** */
+
+/**
+* On Load Images Filters
+*/
+function onLoadImagesFilters() {
+
+    // Black and White
+    var imageBlackWhite = new Image();
+    imageBlackWhite.src = imageOrigin.src;
+
+    imageBlackWhite.onload = function () {
+
+        var w = imageBlackWhite.width;
+        var h = imageBlackWhite.height;
+
+        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+
+        ctxBW.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxBW.getImageData(0, 0, this.width, this.height);
+
+        getFilterBlackWhite(imageData);
+
+        ctxBW.canvas.width = w * sizer;
+        ctxBW.canvas.height = h * sizer;
+
+        ctxBW.putImageData(imageData, 0, 0);
+    }
+
+    // Negative
+    var imageNegative = new Image();
+    imageNegative.src = imageOrigin.src;
+
+    imageNegative.onload = function () {
+
+        var w = imageNegative.width;
+        var h = imageNegative.height;
+
+        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+
+        ctxNegative.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxNegative.getImageData(0, 0, this.width, this.height);
+
+        getFilterNegative(imageData);
+
+        ctxNegative.canvas.width = w * sizer;
+        ctxNegative.canvas.height = h * sizer;
+
+        ctxNegative.putImageData(imageData, 0, 0);
+    }
+
+    // Sepia
+    var imageSepia = new Image();
+    imageSepia.src = imageOrigin.src;
+
+    imageSepia.onload = function () {
+
+        var w = imageSepia.width;
+        var h = imageSepia.height;
+
+        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+
+        ctxSepia.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxSepia.getImageData(0, 0, this.width, this.height);
+
+        getFilterSepia(imageData);
+
+        ctxSepia.canvas.width = w * sizer;
+        ctxSepia.canvas.height = h * sizer;
+
+        ctxSepia.putImageData(imageData, 0, 0);
+    }
+
+
+    // Binary
+    var imageBinary = new Image();
+    imageBinary.src = imageOrigin.src;
+
+    imageBinary.onload = function () {
+
+        var w = this.width;
+        var h = this.height;
+
+        var sizer = scalePreserveAspectRatio(w, h, 120, 160);
+
+        ctxBinary.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxBinary.getImageData(0, 0, this.width, this.height);
+
+        getFilterBinary(imageData);
+
+        ctxBinary.canvas.width = w * sizer;
+        ctxBinary.canvas.height = h * sizer;
+
+        ctxBinary.putImageData(imageData, 0, 0);
+    }
+
+}
+
+/**
+ * On Download Image
+ */
+function onDownloadImage() {
+
+    // Open dialog to save the image
+    // window.open(ctx.canvas.toDataURL('image/png'));
+    
+    document.execCommand('SaveAs','1','TudaiPic.jpg');
+}
+
+
 
