@@ -257,7 +257,7 @@ function onDownloadImage() {
     // Open dialog to save the image
     // window.open(ctx.canvas.toDataURL('image/png'));
     
-    document.execCommand('SaveAs','1','TudaiPic.jpg');
+    // document.execCommand('SaveAs','1','TudaiPic.jpg');
 }
 
 
