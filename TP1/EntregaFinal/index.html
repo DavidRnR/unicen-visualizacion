@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <canvas id="canvas" class="img-fluid rounded mx-auto d-block" width="480" height="640" style="border:#000 solid 1px;" />
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <canvas id="canvas-black-white" class="img-fluid rounded mx-1" width="120" height="160" onclick="onSetFilter('bw')"></canvas>
+            <canvas id="canvas-sepia"  class="img-fluid rounded mx-1" width="120" height="160"></canvas>
+            <canvas id="canvas-binary" class="img-fluid rounded mx-1" width="120" height="160"></canvas>
+            <canvas id="canvas-negative" class="img-fluid rounded mx-1" width="120" height="160"></canvas>
+        </div>
+    </div>
+</body>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/tether.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
+</html>
