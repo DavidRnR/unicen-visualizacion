@@ -65,6 +65,17 @@ function getFilterBinary(imageData) {
     }
 }
 
+function getFilterBrightness (imageData) {
+    
+    for (var y = 0; y < imageData.height; y++) {
+        for (var x = 0; x < imageData.width; x++) {
+          var r = getRed(imageData,x,y) +90;
+          var g = getGreen(imageData,x,y)+90;
+          var b = getBlue(imageData,x,y)+90;
+          setPixel(imageData,x,y,r,g,b,255);
+        }
+      }
+}
 //*************************************************************************** */
 
 /**

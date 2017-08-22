@@ -1,6 +1,6 @@
 #canvas {
     margin-top: 15%;
-    margin-bottom: 15%;
+    margin-bottom: 8%;
 }
 .tudai-title {
     font-weight: lighter;
@@ -17,10 +17,14 @@
 
 .upload-img {
     cursor: pointer;
+    background-color: #F7931E;
+    border-color: #F7931E;
 }
 
 .download-image-button {
     position: absolute;
     right: 15px;
+    background-color: #029FC7;
+    border-color: #029FC7;
 }
 

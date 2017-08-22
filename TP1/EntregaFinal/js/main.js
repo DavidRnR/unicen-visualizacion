@@ -10,9 +10,9 @@ var ctxBW = null;
 var ctxNegative = null;
 var ctxSepia = null;
 var ctxBinary = null;
+var ctxBrightness = null;
 
 var imageOrigin = new Image();
-
 
 /**
  * On load page, render the menu
@@ -42,18 +42,21 @@ function renderHtml(url) {
                     document.getElementById('app-loader').innerHTML = data;
                     setImageFromInput();
                     break;
-                case 'html/image-processed.html':
+                case 'html/image-processed.html':        
                     document.getElementById('app-loader').innerHTML = data;
                     onSetCanvas();
                     onLoadImage();
 
                     // Add Button "Descargar" to the NavBar
                     document.querySelector("nav").innerHTML += '<button class="btn btn-primary download-image-button" onclick="onDownloadImage()">Descargar</button>';
+
+                    // Load Range Slider
+                    rangeSlider(); 
                     break;
                 case 'html/image-filters.html':
                     document.getElementById('filters').innerHTML = data;
                     onSetCanvasFilters();
-                    onLoadImagesFilters();
+                    onLoadImagesFilters();                                     
                     break;
                 default:
                     break;
@@ -103,6 +106,7 @@ function onSetCanvasFilters() {
     ctxNegative = document.getElementById("canvas-negative").getContext("2d");
     ctxBinary = document.getElementById("canvas-binary").getContext("2d");
     ctxSepia = document.getElementById("canvas-sepia").getContext("2d");
+    ctxBrightness = document.getElementById("canvas-brightness").getContext("2d");
 }
 
 /**
@@ -159,6 +163,9 @@ function onSetFilter(filter) {
             break;
         case 'binaryFilter':
             getFilterBinary(imageData);
+            break;
+        case 'brightnessFilter':
+            getFilterBrightness(imageData);
             break;
         default:
             break;
@@ -289,6 +296,31 @@ function onLoadImagesFilters() {
 
         ctxBinary.putImageData(imageData, 0, 0);
     }
+
+    
+    // Brightness
+    var imageBrightness = new Image();
+    imageBrightness.src = imageOrigin.src;
+
+    imageBrightness.onload = function () {
+
+        let w = this.width;
+        let h = this.height;
+
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+        ctxBrightness.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxBrightness.getImageData(0, 0, this.width, this.height);
+
+        getFilterBrightness(imageData);
+
+        ctxBrightness.canvas.width = w * sizer;
+        ctxBrightness.canvas.height = h * sizer;
+
+        ctxBrightness.putImageData(imageData, 0, 0);
+    }
+
 
 }
 
