@@ -28,3 +28,22 @@
     border-color: #029FC7;
 }
 
+.carousel-control-prev {
+    left: -85px !important;
+}
+.carousel-control-next {
+    right: -85px !important;
+}
+
+.carousel i {
+    color: #F7931E;
+}
+
+@media all and (max-width: 768px) {
+    .carousel-control-prev {
+        left: 0px !important;
+    }
+    .carousel-control-next {
+        right: 0px !important;
+    }
+}

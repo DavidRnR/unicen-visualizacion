@@ -1,8 +1,26 @@
-<div class="row">
-        <canvas id="canvas-black-white" class="img-fluid rounded mx-1"  onclick="onSetFilter('bwFilter')"></canvas>
-        <canvas id="canvas-negative" class="img-fluid rounded mx-1" onclick="onSetFilter('negativeFilter')"></canvas>
-        <canvas id="canvas-sepia" class="img-fluid rounded mx-1"  onclick="onSetFilter('sepiaFilter')"></canvas>
-        <canvas id="canvas-binary" class="img-fluid rounded mx-1"  onclick="onSetFilter('binaryFilter')"></canvas>
-        <canvas id="canvas-brightness" class="img-fluid rounded mx-1"  onclick="onSetFilter('brightnessFilter')"></canvas>
-</div>
+<div class="row d-flex justify-content-center">
 
+        <div id="carouselFiltersControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                                <canvas id="canvas-black-white" class="img-fluid rounded mx-1" onclick="onSetFilter('bwFilter')"></canvas>
+                                <canvas id="canvas-negative" class="img-fluid rounded mx-1" onclick="onSetFilter('negativeFilter')"></canvas>
+                                <canvas id="canvas-sepia" class="img-fluid rounded mx-1" onclick="onSetFilter('sepiaFilter')"></canvas>
+                        </div>
+                        <div class="carousel-item">
+                                <canvas id="canvas-binary" class="img-fluid rounded mx-1" onclick="onSetFilter('binaryFilter')"></canvas>
+                                <canvas id="canvas-brightness" class="img-fluid rounded mx-1" onclick="onSetFilter('brightnessFilter')"></canvas>
+                        </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselFiltersControls" role="button" data-slide="prev">
+                        <i class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>                        
+                                <span class="sr-only">Previous</span>
+                              </a>
+                <a class="carousel-control-next" href="#carouselFiltersControls" role="button" data-slide="next">
+                        <i class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>          
+                                <span class="sr-only">Next</span>
+                              </a>
+        </div>
+
+
+</div>
