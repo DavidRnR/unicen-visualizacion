@@ -147,11 +147,14 @@ function setImageDataOriginal (imageData) {
  */
 function onSetFilter(filter) {
     
+    // Set Filter Selected
+    filterSelected = filter;
+
     // Set original image data before apply the filter
     ctx.putImageData(imageDataOriginal, 0, 0);
     let imageData = ctx.getImageData(0, 0, imageOrigin.width, imageOrigin.height);
 
-    switch (filter) {
+    switch (filterSelected) {
         case 'bwFilter':
             getFilterBlackWhite(imageData);
             break;
