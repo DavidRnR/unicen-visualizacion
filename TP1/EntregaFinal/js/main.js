@@ -177,7 +177,7 @@ function onSetFilter(filter) {
         case 'saturationFilter':
             getFilterSaturation(imageData);
             break;
-        case 'saturationFilter':
+        case 'blurFilter':
             getFilterBlur(imageData);
             break;
         default:
@@ -377,8 +377,8 @@ function onLoadImagesFilters() {
 
         imageData = ctxSaturation.getImageData(0, 0, this.width, this.height);
 
-        // Get filter by default
-        getFilterBlur(imageData);
+        // Get filter by default 1
+        getFilterBlur(imageData, 1);
 
         ctxBlur.canvas.width = w * sizer;
         ctxBlur.canvas.height = h * sizer;

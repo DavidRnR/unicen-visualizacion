@@ -1,8 +1,11 @@
+// BLUR
+const BLUR = 1/9;
+
 // Filter Selected
 var filterSelected = "";
 
 // Input value to set differents % of X Filter
-var rangeFilter = function () { 
+var rangeFilter = function () {
     return ($('#range-slider-input').val()) ? parseInt($('#range-slider-input').val()) : 100;
 };
 
@@ -13,8 +16,8 @@ var rangeFilter = function () {
  */
 function getFilterBlackWhite(imageData, rangeDefault) {
 
-    let rangeFilterVal =  (rangeDefault) ? rangeDefault : rangeFilter() / 100;
-  
+    let rangeFilterVal = (rangeDefault) ? rangeDefault : rangeFilter() / 100;
+
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
             var i = (y * 4) * imageData.width + x * 4;
@@ -32,7 +35,7 @@ function getFilterBlackWhite(imageData, rangeDefault) {
  */
 function getFilterNegative(imageData, rangeDefault = null) {
 
-    let rangeFilterVal =  (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 255) / 100);
+    let rangeFilterVal = (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 255) / 100);
 
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
@@ -47,9 +50,9 @@ function getFilterNegative(imageData, rangeDefault = null) {
  */
 function getFilterSepia(imageData, rangeDefault = null) {
 
-    let rangeFilterVal =  (rangeDefault) ? rangeDefault : rangeFilter() / 2;
+    let rangeFilterVal = (rangeDefault) ? rangeDefault : rangeFilter() / 2;
 
-     for (var y = 0; y < imageData.height; y++) {
+    for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
 
             let outputRed = (getRed(imageData, x, y) * .393) + (getGreen(imageData, x, y) * .769) + (getBlue(imageData, x, y) * .189) + rangeFilterVal;
@@ -67,7 +70,7 @@ function getFilterSepia(imageData, rangeDefault = null) {
  */
 function getFilterBinary(imageData, rangeDefault = null) {
 
-    let rangeFilterVal =  (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 160) / 100);
+    let rangeFilterVal = (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 160) / 100);
 
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
@@ -87,18 +90,18 @@ function getFilterBinary(imageData, rangeDefault = null) {
  * Filter Brightness
  * @param {*} imageData 
  */
-function getFilterBrightness (imageData, rangeDefault = null) {
+function getFilterBrightness(imageData, rangeDefault = null) {
 
-    let rangeFilterVal = (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 200) / 100);   
-   
+    let rangeFilterVal = (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 200) / 100);
+
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
-          var r = getRed(imageData,x,y) + rangeFilterVal;
-          var g = getGreen(imageData,x,y)+ rangeFilterVal;
-          var b = getBlue(imageData,x,y)+ rangeFilterVal;
-          setPixel(imageData,x,y,r,g,b,255);
+            var r = getRed(imageData, x, y) + rangeFilterVal;
+            var g = getGreen(imageData, x, y) + rangeFilterVal;
+            var b = getBlue(imageData, x, y) + rangeFilterVal;
+            setPixel(imageData, x, y, r, g, b, 255);
         }
-      }
+    }
 }
 
 /**
@@ -108,7 +111,7 @@ function getFilterBrightness (imageData, rangeDefault = null) {
 function getFilterSaturation(imageData, rangeDefault = null) {
 
     // Saturation value. 0 = grayscale, 5 = Super Saturation
-    var rangeFilterVal =  (rangeDefault) ? rangeDefault : (rangeFilter() * 5 ) / 100;  
+    var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 5) / 100;
 
     var luR = 0.3086; // constant to determine luminance of red. Similarly, for green and blue
     var luG = 0.6094;
@@ -127,13 +130,13 @@ function getFilterSaturation(imageData, rangeDefault = null) {
 
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
-            var saturatedRed = (az *  getRed(imageData,x,y) + bz * getGreen(imageData,x,y) + cz *  getBlue(imageData,x,y));
-            var saturatedGreen = (dz *  getRed(imageData,x,y) + ez * getGreen(imageData,x,y) + fz *  getBlue(imageData,x,y));
-            var saturatedBlue = (gz *  getRed(imageData,x,y) + hz * getGreen(imageData,x,y) + iz *  getBlue(imageData,x,y));
- 
-          setPixel(imageData, x, y, saturatedRed, saturatedGreen, saturatedBlue, 255);
+            var saturatedRed = (az * getRed(imageData, x, y) + bz * getGreen(imageData, x, y) + cz * getBlue(imageData, x, y));
+            var saturatedGreen = (dz * getRed(imageData, x, y) + ez * getGreen(imageData, x, y) + fz * getBlue(imageData, x, y));
+            var saturatedBlue = (gz * getRed(imageData, x, y) + hz * getGreen(imageData, x, y) + iz * getBlue(imageData, x, y));
+
+            setPixel(imageData, x, y, saturatedRed, saturatedGreen, saturatedBlue, 255);
         }
-      }
+    }
 
 }
 
@@ -141,46 +144,53 @@ function getFilterSaturation(imageData, rangeDefault = null) {
  * Filter Blur
  * @param {*} imageData 
  */
-function getFilterBlur(imageData, rangeDefault = 4) {
+function getFilterBlur(imageData, rangeDefault = null) {
 
-    var imageDataCopy = imageData;
+    // Blur range 
+    var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 2.5) / 100;
+                                           
+    var sobelOne = [[rangeFilterVal * BLUR, rangeFilterVal * BLUR, rangeFilterVal * BLUR],
+    [rangeFilterVal * BLUR, rangeFilterVal * BLUR, rangeFilterVal * BLUR],
+    [rangeFilterVal * BLUR, rangeFilterVal * BLUR, rangeFilterVal * BLUR]];
 
-    var sobelOne = [[-1, 0, 1],
-                    [-2, 0, 2],
-                    [-1, 0, 1]];
 
-    // for (var y = 1; y < imageData.height - 2; y++) {
-    //     for (var x = 1; x < imageData.width - 2; x++) {           
-                            
-    //         let pixelSelected = (getRed(imageData, x, y) + getGreen(imageData, x, y) + getBlue(imageData, x, y)) / 3;
-    //         let pixelAround1 = (getRed(imageData, x + 1, y) + getGreen(imageData, x + 1, y) + getBlue(imageData, x + 1, y)) / 3;
-    //         let pixelAround2 = (getRed(imageData, x - 1, y) + getGreen(imageData, x - 1, y) + getBlue(imageData, x - 1, y)) / 3;
-    //         let pixelAround3 = (getRed(imageData, x - 1, y - 1) + getGreen(imageData, x - 1, y - 1) + getBlue(imageData, x - 1, y - 1)) / 3;
-    //         let pixelAround4 = (getRed(imageData, x + 1, y - 1) + getGreen(imageData, x + 1, y - 1) + getBlue(imageData, x + 1, y - 1)) / 3;
-    //         let pixelAround5 = (getRed(imageData, x , y - 1) + getGreen(imageData, x , y - 1) + getBlue(imageData, x , y - 1)) / 3;
-    //         let pixelAround6 = (getRed(imageData, x , y + 1) + getGreen(imageData, x , y + 1) + getBlue(imageData, x , y + 1)) / 3;
-    //         let pixelAround7 = (getRed(imageData, x - 1 , y + 1) + getGreen(imageData, x - 1 , y + 1) + getBlue(imageData, x - 1 , y + 1));
-    //         let pixelAround8 = (getRed(imageData, x + 1 , y + 1) + getGreen(imageData, x + 1 , y + 1) + getBlue(imageData, x + 1 , y + 1)) / 3;
+    var imageDataCopy = ctx.createImageData(imageData.width, imageData.height);
+    imageDataCopy.data.set(imageData.data); 
 
-    //         let pixelMatrix = [[pixelAround3, pixelAround5, pixelAround4],
-    //                              [pixelAround2, pixelSelected, pixelAround1],
-    //                             [pixelAround7, pixelAround6, pixelAround8]];
-            
-    //         var result = 0;
-    //        debugger
-    //         for(var i = 0; i < pixelMatrix.length; i++) {
-    //             for(var j = 0; i < pixelMatrix.length; j++) {
-    //                 result += ((pixelMatrix[i][0] * sobelOne[0][i]) + (pixelMatrix[i][1] * sobelOne[1][i]) + (pixelMatrix[i][2] * sobelOne[1][i]));
-    //             }
-    //         }
-      
-    //         setPixel(imageDataCopy, x, y, result, result, result, 255);
-    //     }
-    // }
-    
-    imageData = imageDataCopy;
-    
+    for (let index = 0; y < imageData.data.length; index++) {
+        imageDataCopy.data.push(imageData.data[index]);
+    }
+
+    for (var y = 1; y < imageData.height - 2; y++) {
+        for (var x = 1; x < imageData.width - 2; x++) {
+
+            let pixelSelected = (getRed(imageDataCopy, x, y) + getGreen(imageDataCopy, x, y) + getBlue(imageDataCopy, x, y)) / 3;
+            let pixelAround1 = (getRed(imageDataCopy, x + 1, y) + getGreen(imageDataCopy, x + 1, y) + getBlue(imageDataCopy, x + 1, y)) / 3;
+            let pixelAround2 = (getRed(imageDataCopy, x - 1, y) + getGreen(imageDataCopy, x - 1, y) + getBlue(imageDataCopy, x - 1, y)) / 3;
+            let pixelAround3 = (getRed(imageDataCopy, x - 1, y - 1) + getGreen(imageDataCopy, x - 1, y - 1) + getBlue(imageDataCopy, x - 1, y - 1)) / 3;
+            let pixelAround4 = (getRed(imageDataCopy, x + 1, y - 1) + getGreen(imageDataCopy, x + 1, y - 1) + getBlue(imageDataCopy, x + 1, y - 1)) / 3;
+            let pixelAround5 = (getRed(imageDataCopy, x, y - 1) + getGreen(imageDataCopy, x, y - 1) + getBlue(imageDataCopy, x, y - 1)) / 3;
+            let pixelAround6 = (getRed(imageDataCopy, x, y + 1) + getGreen(imageDataCopy, x, y + 1) + getBlue(imageDataCopy, x, y + 1)) / 3;
+            let pixelAround7 = (getRed(imageDataCopy, x - 1, y + 1) + getGreen(imageDataCopy, x - 1, y + 1) + getBlue(imageDataCopy, x - 1, y + 1)) / 3;
+            let pixelAround8 = (getRed(imageDataCopy, x + 1, y + 1) + getGreen(imageDataCopy, x + 1, y + 1) + getBlue(imageDataCopy, x + 1, y + 1)) / 3;
+
+            let pixelMatrix = [[pixelAround3, pixelAround5, pixelAround4],
+            [pixelAround2, pixelSelected, pixelAround1],
+            [pixelAround7, pixelAround6, pixelAround8]];
+
+            var result = 0;
+
+            for (var i = 0; i < pixelMatrix.length; i++) {
+                result += pixelMatrix[i][0] * sobelOne[0][i] + pixelMatrix[i][1] * sobelOne[1][i] + pixelMatrix[i][2] * sobelOne[2][i];
+            }
+
+            setPixel(imageData, x, y, result, result, result, 255);
+        }
+    }
+
+   
 }
+
 
 
 //*************************************************************************** */
@@ -225,6 +235,6 @@ function getBlue(imageData, x, y) {
 /**
  * On Slider Bar Change, Update Filter Value
  */
-function onUpdateFilterValue() {    
+function onUpdateFilterValue() {
     onSetFilter(filterSelected);
 }
