@@ -1,5 +1,9 @@
 // BLUR
-const BLUR = 1/9;
+const BLUR = "blur";
+const BLURVAL = 1 / 9;
+
+const BORDER = "border";
+const BORDERVAL = 5;
 
 // Filter Selected
 var filterSelected = "";
@@ -141,21 +145,32 @@ function getFilterSaturation(imageData, rangeDefault = null) {
 }
 
 /**
- * Filter Blur
+ * Filter Blur - Border
  * @param {*} imageData 
  */
-function getFilterBlur(imageData, rangeDefault = null) {
+function getFilterBlurBorder(imageData, rangeDefault = null, filter) {
+    
+    if (filter === BLUR) {
+        // Blur range 
+        var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 7) / 100;
 
-    // Blur range 
-    var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 2.5) / 100;
-                                           
-    var sobelOne = [[rangeFilterVal * BLUR, rangeFilterVal * BLUR, rangeFilterVal * BLUR],
-    [rangeFilterVal * BLUR, rangeFilterVal * BLUR, rangeFilterVal * BLUR],
-    [rangeFilterVal * BLUR, rangeFilterVal * BLUR, rangeFilterVal * BLUR]];
+        var sobelOne = [[rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL],
+        [rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL],
+        [rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL]];
+    }
+    else if (filter === BORDER) {// Filter Border
+        
+        var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 20) / 100;
+  
+        var sobelOne = [[rangeFilterVal * -1, 0, rangeFilterVal ],
+        [rangeFilterVal * -2, 0, rangeFilterVal * 2],
+        [rangeFilterVal * -1, 0 , rangeFilterVal]];
 
+     
+    }
 
     var imageDataCopy = ctx.createImageData(imageData.width, imageData.height);
-    imageDataCopy.data.set(imageData.data); 
+    imageDataCopy.data.set(imageData.data);
 
     for (let index = 0; y < imageData.data.length; index++) {
         imageDataCopy.data.push(imageData.data[index]);
@@ -188,7 +203,6 @@ function getFilterBlur(imageData, rangeDefault = null) {
         }
     }
 
-   
 }
 
 

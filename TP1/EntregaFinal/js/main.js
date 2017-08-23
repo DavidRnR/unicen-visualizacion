@@ -13,6 +13,7 @@ var ctxBinary = null;
 var ctxBrightness = null;
 var ctxSaturation = null;
 var ctxBlur = null;
+var ctxBorder = null;
 
 var imageOrigin = new Image();
 
@@ -111,6 +112,7 @@ function onSetCanvasFilters() {
     ctxBrightness = document.getElementById("canvas-brightness").getContext("2d");
     ctxSaturation = document.getElementById("canvas-saturation").getContext("2d");
     ctxBlur = document.getElementById("canvas-blur").getContext("2d");
+    ctxBorder = document.getElementById("canvas-border").getContext("2d");
 }
 
 /**
@@ -178,7 +180,10 @@ function onSetFilter(filter) {
             getFilterSaturation(imageData);
             break;
         case 'blurFilter':
-            getFilterBlur(imageData);
+            getFilterBlurBorder(imageData, null, BLUR);
+            break;
+        case 'borderFilter':
+            getFilterBlurBorder(imageData, null, BORDER);
             break;
         default:
             break;
@@ -280,7 +285,7 @@ function onLoadImagesFilters() {
         imageData = ctxSepia.getImageData(0, 0, this.width, this.height);
 
         // Get filter by default 0 of level
-        getFilterSepia(imageData,0);
+        getFilterSepia(imageData, 0);
 
         ctxSepia.canvas.width = w * sizer;
         ctxSepia.canvas.height = h * sizer;
@@ -304,7 +309,7 @@ function onLoadImagesFilters() {
 
         imageData = ctxBinary.getImageData(0, 0, this.width, this.height);
 
-         // Get filter by default 70 of level
+        // Get filter by default 70 of level
         getFilterBinary(imageData, 70);
 
         ctxBinary.canvas.width = w * sizer;
@@ -354,7 +359,7 @@ function onLoadImagesFilters() {
         imageData = ctxSaturation.getImageData(0, 0, this.width, this.height);
 
         // Get filter by default 2 of level
-        getFilterSaturation(imageData,2);
+        getFilterSaturation(imageData, 2);
 
         ctxSaturation.canvas.width = w * sizer;
         ctxSaturation.canvas.height = h * sizer;
@@ -375,15 +380,39 @@ function onLoadImagesFilters() {
 
         ctxSaturation.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
-        imageData = ctxSaturation.getImageData(0, 0, this.width, this.height);
+        imageData = ctxBlur.getImageData(0, 0, this.width, this.height);
 
-        // Get filter by default 1
-        getFilterBlur(imageData, 1);
+        // Get filter by default 15
+        getFilterBlurBorder(imageData, 15, BLUR);
 
         ctxBlur.canvas.width = w * sizer;
         ctxBlur.canvas.height = h * sizer;
 
         ctxBlur.putImageData(imageData, 0, 0);
+    }
+
+    // Border
+    var imageBoder = new Image();
+    imageBorder.src = imageOrigin.src;
+
+    imageBorder.onload = function () {
+
+        let w = imageBorder.width;
+        let h = imageBorder.height;
+
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+        ctxSaturation.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxBorder.getImageData(0, 0, this.width, this.height);
+
+        // Get filter by default 
+        getFilterBlurBorder(imageData, 2, BORDER);
+
+        ctxBorder.canvas.width = w * sizer;
+        ctxBorder.canvas.height = h * sizer;
+
+        ctxBorder.putImageData(imageData, 0, 0);
     }
 
 }
