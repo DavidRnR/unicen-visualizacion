@@ -12,6 +12,7 @@ var ctxSepia = null;
 var ctxBinary = null;
 var ctxBrightness = null;
 var ctxSaturation = null;
+var ctxBlur = null;
 
 var imageOrigin = new Image();
 
@@ -109,6 +110,7 @@ function onSetCanvasFilters() {
     ctxSepia = document.getElementById("canvas-sepia").getContext("2d");
     ctxBrightness = document.getElementById("canvas-brightness").getContext("2d");
     ctxSaturation = document.getElementById("canvas-saturation").getContext("2d");
+    ctxBlur = document.getElementById("canvas-blur").getContext("2d");
 }
 
 /**
@@ -174,6 +176,9 @@ function onSetFilter(filter) {
             break;
         case 'saturationFilter':
             getFilterSaturation(imageData);
+            break;
+        case 'saturationFilter':
+            getFilterBlur(imageData);
             break;
         default:
             break;
@@ -357,6 +362,29 @@ function onLoadImagesFilters() {
         ctxSaturation.putImageData(imageData, 0, 0);
     }
 
+    // Blur
+    var imageBlur = new Image();
+    imageBlur.src = imageOrigin.src;
+
+    imageBlur.onload = function () {
+
+        let w = imageBlur.width;
+        let h = imageBlur.height;
+
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+        ctxSaturation.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxSaturation.getImageData(0, 0, this.width, this.height);
+
+        // Get filter by default
+        getFilterBlur(imageData);
+
+        ctxBlur.canvas.width = w * sizer;
+        ctxBlur.canvas.height = h * sizer;
+
+        ctxBlur.putImageData(imageData, 0, 0);
+    }
 
 }
 

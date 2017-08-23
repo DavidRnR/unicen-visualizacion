@@ -136,6 +136,53 @@ function getFilterSaturation(imageData, rangeDefault = null) {
       }
 
 }
+
+/**
+ * Filter Blur
+ * @param {*} imageData 
+ */
+function getFilterBlur(imageData, rangeDefault = 4) {
+
+    var imageDataCopy = imageData;
+
+    var sobelOne = [[-1, 0, 1],
+                    [-2, 0, 2],
+                    [-1, 0, 1]];
+
+    // for (var y = 1; y < imageData.height - 2; y++) {
+    //     for (var x = 1; x < imageData.width - 2; x++) {           
+                            
+    //         let pixelSelected = (getRed(imageData, x, y) + getGreen(imageData, x, y) + getBlue(imageData, x, y)) / 3;
+    //         let pixelAround1 = (getRed(imageData, x + 1, y) + getGreen(imageData, x + 1, y) + getBlue(imageData, x + 1, y)) / 3;
+    //         let pixelAround2 = (getRed(imageData, x - 1, y) + getGreen(imageData, x - 1, y) + getBlue(imageData, x - 1, y)) / 3;
+    //         let pixelAround3 = (getRed(imageData, x - 1, y - 1) + getGreen(imageData, x - 1, y - 1) + getBlue(imageData, x - 1, y - 1)) / 3;
+    //         let pixelAround4 = (getRed(imageData, x + 1, y - 1) + getGreen(imageData, x + 1, y - 1) + getBlue(imageData, x + 1, y - 1)) / 3;
+    //         let pixelAround5 = (getRed(imageData, x , y - 1) + getGreen(imageData, x , y - 1) + getBlue(imageData, x , y - 1)) / 3;
+    //         let pixelAround6 = (getRed(imageData, x , y + 1) + getGreen(imageData, x , y + 1) + getBlue(imageData, x , y + 1)) / 3;
+    //         let pixelAround7 = (getRed(imageData, x - 1 , y + 1) + getGreen(imageData, x - 1 , y + 1) + getBlue(imageData, x - 1 , y + 1));
+    //         let pixelAround8 = (getRed(imageData, x + 1 , y + 1) + getGreen(imageData, x + 1 , y + 1) + getBlue(imageData, x + 1 , y + 1)) / 3;
+
+    //         let pixelMatrix = [[pixelAround3, pixelAround5, pixelAround4],
+    //                              [pixelAround2, pixelSelected, pixelAround1],
+    //                             [pixelAround7, pixelAround6, pixelAround8]];
+            
+    //         var result = 0;
+    //        debugger
+    //         for(var i = 0; i < pixelMatrix.length; i++) {
+    //             for(var j = 0; i < pixelMatrix.length; j++) {
+    //                 result += ((pixelMatrix[i][0] * sobelOne[0][i]) + (pixelMatrix[i][1] * sobelOne[1][i]) + (pixelMatrix[i][2] * sobelOne[1][i]));
+    //             }
+    //         }
+      
+    //         setPixel(imageDataCopy, x, y, result, result, result, 255);
+    //     }
+    // }
+    
+    imageData = imageDataCopy;
+    
+}
+
+
 //*************************************************************************** */
 
 /**
