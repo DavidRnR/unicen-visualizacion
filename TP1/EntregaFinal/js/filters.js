@@ -3,16 +3,17 @@ var filterSelected = "";
 
 // Input value to set differents % of X Filter
 var rangeFilter = function () { 
-    return ($('#range-slider-input').val()) ? parseInt($('#range-slider-input').val()) : 50;
+    return ($('#range-slider-input').val()) ? parseInt($('#range-slider-input').val()) : 100;
 };
 
+
 /**
- * Filter Black & White
+ * Filter Black & White | Gray Scale
  * @param {*} imageData 
  */
-function getFilterBlackWhite(imageData) {
+function getFilterBlackWhite(imageData, rangeDefault) {
 
-    let rangeFilterVal = rangeFilter() / 100;
+    let rangeFilterVal =  (rangeDefault) ? rangeDefault : rangeFilter() / 100;
   
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
@@ -29,9 +30,9 @@ function getFilterBlackWhite(imageData) {
  * Filter Negative
  * @param {*} imageData 
  */
-function getFilterNegative(imageData) {
+function getFilterNegative(imageData, rangeDefault = null) {
 
-    let rangeFilterVal = Math.floor((rangeFilter() * 255) / 100);
+    let rangeFilterVal =  (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 255) / 100);
 
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
@@ -44,14 +45,16 @@ function getFilterNegative(imageData) {
  * Filter Sepia
  * @param {*} imageData 
  */
-function getFilterSepia(imageData) {
+function getFilterSepia(imageData, rangeDefault = null) {
+
+    let rangeFilterVal =  (rangeDefault) ? rangeDefault : rangeFilter() / 2;
 
      for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
 
-            let outputRed = (getRed(imageData, x, y) * .393) + (getGreen(imageData, x, y) * .769) + (getBlue(imageData, x, y) * .189);
-            let outputGreen = (getRed(imageData, x, y) * .349) + (getGreen(imageData, x, y) * .686) + (getBlue(imageData, x, y) * .168);
-            let outputBlue = (getRed(imageData, x, y) * .272) + (getGreen(imageData, x, y) * .534) + (getBlue(imageData, x, y) * .131);
+            let outputRed = (getRed(imageData, x, y) * .393) + (getGreen(imageData, x, y) * .769) + (getBlue(imageData, x, y) * .189) + rangeFilterVal;
+            let outputGreen = (getRed(imageData, x, y) * .349) + (getGreen(imageData, x, y) * .686) + (getBlue(imageData, x, y) * .168) + rangeFilterVal;
+            let outputBlue = (getRed(imageData, x, y) * .272) + (getGreen(imageData, x, y) * .534) + (getBlue(imageData, x, y) * .131) + rangeFilterVal;
 
             setPixel(imageData, x, y, outputRed, outputGreen, outputBlue, 255);
         }
@@ -62,9 +65,9 @@ function getFilterSepia(imageData) {
  * Filter Binary
  * @param {*} imageData 
  */
-function getFilterBinary(imageData) {
+function getFilterBinary(imageData, rangeDefault = null) {
 
-    let rangeFilterVal = Math.floor((rangeFilter() * 255) / 100);
+    let rangeFilterVal =  (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 160) / 100);
 
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
@@ -84,9 +87,9 @@ function getFilterBinary(imageData) {
  * Filter Brightness
  * @param {*} imageData 
  */
-function getFilterBrightness (imageData) {
+function getFilterBrightness (imageData, rangeDefault = null) {
 
-    let rangeFilterVal = Math.floor((rangeFilter() * 255) / 100);   
+    let rangeFilterVal = (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 200) / 100);   
    
     for (var y = 0; y < imageData.height; y++) {
         for (var x = 0; x < imageData.width; x++) {
@@ -96,6 +99,42 @@ function getFilterBrightness (imageData) {
           setPixel(imageData,x,y,r,g,b,255);
         }
       }
+}
+
+/**
+ * Filter Saturation
+ * @param {*} imageData 
+ */
+function getFilterSaturation(imageData, rangeDefault = null) {
+
+    // Saturation value. 0 = grayscale, 5 = Super Saturation
+    var rangeFilterVal =  (rangeDefault) ? rangeDefault : (rangeFilter() * 5 ) / 100;  
+
+    var luR = 0.3086; // constant to determine luminance of red. Similarly, for green and blue
+    var luG = 0.6094;
+    var luB = 0.0820;
+
+    var az = (1 - rangeFilterVal) * luR + rangeFilterVal;
+    var bz = (1 - rangeFilterVal) * luG;
+    var cz = (1 - rangeFilterVal) * luB;
+    var dz = (1 - rangeFilterVal) * luR;
+    var ez = (1 - rangeFilterVal) * luG + rangeFilterVal;
+    var fz = (1 - rangeFilterVal) * luB;
+    var gz = (1 - rangeFilterVal) * luR;
+    var hz = (1 - rangeFilterVal) * luG;
+    var iz = (1 - rangeFilterVal) * luB + rangeFilterVal;
+
+
+    for (var y = 0; y < imageData.height; y++) {
+        for (var x = 0; x < imageData.width; x++) {
+            var saturatedRed = (az *  getRed(imageData,x,y) + bz * getGreen(imageData,x,y) + cz *  getBlue(imageData,x,y));
+            var saturatedGreen = (dz *  getRed(imageData,x,y) + ez * getGreen(imageData,x,y) + fz *  getBlue(imageData,x,y));
+            var saturatedBlue = (gz *  getRed(imageData,x,y) + hz * getGreen(imageData,x,y) + iz *  getBlue(imageData,x,y));
+ 
+          setPixel(imageData, x, y, saturatedRed, saturatedGreen, saturatedBlue, 255);
+        }
+      }
+
 }
 //*************************************************************************** */
 

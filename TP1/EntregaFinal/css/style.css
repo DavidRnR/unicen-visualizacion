@@ -1,7 +1,10 @@
 #canvas {
     margin-top: 15%;
     margin-bottom: 8%;
+    border:#000 solid 1px;
+    border-radius: 6px;  
 }
+
 .tudai-title {
     font-weight: lighter;
     color: #65768E;

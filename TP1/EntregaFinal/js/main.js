@@ -11,6 +11,7 @@ var ctxNegative = null;
 var ctxSepia = null;
 var ctxBinary = null;
 var ctxBrightness = null;
+var ctxSaturation = null;
 
 var imageOrigin = new Image();
 
@@ -42,7 +43,7 @@ function renderHtml(url) {
                     document.getElementById('app-loader').innerHTML = data;
                     setImageFromInput();
                     break;
-                case 'html/image-processed.html':        
+                case 'html/image-processed.html':
                     document.getElementById('app-loader').innerHTML = data;
                     onSetCanvas();
                     onLoadImage();
@@ -51,12 +52,12 @@ function renderHtml(url) {
                     document.querySelector("nav").innerHTML += '<button class="btn btn-primary download-image-button" onclick="onDownloadImage()">Descargar</button>';
 
                     // Load Range Slider
-                    rangeSlider(); 
+                    rangeSlider();
                     break;
                 case 'html/image-filters.html':
                     document.getElementById('filters').innerHTML = data;
                     onSetCanvasFilters();
-                    onLoadImagesFilters();                                     
+                    onLoadImagesFilters();
                     break;
                 default:
                     break;
@@ -107,6 +108,7 @@ function onSetCanvasFilters() {
     ctxBinary = document.getElementById("canvas-binary").getContext("2d");
     ctxSepia = document.getElementById("canvas-sepia").getContext("2d");
     ctxBrightness = document.getElementById("canvas-brightness").getContext("2d");
+    ctxSaturation = document.getElementById("canvas-saturation").getContext("2d");
 }
 
 /**
@@ -121,12 +123,12 @@ function onLoadImage() {
         ctx.canvas.height = this.height;
 
         ctx.drawImage(this, 0, 0, this.width, this.height);
-        
+
         imageData = ctx.getImageData(0, 0, this.width, this.height);
-        
+
         // Save imageData to restore to original any time
-        setImageDataOriginal (imageData);
-       
+        setImageDataOriginal(imageData);
+
         ctx.putImageData(imageData, 0, 0);
     }
 
@@ -137,16 +139,16 @@ function onLoadImage() {
  * Save imageData to restore to original any time
  * @param {*} imageData 
  */
-function setImageDataOriginal (imageData) {
+function setImageDataOriginal(imageData) {
     imageDataOriginal = imageData;
-  
+
 }
 /**
  * On Set Filter
  * @param {*} filter 
  */
 function onSetFilter(filter) {
-    
+
     // Set Filter Selected
     filterSelected = filter;
 
@@ -170,12 +172,15 @@ function onSetFilter(filter) {
         case 'brightnessFilter':
             getFilterBrightness(imageData);
             break;
+        case 'saturationFilter':
+            getFilterSaturation(imageData);
+            break;
         default:
             break;
     }
     ctx.putImageData(imageData, 0, 0);
 }
- 
+
 
 //****************************************************************************** */
 
@@ -214,7 +219,7 @@ function onLoadImagesFilters() {
 
         imageData = ctxBW.getImageData(0, 0, this.width, this.height);
 
-        getFilterBlackWhite(imageData);
+        getFilterBlackWhite(imageData, 1);
 
         ctxBW.canvas.width = w * sizer;
         ctxBW.canvas.height = h * sizer;
@@ -241,7 +246,8 @@ function onLoadImagesFilters() {
 
         imageData = ctxNegative.getImageData(0, 0, this.width, this.height);
 
-        getFilterNegative(imageData);
+        // Get filter by default 255 of level
+        getFilterNegative(imageData, 255);
 
         ctxNegative.canvas.width = w * sizer;
         ctxNegative.canvas.height = h * sizer;
@@ -260,7 +266,7 @@ function onLoadImagesFilters() {
 
         let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
 
-         // Responsive canvas
+        // Responsive canvas
         ctxSepia.canvas.width = w * sizer;
         ctxSepia.canvas.heith = h * sizer;
 
@@ -268,7 +274,8 @@ function onLoadImagesFilters() {
 
         imageData = ctxSepia.getImageData(0, 0, this.width, this.height);
 
-        getFilterSepia(imageData);
+        // Get filter by default 0 of level
+        getFilterSepia(imageData,0);
 
         ctxSepia.canvas.width = w * sizer;
         ctxSepia.canvas.height = h * sizer;
@@ -283,8 +290,8 @@ function onLoadImagesFilters() {
 
     imageBinary.onload = function () {
 
-        let w = this.width;
-        let h = this.height;
+        let w = imageBinary.width;
+        let h = imageBinary.height;
 
         let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
 
@@ -292,7 +299,8 @@ function onLoadImagesFilters() {
 
         imageData = ctxBinary.getImageData(0, 0, this.width, this.height);
 
-        getFilterBinary(imageData);
+         // Get filter by default 70 of level
+        getFilterBinary(imageData, 70);
 
         ctxBinary.canvas.width = w * sizer;
         ctxBinary.canvas.height = h * sizer;
@@ -300,15 +308,15 @@ function onLoadImagesFilters() {
         ctxBinary.putImageData(imageData, 0, 0);
     }
 
-    
+
     // Brightness
     var imageBrightness = new Image();
     imageBrightness.src = imageOrigin.src;
 
     imageBrightness.onload = function () {
 
-        let w = this.width;
-        let h = this.height;
+        let w = imageBrightness.width;
+        let h = imageBrightness.height;
 
         let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
 
@@ -316,12 +324,37 @@ function onLoadImagesFilters() {
 
         imageData = ctxBrightness.getImageData(0, 0, this.width, this.height);
 
-        getFilterBrightness(imageData);
+        // Get filter by default 100 of level
+        getFilterBrightness(imageData, 100);
 
         ctxBrightness.canvas.width = w * sizer;
         ctxBrightness.canvas.height = h * sizer;
 
         ctxBrightness.putImageData(imageData, 0, 0);
+    }
+
+    // Saturation
+    var imageSaturation = new Image();
+    imageSaturation.src = imageOrigin.src;
+
+    imageSaturation.onload = function () {
+
+        let w = imageSaturation.width;
+        let h = imageSaturation.height;
+
+        let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
+
+        ctxSaturation.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+
+        imageData = ctxSaturation.getImageData(0, 0, this.width, this.height);
+
+        // Get filter by default 2 of level
+        getFilterSaturation(imageData,2);
+
+        ctxSaturation.canvas.width = w * sizer;
+        ctxSaturation.canvas.height = h * sizer;
+
+        ctxSaturation.putImageData(imageData, 0, 0);
     }
 
 
