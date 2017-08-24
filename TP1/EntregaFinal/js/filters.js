@@ -150,7 +150,7 @@ function getFilterSaturation(imageData, rangeDefault = null) {
  */
 function getFilterBlurBorder(imageData, rangeDefault = null, filter) {
     
-    if (filter === BLUR) {
+    if (filter == BLUR) {
         // Blur range 
         var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 7) / 100;
 
@@ -158,7 +158,7 @@ function getFilterBlurBorder(imageData, rangeDefault = null, filter) {
         [rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL],
         [rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL]];
     }
-    else if (filter === BORDER) {// Filter Border
+    else if (filter == BORDER) {// Filter Border
         
         var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 20) / 100;
   

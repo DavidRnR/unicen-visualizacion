@@ -157,6 +157,7 @@ function onSetFilter(filter) {
     filterSelected = filter;
 
     // Set original image data before apply the filter
+    document.getElementsByClassName("btn-undo")[0].disabled = false;
     ctx.putImageData(imageDataOriginal, 0, 0);
     let imageData = ctx.getImageData(0, 0, imageOrigin.width, imageOrigin.height);
 
@@ -185,7 +186,7 @@ function onSetFilter(filter) {
         case 'borderFilter':
             getFilterBlurBorder(imageData, null, BORDER);
             break;
-        default:
+        default: // Do nothing - restore original on the begin's function
             break;
     }
     ctx.putImageData(imageData, 0, 0);
@@ -378,12 +379,12 @@ function onLoadImagesFilters() {
 
         let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
 
-        ctxSaturation.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+        ctxBlur.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
         imageData = ctxBlur.getImageData(0, 0, this.width, this.height);
 
-        // Get filter by default 15
-        getFilterBlurBorder(imageData, 15, BLUR);
+        // Get filter by default 1.5
+        getFilterBlurBorder(imageData, 1.5, BLUR);
 
         ctxBlur.canvas.width = w * sizer;
         ctxBlur.canvas.height = h * sizer;
@@ -392,7 +393,7 @@ function onLoadImagesFilters() {
     }
 
     // Border
-    var imageBoder = new Image();
+    var imageBorder = new Image();
     imageBorder.src = imageOrigin.src;
 
     imageBorder.onload = function () {
@@ -402,7 +403,7 @@ function onLoadImagesFilters() {
 
         let sizer = scalePreserveAspectRatio(w, h, canvasFilterWidth, canvasFilterHeith);
 
-        ctxSaturation.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
+        ctxBorder.drawImage(this, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
 
         imageData = ctxBorder.getImageData(0, 0, this.width, this.height);
 

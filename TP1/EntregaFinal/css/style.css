@@ -1,7 +1,6 @@
 #canvas {
-    margin-top: 15%;
-    margin-bottom: 8%;
-    border:#000 solid 1px;
+    margin-top: 10%;
+    margin-bottom: 5%;
     border-radius: 6px;  
 }
 
@@ -29,6 +28,9 @@
     right: 15px;
     background-color: #029FC7;
     border-color: #029FC7;
+}
+.btn-undo {
+    border: 0px;
 }
 
 .carousel-control-prev {
