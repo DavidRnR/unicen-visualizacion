@@ -40,11 +40,12 @@ function renderHtml(url) {
     fetch(myRequest)
         .then(response => {
             return response.text();
-        }).then(data => {
+        }).then(data => {         
+
             switch (url) {
                 case 'html/menu.html':
                     document.getElementById('app-loader').innerHTML = data;
-                    setImageFromInput();
+                    setImageFromInput();         
                     break;
                 case 'html/image-processed.html':
                     document.getElementById('app-loader').innerHTML = data;
@@ -61,6 +62,8 @@ function renderHtml(url) {
                     document.getElementById('filters').innerHTML = data;
                     onSetCanvasFilters();
                     onLoadImagesFilters();
+                    // Eneable Popovers
+                    popover();
                     break;
                 default:
                     break;
@@ -453,3 +456,9 @@ function onDownloadImage() {
 
 }
 
+/**
+ * Popover Enable
+ */
+function popover () {
+        $('[data-toggle="popover"]').popover(); 
+  };

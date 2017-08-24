@@ -51,12 +51,29 @@
     .carousel-control-next {
         right: 0px !important;
     }
+    .carousel-item.active {
+        display: inline-flex !important;
+    }
 }
 
 #carouselFiltersControls canvas:hover {
     opacity: 0.8;
     cursor: pointer;
 }
+
+.popover {
+    border: 0px;
+    background-color: transparent;
+    top: 18px !important;
+    font-size: 15px;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    color: #65768E;
+} 
+.popover > .arrow:after {
+    border-top-color:#F7931E !important;
+  }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
