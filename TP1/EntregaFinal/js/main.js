@@ -4,6 +4,7 @@ const canvasFilterHeith = 320;
 // Original 
 var ctx = null;
 var imageDataOriginal = null;
+var imageOrigin = new Image();
 
 // Filter Canvas
 var ctxBW = null;
@@ -15,7 +16,6 @@ var ctxSaturation = null;
 var ctxBlur = null;
 var ctxBorder = null;
 
-var imageOrigin = new Image();
 
 /**
  * On load page, render the menu
