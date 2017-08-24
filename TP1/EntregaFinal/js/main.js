@@ -35,8 +35,9 @@ function renderHtml(url) {
         mode: 'no-cors',
         cache: 'default'
     };
-
-    fetch(url, options)
+    let myRequest = new Request(url, options);
+ 
+    fetch(myRequest)
         .then(response => {
             return response.text();
         }).then(data => {
@@ -187,6 +188,7 @@ function onSetFilter(filter) {
             getFilterBlurBorder(imageData, null, BORDER);
             break;
         default: // Do nothing - restore original on the begin's function
+            document.getElementsByClassName("btn-undo")[0].disabled = true;
             break;
     }
     ctx.putImageData(imageData, 0, 0);
@@ -450,6 +452,4 @@ function onDownloadImage() {
     }
 
 }
-
-
 
