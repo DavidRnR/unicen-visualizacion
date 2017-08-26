@@ -388,8 +388,8 @@ function onLoadImagesFilters() {
 
         imageData = ctxBlur.getImageData(0, 0, this.width, this.height);
 
-        // Get filter by default 1.5
-        getFilterBlurBorder(imageData, 1.5, BLUR);
+        // Get filter by default 2
+        getFilterBlurBorder(imageData, 2, BLUR);
 
         ctxBlur.canvas.width = w * sizer;
         ctxBlur.canvas.height = h * sizer;
@@ -412,7 +412,7 @@ function onLoadImagesFilters() {
 
         imageData = ctxBorder.getImageData(0, 0, this.width, this.height);
 
-        // Get filter by default 
+        // Get filter by default 2
         getFilterBlurBorder(imageData, 2, BORDER);
 
         ctxBorder.canvas.width = w * sizer;

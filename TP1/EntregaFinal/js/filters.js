@@ -149,18 +149,24 @@ function getFilterSaturation(imageData, rangeDefault = null) {
  * @param {*} imageData 
  */
 function getFilterBlurBorder(imageData, rangeDefault = null, filter) {
-    
-    if (filter == BLUR) {
-        // Blur range 
-        var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 7) / 100;
 
-        var sobelOne = [[rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL],
-        [rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL],
-        [rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL, rangeFilterVal * BLURVAL]];
+    var rangeFilterVal = (rangeDefault) ? rangeDefault : Math.floor((rangeFilter() * 50) / 100);
+    
+    if(rangeFilterVal%2 != 0) {
+        rangeFilterVal++;
     }
-    else if (filter == BORDER) {// Filter Border
+
+    if (filter == BLUR) {
         
-        var rangeFilterVal = (rangeDefault) ? rangeDefault : (rangeFilter() * 20) / 100;
+        // Blur range 
+
+        var sobelOne = [[BLURVAL,  BLURVAL,  BLURVAL],
+        [ BLURVAL,  BLURVAL,  BLURVAL],
+        [ BLURVAL, BLURVAL, BLURVAL]];
+    }
+    else if (filter == BORDER) {
+        
+        // Filter Border
   
         var sobelOne = [[rangeFilterVal * -1, 0, rangeFilterVal ],
         [rangeFilterVal * -2, 0, rangeFilterVal * 2],
@@ -180,14 +186,14 @@ function getFilterBlurBorder(imageData, rangeDefault = null, filter) {
         for (var x = 1; x < imageData.width - 2; x++) {
 
             let pixelSelected = (getRed(imageDataCopy, x, y) + getGreen(imageDataCopy, x, y) + getBlue(imageDataCopy, x, y)) / 3;
-            let pixelAround1 = (getRed(imageDataCopy, x + 1, y) + getGreen(imageDataCopy, x + 1, y) + getBlue(imageDataCopy, x + 1, y)) / 3;
-            let pixelAround2 = (getRed(imageDataCopy, x - 1, y) + getGreen(imageDataCopy, x - 1, y) + getBlue(imageDataCopy, x - 1, y)) / 3;
-            let pixelAround3 = (getRed(imageDataCopy, x - 1, y - 1) + getGreen(imageDataCopy, x - 1, y - 1) + getBlue(imageDataCopy, x - 1, y - 1)) / 3;
-            let pixelAround4 = (getRed(imageDataCopy, x + 1, y - 1) + getGreen(imageDataCopy, x + 1, y - 1) + getBlue(imageDataCopy, x + 1, y - 1)) / 3;
-            let pixelAround5 = (getRed(imageDataCopy, x, y - 1) + getGreen(imageDataCopy, x, y - 1) + getBlue(imageDataCopy, x, y - 1)) / 3;
-            let pixelAround6 = (getRed(imageDataCopy, x, y + 1) + getGreen(imageDataCopy, x, y + 1) + getBlue(imageDataCopy, x, y + 1)) / 3;
-            let pixelAround7 = (getRed(imageDataCopy, x - 1, y + 1) + getGreen(imageDataCopy, x - 1, y + 1) + getBlue(imageDataCopy, x - 1, y + 1)) / 3;
-            let pixelAround8 = (getRed(imageDataCopy, x + 1, y + 1) + getGreen(imageDataCopy, x + 1, y + 1) + getBlue(imageDataCopy, x + 1, y + 1)) / 3;
+            let pixelAround1 = (getRed(imageDataCopy, x + rangeFilterVal, y) + getGreen(imageDataCopy, x + rangeFilterVal, y) + getBlue(imageDataCopy, x + rangeFilterVal, y)) / 3;
+            let pixelAround2 = (getRed(imageDataCopy, x - rangeFilterVal, y) + getGreen(imageDataCopy, x - rangeFilterVal, y) + getBlue(imageDataCopy, x - rangeFilterVal, y)) / 3;
+            let pixelAround3 = (getRed(imageDataCopy, x - rangeFilterVal, y - rangeFilterVal) + getGreen(imageDataCopy, x - rangeFilterVal, y - rangeFilterVal) + getBlue(imageDataCopy, x - rangeFilterVal, y - rangeFilterVal)) / 3;
+            let pixelAround4 = (getRed(imageDataCopy, x +rangeFilterVal, y - rangeFilterVal) + getGreen(imageDataCopy, x + rangeFilterVal, y - rangeFilterVal) + getBlue(imageDataCopy, x + rangeFilterVal, y - rangeFilterVal)) / 3;
+            let pixelAround5 = (getRed(imageDataCopy, x, y - rangeFilterVal) + getGreen(imageDataCopy, x, y - rangeFilterVal) + getBlue(imageDataCopy, x, y - rangeFilterVal)) / 3;
+            let pixelAround6 = (getRed(imageDataCopy, x, y + rangeFilterVal) + getGreen(imageDataCopy, x, y + rangeFilterVal) + getBlue(imageDataCopy, x, y + rangeFilterVal)) / 3;
+            let pixelAround7 = (getRed(imageDataCopy, x - rangeFilterVal, y + rangeFilterVal) + getGreen(imageDataCopy, x - rangeFilterVal, y + rangeFilterVal) + getBlue(imageDataCopy, x - rangeFilterVal, y + rangeFilterVal)) / 3;
+            let pixelAround8 = (getRed(imageDataCopy, x + rangeFilterVal, y + rangeFilterVal) + getGreen(imageDataCopy, x + rangeFilterVal, y + rangeFilterVal) + getBlue(imageDataCopy, x + rangeFilterVal, y + rangeFilterVal)) / 3;
 
             let pixelMatrix = [[pixelAround3, pixelAround5, pixelAround4],
             [pixelAround2, pixelSelected, pixelAround1],
