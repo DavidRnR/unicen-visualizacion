@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
 
     <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/start-button.css">
     <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <!-- NavBar - Icon and Title -->
-    <nav class="navbar navbar-light bg-faded">
-        <a class="navbar-brand" href="./index.html" title="Home">
-            <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-         <span class="tudai-title">TUDAI</span> <span>- HANOI Game</span>
-        </a>
-    </nav>
-    <!-- NavBar - Icon and Title -->
-    <div class="container-fluid">
+</head>
 
+<body>
+
+    <div class="container-fluid">
+        <!-- NavBar - Icon and Title -->
+        <nav class="navbar navbar-light bg-faded">
+            <a class="navbar-brand" href="./index.html" title="Home">
+                <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+             <span class="tudai-title">TUDAI</span> <span>- HANOI Game</span>
+            </a>
+        </nav>
+        <!-- NavBar - Icon and Title -->
+
+        <!-- Main - Loader -->
+        <div class="row">
+            <div class="col-md-12" id="app-loader">
+
+            </div>
+        </div>
+        <!-- Main - Loader -->
     </div>
     <footer class="footer">
         <div class="container">
@@ -28,9 +39,11 @@
         </div>
 
     </footer>
-  </body>
-  <script src="js/libraries/jquery-3.2.1.min.js"></script>
-  <script src="js/libraries/popper.min.js"></script>
-  <script src="js/libraries/bootstrap.min.js"></script>
-  <script src="js/hanoi.js"></script>
+</body>
+<script src="js/libraries/jquery-3.2.1.min.js"></script>
+<script src="js/libraries/popper.min.js"></script>
+<script src="js/libraries/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/hanoi.js"></script>
+
 </html>
