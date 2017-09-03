@@ -53,6 +53,7 @@ function onSetTowers() {
     // First Tower
     towerOne = new HanoiTower();
     towerOne.draw();
+    towerOne.addDisk();
 
     // Second Tower
     towerTwo = new HanoiTower(375, 100, 20, 250, 310);
@@ -62,3 +63,4 @@ function onSetTowers() {
     towerThree = new HanoiTower(685, 100, 20, 250, 620);
     towerThree.draw();
 }
+
