@@ -98,4 +98,5 @@
   .arcade:hover {
       color: white;
       font-size: 1.23em;
+      cursor: pointer;
   }
