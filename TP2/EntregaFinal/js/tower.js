@@ -25,6 +25,7 @@ function HanoiTower(paramPosX = 80, paramPosY = 100, _width = 20, _height = 250,
     this.baseHeight = bHeight,
     this.basePosX = bPosX,
     this.basePosY = bPosY,
+    this.top = bPosY - 20,
     this.colour = paramColour,
     this.isDragging = false
     this.disks = [];
@@ -42,9 +43,15 @@ HanoiTower.prototype.draw = function () {
 }
 
 HanoiTower.prototype.addDisk = function () {
-    let disk = new Disk(this, 145, 20, 'red');
-    this.disks.push();
-    disk.draw(this);
+
+    while(diskData.length != 0) {
+        let diskSpec = diskData.pop();
+        let disk = new Disk(this, diskSpec.width, 20, diskSpec.colour);
+        this.disks.push(disk);
+        disk.draw(this);
+        this.top -= 20; 
+    }
+    
 }
 
 
