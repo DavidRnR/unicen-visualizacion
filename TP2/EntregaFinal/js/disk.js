@@ -29,20 +29,34 @@ function Disk(HanoiTower, width, height, colour) {
     this.colour = colour;
     this.width = width;
     this.height = height;
+    this.posX = null;
+    this.posY = null;
+    this.draggable = false;
     this.currentTower = HanoiTower;
 }
 
-Disk.prototype.draw = function(HanoiTower) {
-    ctx.beginPath();   
-    ctx.rect(HanoiTower.posX - 68, HanoiTower.top, this.width, this.height);
-    ctx.closePath(); 
-    ctx.save();
-    ctx.fillStyle = this.colour;
-    ctx.fill();
-    ctx.restore();
+Disk.prototype.draw = function(HanoiTower = null, x = null, y = null) {
+    canvasHanoiTower.ctx.beginPath();   
+
+    let posX = (x) ? x : HanoiTower.posX - 68;
+    let posY = (y) ? y : HanoiTower.top;
+
+    canvasHanoiTower.ctx.rect(posX, posY , this.width, this.height);
+
+    this.posX = posX;
+    this.posY = posY;
+
+    canvasHanoiTower.ctx.closePath(); 
+    canvasHanoiTower.ctx.save();
+    canvasHanoiTower.ctx.fillStyle = this.colour;
+    canvasHanoiTower.ctx.fill();
+    canvasHanoiTower.ctx.restore();
 }
 
 Disk.prototype.moveToTower = function (HanoiTower) {
     this.draw(HanoiTower);
 }
 
+Disk.prototype.clear = function () {
+    canvasHanoiTower.ctx.clearRect(this.posX, this.posY, this.width, this.height);
+}

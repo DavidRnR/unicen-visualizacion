@@ -27,7 +27,6 @@ function HanoiTower(paramPosX = 80, paramPosY = 100, _width = 20, _height = 250,
     this.basePosY = bPosY,
     this.top = bPosY - 20,
     this.colour = paramColour,
-    this.isDragging = false
     this.disks = [];
 }
 
@@ -35,11 +34,11 @@ function HanoiTower(paramPosX = 80, paramPosY = 100, _width = 20, _height = 250,
  * Hanoi Tower Draw
  */
 HanoiTower.prototype.draw = function () {
-    ctx.fillStyle = this.colour;
-    ctx.beginPath();
-    ctx.fillRect(this.posX, this.posY, this.width, this.height);
-    ctx.fillRect(this.basePosX, this.basePosY, this.baseWidth, this.baseHeight);
-    ctx.closePath();
+    canvasHanoiTower.ctx.fillStyle = this.colour;
+    canvasHanoiTower.ctx.beginPath();
+    canvasHanoiTower.ctx.fillRect(this.posX, this.posY, this.width, this.height);
+    canvasHanoiTower.ctx.fillRect(this.basePosX, this.basePosY, this.baseWidth, this.baseHeight);
+    canvasHanoiTower.ctx.closePath();
 }
 
 HanoiTower.prototype.addDisk = function () {
