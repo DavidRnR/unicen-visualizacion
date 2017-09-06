@@ -53,6 +53,20 @@ HanoiTower.prototype.addDisk = function () {
     
 }
 
+HanoiTower.prototype.pushDisk = function (disk) {
+    
+            this.disks.push(disk);
+            this.top -= 20; 
+        
+}
+
+HanoiTower.prototype.removeDisk = function () {
+    
+            this.disks.pop();
+            this.top += 20;
+        
+}
+
 HanoiTower.prototype.isDiskonTop = function (disk) { 
     
     let diskTop = (this.disks && this.disks.length > 0 ) ? this.disks[this.disks.length - 1] : null;

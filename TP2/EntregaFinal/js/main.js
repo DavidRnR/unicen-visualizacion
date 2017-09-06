@@ -104,9 +104,9 @@ var towerSelected;
 // handle mousedown events
 function myDown(e) {
 
-    // get the current mouse position
-    var mx = parseInt(e.clientX - canvasHanoiTower.bb.left);
-    var my = parseInt(e.clientY - canvasHanoiTower.bb.top);
+    // Get the current mouse position
+    var mouseX = parseInt(e.clientX - canvasHanoiTower.bb.left);
+    var mouseY = parseInt(e.clientY - canvasHanoiTower.bb.top);
 
     // test each rect to see if mouse is inside
     dragok = false;
@@ -115,13 +115,13 @@ function myDown(e) {
         for (var index = 0; index < canvasHanoiTower.towers[i].disks.length; index++) {
             var disk = canvasHanoiTower.towers[i].disks[index];
 
-            if (mx > disk.posX && mx < disk.posX + disk.width && my > disk.posY && my < disk.posY + disk.height) {
-                // if yes, set that rects isDragging=true                 
+            if (mouseX > disk.posX && mouseX < disk.posX + disk.width && mouseY > disk.posY && mouseY < disk.posY + disk.height) {
+               
                 dragok = true;
 
                 disk.draggable = true;
                 diskSelected = disk;
-                towerSelected =  canvasHanoiTower.towers[i];
+                towerSelected = canvasHanoiTower.towers[i];
             }
 
         }
@@ -129,9 +129,11 @@ function myDown(e) {
     }
 
 
-    // save the current mouse position
-    startX = mx;
-    startY = my;
+    // Save the current mouse position
+    startX = mouseX;
+    startY = mouseY;
+
+    console.log("MouseDown");
 }
 
 
@@ -141,22 +143,36 @@ function myUp(e) {
     e.preventDefault();
     e.stopPropagation();
 
+    // Get the current mouse position
+    var mouseX = parseInt(e.clientX - canvasHanoiTower.bb.left);
+    var mouseY = parseInt(e.clientY - canvasHanoiTower.bb.top);
+
     // clear all the dragging flags
     dragok = false;
     for (var i = 0; i < canvasHanoiTower.towers.length; i++) {
 
         for (var index = 0; index < canvasHanoiTower.towers[i].disks.length; index++) {
             canvasHanoiTower.towers[i].disks[index].draggable = false;
+
+            if (mouseX > diskSelected.posX && mouseX < diskSelected.posX + diskSelected.width && mouseY > diskSelected.posY && mouseY < diskSelected.posY + diskSelected.height) {
+                diskSelected.currentTower.removeDisk();
+                canvasHanoiTower.towers[i].pushDisk(diskSelected);
+                diskSelected.moveToTower(canvasHanoiTower.towers[i]);
+             }
         }
 
     }
+
+    
+    diskSelected.draggable = false;
+    console.log("MouseUP");
 }
 
 
 // handle mouse moves
 function myMove(e) {
     // if we're dragging anything...
-    if (dragok  && towerSelected.isDiskonTop(diskSelected) ) {
+    if (dragok && towerSelected.isDiskonTop(diskSelected)) {
 
 
         // tell the browser we're handling this mouse event
@@ -177,23 +193,24 @@ function myMove(e) {
         // since the last mousemove
 
         for (var i = 0; i < canvasHanoiTower.towers.length; i++) {
+
             canvasHanoiTower.towers[i].draw();
             for (var index = 0; index < canvasHanoiTower.towers[i].disks.length; index++) {
                 var disk = canvasHanoiTower.towers[i].disks[index];
 
                 // canvasHanoiTower.ctx.clearRect(0, 0, 800, 600);
 
-            
-                    if (disk.draggable) {
-                        let x = disk.posX + dx;
-                        let y = disk.posY + dy;
 
-                        disk.clear();
-                        disk.draw(null, x, y);
-                    }
-                    else {
-                        disk.draw(canvasHanoiTower.towers[i], disk.posX, disk.posY);
-                    }
+                if (disk.draggable) {
+                    let x = disk.posX + dx;
+                    let y = disk.posY + dy;
+
+                    disk.clear();
+                    disk.draw(null, x, y);
+                }
+                else {
+                    disk.draw(canvasHanoiTower.towers[i], disk.posX, disk.posY);
+                }
 
             }
 
