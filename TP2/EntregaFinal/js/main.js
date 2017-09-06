@@ -91,6 +91,7 @@ function onSetTowers() {
     towerThree.draw();
     // Add Tower
     canvasHanoiTower.addTower(towerThree);
+    console.log(canvasHanoiTower);
 }
 
 
@@ -116,7 +117,7 @@ function myDown(e) {
             var disk = canvasHanoiTower.towers[i].disks[index];
 
             if (mouseX > disk.posX && mouseX < disk.posX + disk.width && mouseY > disk.posY && mouseY < disk.posY + disk.height) {
-               
+
                 dragok = true;
 
                 disk.draggable = true;
@@ -133,7 +134,7 @@ function myDown(e) {
     startX = mouseX;
     startY = mouseY;
 
-    console.log("MouseDown");
+    console.log("MouseDown",mouseY);
 }
 
 
@@ -149,21 +150,23 @@ function myUp(e) {
 
     // clear all the dragging flags
     dragok = false;
-    for (var i = 0; i < canvasHanoiTower.towers.length; i++) {
 
-        for (var index = 0; index < canvasHanoiTower.towers[i].disks.length; index++) {
-            canvasHanoiTower.towers[i].disks[index].draggable = false;
+    canvasHanoiTower.towers.forEach((tower) => {
 
-            if (mouseX > diskSelected.posX && mouseX < diskSelected.posX + diskSelected.width && mouseY > diskSelected.posY && mouseY < diskSelected.posY + diskSelected.height) {
-                diskSelected.currentTower.removeDisk();
-                canvasHanoiTower.towers[i].pushDisk(diskSelected);
-                diskSelected.moveToTower(canvasHanoiTower.towers[i]);
-             }
+        tower.disks.forEach((_disk) => {
+            _disk.draggable = false;
+        })
+        
+        if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height) {
+            towerSelected.removeDisk();
+            tower.pushDisk(diskSelected);
+            diskSelected.moveToTower(tower);
+            console.log(canvasHanoiTower);
         }
-
-    }
-
     
+    });
+
+
     diskSelected.draggable = false;
     console.log("MouseUP");
 }
