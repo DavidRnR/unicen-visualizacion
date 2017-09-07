@@ -1,6 +1,9 @@
 // Hanoi Canvas
 var canvasHanoiTower = null;
 
+// Game
+var hanoiTowersGame = null;
+
 /**
  * On load page, render the menu
  */
@@ -50,6 +53,7 @@ function onSetCanvas() {
     // Set Towers
     onSetTowers();
 
+    hanoiTowersGame = new HanoiTowersGame(canvasHanoiTower);
 }
 
 function CanvasHanoiTower() {
@@ -152,60 +156,61 @@ function myUp(e) {
     dragok = false;
     var matched = false;
 
-    diskSelected.clear();
-
-    canvasHanoiTower.towers.forEach((tower) => {
-
-        tower.disks.forEach((_disk) => {
-            _disk.draggable = false;
-        })
-
-        if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height &&  tower.canPushDiskonTop(diskSelected) ) {
-
-                // Tower found it
-                matched = true;
-
-                // Draw
-                tower.draw();
-
-                tower.disks.forEach((_disk) => {
-                    _disk.draw(_disk.currentTower, _disk.posX, _disk.posY);
-                })
-
-                // Remove the disk from the tower and push it to the selected.
-                towerSelected.removeDisk();
-                tower.pushDisk(diskSelected);
-                diskSelected.moveToTower(tower);
-                diskSelected = null;
-            
-
-
-        }
-        else {
-
-            // Draw all except the disk selected
-            tower.draw();
-
-            tower.disks.forEach((_disk) => {
-
-                if (_disk != diskSelected) {
-                    _disk.draw(_disk.currentTower, _disk.posX, _disk.posY);
-                }
-
-            })
-
-
-        }
-
-    });
-
-    if (!matched) {
+    if(diskSelected) {
         diskSelected.clear();
-        diskSelected.draw(diskSelected.currentTower);
-        diskSelected = null;
+        
+            canvasHanoiTower.towers.forEach((tower) => {
+        
+                tower.disks.forEach((_disk) => {
+                    _disk.draggable = false;
+                })
+        
+                if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height &&  tower.canPushDiskonTop(diskSelected) ) {
+        
+                        // Tower found it
+                        matched = true;
+        
+                        // Draw
+                        tower.draw();
+        
+                        tower.disks.forEach((_disk) => {
+                            _disk.draw(tower, _disk.posX, _disk.posY);
+                        })
+        
+                        // Remove the disk from the tower and push it to the selected.
+                        towerSelected.removeDisk();
+                        tower.pushDisk(new Disk(tower, diskSelected.width, diskSelected.height, diskSelected.colour));
+                        diskSelected.moveToTower(tower);
+                        diskSelected = null;
+                    
+        
+        
+                }
+                else {
+        
+                    // Draw all except the disk selected
+                    tower.draw();
+        
+                    tower.disks.forEach((_disk) => {
+        
+                        if (_disk != diskSelected) {
+                            _disk.draw(tower, _disk.posX, _disk.posY);
+                        }
+        
+                    })
+        
+        
+                }
+        
+            });
+        
+            if (!matched) {
+                diskSelected.draw(diskSelected.currentTower);
+                diskSelected = null;        
+            }
+        
+            hanoiTowersGame.checkGame();
     }
-
-
 
     console.log("MouseUP");
     console.log(canvasHanoiTower);
@@ -268,4 +273,13 @@ function myMove(e) {
 }
 
 
+function HanoiTowersGame (canvas) {
+    this.canvas = canvas;
+    this.time = 0;
+}
 
+HanoiTowersGame.prototype.checkGame = function () {
+    if(this.canvas.towers[2].disks.length == 4) {
+        alert("You Win!");
+    }
+}

@@ -54,6 +54,7 @@ Disk.prototype.draw = function(HanoiTower = null, x = null, y = null) {
 }
 
 Disk.prototype.moveToTower = function (HanoiTower) {
+    this.currentTower = HanoiTower;
     this.draw(HanoiTower);
 }
 
