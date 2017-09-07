@@ -134,7 +134,7 @@ function myDown(e) {
     startX = mouseX;
     startY = mouseY;
 
-    console.log("MouseDown",mouseY);
+    console.log("MouseDown", mouseY);
 }
 
 
@@ -150,25 +150,65 @@ function myUp(e) {
 
     // clear all the dragging flags
     dragok = false;
+    var matched = false;
+
+    diskSelected.clear();
 
     canvasHanoiTower.towers.forEach((tower) => {
 
         tower.disks.forEach((_disk) => {
             _disk.draggable = false;
         })
-        
-        if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height) {
-            towerSelected.removeDisk();
-            tower.pushDisk(diskSelected);
-            diskSelected.moveToTower(tower);
-            console.log(canvasHanoiTower);
+
+        if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height &&  tower.canPushDiskonTop(diskSelected) ) {
+
+                // Tower found it
+                matched = true;
+
+                // Draw
+                tower.draw();
+
+                tower.disks.forEach((_disk) => {
+                    _disk.draw(_disk.currentTower, _disk.posX, _disk.posY);
+                })
+
+                // Remove the disk from the tower and push it to the selected.
+                towerSelected.removeDisk();
+                tower.pushDisk(diskSelected);
+                diskSelected.moveToTower(tower);
+                diskSelected = null;
+            
+
+
         }
-    
+        else {
+
+            // Draw all except the disk selected
+            tower.draw();
+
+            tower.disks.forEach((_disk) => {
+
+                if (_disk != diskSelected) {
+                    _disk.draw(_disk.currentTower, _disk.posX, _disk.posY);
+                }
+
+            })
+
+
+        }
+
     });
 
+    if (!matched) {
+        diskSelected.clear();
+        diskSelected.draw(diskSelected.currentTower);
+        diskSelected = null;
+    }
 
-    diskSelected.draggable = false;
+
+
     console.log("MouseUP");
+    console.log(canvasHanoiTower);
 }
 
 

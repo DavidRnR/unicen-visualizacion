@@ -80,4 +80,19 @@ HanoiTower.prototype.isDiskonTop = function (disk) {
     }
 }
 
+HanoiTower.prototype.canPushDiskonTop = function (disk) { 
+    
+    let diskTop = (this.disks && this.disks.length > 0 ) ? this.disks[this.disks.length - 1] : null;
+    
+    if(!diskTop) {
+        return true;
+    }
+    else if(diskTop && diskTop.width > disk.width) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 
