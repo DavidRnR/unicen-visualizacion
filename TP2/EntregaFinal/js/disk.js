@@ -1,19 +1,19 @@
 // diskData Stack
 var diskData =[
     {
-        width: 134,
+        width: 120,
         colour: 'red'
     },
     {
-        width: 138,
+        width: 140,
         colour: 'green'
     },
     {
-        width: 142,
+        width: 160,
         colour: 'blue'
     },
     {
-        width: 145,
+        width: 180,
         colour: 'yellow'
     }
 ]
@@ -25,10 +25,10 @@ var diskData =[
  * @param {*} height 
  * @param {*} colour 
  */
-function Disk(HanoiTower, width, height, colour) {
+function Disk(HanoiTower, width, colour) {
     this.colour = colour;
     this.width = width;
-    this.height = height;
+    this.height = DISK_HEIGHT;
     this.posX = null;
     this.posY = null;
     this.draggable = false;
@@ -38,7 +38,7 @@ function Disk(HanoiTower, width, height, colour) {
 Disk.prototype.draw = function(HanoiTower = null, x = null, y = null) {
     canvasHanoiTower.ctx.beginPath();   
 
-    let posX = (x) ? x : HanoiTower.posX - 68;
+    let posX = (x) ? x : HanoiTower.basePosX + HANOI_TOWER_WIDTH - this.width - (HANOI_TOWER_WIDTH - this.width) / 2;
     let posY = (y) ? y : HanoiTower.top;
 
     canvasHanoiTower.ctx.rect(posX, posY , this.width, this.height);

@@ -50,10 +50,12 @@ function onSetCanvas() {
     // Main Canvas
     canvasHanoiTower = new CanvasHanoiTower();
 
+    // Create GamePlay
+    hanoiTowersGame = new HanoiTowersGame(canvasHanoiTower);
+
     // Set Towers
     onSetTowers();
 
-    hanoiTowersGame = new HanoiTowersGame(canvasHanoiTower);
 }
 
 function CanvasHanoiTower() {
@@ -80,22 +82,25 @@ function onSetTowers() {
     // First Tower
     towerOne = new HanoiTower();
     towerOne.draw();
-    towerOne.addDisk();
+    towerOne.loadDisks();
     // Add Tower
     canvasHanoiTower.addTower(towerOne);
 
     // Second Tower
-    towerTwo = new HanoiTower(375, 100, 20, 250, 310);
+    towerTwo = new HanoiTower(390, 100, 20, 250, 300);
     towerTwo.draw();
     // Add Tower
     canvasHanoiTower.addTower(towerTwo);
 
     // Third Tower
-    towerThree = new HanoiTower(685, 100, 20, 250, 620);
+    towerThree = new HanoiTower(690, 100, 20, 250, 600);
     towerThree.draw();
     // Add Tower
     canvasHanoiTower.addTower(towerThree);
     console.log(canvasHanoiTower);
+
+    // Start Timer!
+    hanoiTowersGame.timer();
 }
 
 
@@ -112,7 +117,7 @@ function myDown(e) {
     // Get the current mouse position
     var mouseX = parseInt(e.clientX - canvasHanoiTower.bb.left);
     var mouseY = parseInt(e.clientY - canvasHanoiTower.bb.top);
-
+console.log(mouseX);
     // test each rect to see if mouse is inside
     dragok = false;
     for (var i = 0; i < canvasHanoiTower.towers.length; i++) {
@@ -179,7 +184,7 @@ function myUp(e) {
         
                         // Remove the disk from the tower and push it to the selected.
                         towerSelected.removeDisk();
-                        tower.pushDisk(new Disk(tower, diskSelected.width, diskSelected.height, diskSelected.colour));
+                        tower.pushDisk(new Disk(tower, diskSelected.width, diskSelected.colour));
                         diskSelected.moveToTower(tower);
                         diskSelected = null;
                     
@@ -241,13 +246,10 @@ function myMove(e) {
         // since the last mousemove
 
         for (var i = 0; i < canvasHanoiTower.towers.length; i++) {
-
+            
             canvasHanoiTower.towers[i].draw();
             for (var index = 0; index < canvasHanoiTower.towers[i].disks.length; index++) {
                 var disk = canvasHanoiTower.towers[i].disks[index];
-
-                // canvasHanoiTower.ctx.clearRect(0, 0, 800, 600);
-
 
                 if (disk.draggable) {
                     let x = disk.posX + dx;
@@ -276,10 +278,54 @@ function myMove(e) {
 function HanoiTowersGame (canvas) {
     this.canvas = canvas;
     this.time = 0;
+    this.win = false;
 }
 
 HanoiTowersGame.prototype.checkGame = function () {
     if(this.canvas.towers[2].disks.length == 4) {
         alert("You Win!");
+        this.win = true;
     }
+}
+
+HanoiTowersGame.prototype.timer = function () {
+    let h = 0;
+    let s = 0;
+    let m = 0;
+    let H = 0;
+    let M = 0;
+    let S = 0;
+    
+    setInterval(()=> {
+        if(!this.win) {
+            s +=1;
+            if(s == 60){
+                m += 1;
+                s = 0;
+            }
+            if(m == 60){
+                h +=1;
+                m = 0;
+            }
+            if (s < 10){
+                S = "0" + s;
+            } else {
+                S = s;
+            }
+            if (m < 10){
+                M = "0" + m;
+            } else {
+                M = m;
+            }
+            if (h < 10){
+                H = "0" + h;
+            } else {
+                H = h;
+            }
+            $(".timer").text(H + " : " + M + " : " + S);
+    
+        }
+    }, 1000);
+
+
 }
