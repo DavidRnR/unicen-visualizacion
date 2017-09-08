@@ -21,11 +21,16 @@
                 <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
              <span class="tudai-title">TUDAI</span> <span>- HANOI Game</span>
             </a>
-        </nav>
-        <!-- NavBar - Icon and Title -->
 
-        <!-- Main - Loader -->
+              <div class="d-flex justify-content-end">
+                <button class="btn-audio-player" id="btn-play"><i class="fa fa-play"></i></button>
+                <button class="btn-audio-player" id="btn-stop"><i class="fa fa-stop"></i></button>
+            </div>
+        </nav>
         <div class="row">
+            <!-- NavBar - Icon and Title -->
+          
+            <!-- Main - Loader -->
             <div class="col-md-12" id="app-loader">
 
             </div>
@@ -34,10 +39,12 @@
     </div>
 
     <!-- Music Background -->
-    <div style="display: none">
-        <iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/ZToOPy9dLKU?autoplay=1&controls=0&showinfo=0&autohide=1">
+     <div style="display: none">
+        <iframe id="youtube-audio" frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/ZToOPy9dLKU?autoplay=1">
         </iframe>
-    </div>
+    </div> 
+
+
     <!-- Music Background -->
 
     <footer class="footer">
@@ -51,6 +58,7 @@
 <script src="js/libraries/jquery-3.2.1.min.js"></script>
 <script src="js/libraries/popper.min.js"></script>
 <script src="js/libraries/bootstrap.min.js"></script>
+<script src="js/audio-player.js"></script>
 <script src="js/main.js"></script>
 <script src="js/tower.js"></script>
 <script src="js/disk.js"></script>

@@ -2,6 +2,51 @@
   max-width: 600px;
 }
 
+/*Audio Player*/
+
+.btn-audio-player {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid #000000;
+  border-radius: 50%;
+  color: #000000;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transition: all 0.2s ease 0;
+  transition: all 0.2s ease 0;
+}
+
+#btn-play {
+  width: 34px;
+  height: 34px;
+  margin: 2px 5px;
+}
+#btn-play i {
+  font-size: 16px;
+}
+#btn-stop {
+  width: 29px;
+  height: 29px;
+  margin-top: 5px;
+}
+
+#btn-stop i{
+  font-size: 10px;
+}
+
+.btn-audio-player:hover {
+  color: #999;
+  border-color: #999;
+  cursor: pointer;
+}
+.btn-audio-player:focus {
+  outline: none;
+}
+
+
+
+
+/*Audio Player*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
