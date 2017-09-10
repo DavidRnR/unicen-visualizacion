@@ -1,6 +1,22 @@
 // diskData Stack
 var diskData =[
     {
+        width: 40,
+        colour: 'brown'
+    },
+    {
+        width: 60,
+        colour: 'black'
+    },
+    {
+        width: 80,
+        colour: 'grey'
+    },
+    {
+        width: 100,
+        colour: 'orange'
+    },
+    {
         width: 120,
         colour: 'red'
     },

@@ -2,19 +2,34 @@
   max-width: 600px;
 }
 
-.disk-quant,.moves-counter {
-  margin-top: 3px;
+.rules {
+  font-size: 30px;
+  line-height: 2;
+  font-variant: petite-caps;
+}
+
+.disk-quant {
+  margin-top: 20px;
+  margin-bottom: 18px;
 } 
+
+.disk-quant h4 {
+  padding-top: 9px;
+}
+
 #disk-quant {
   width: 50px;
   border-radius: 5px;
   text-align: center;
-  font-size: 15px;
-  margin-left: 4px;
+  font-size: 20px;
+  margin-left: 6px;
 }
 
 #moves-counter {
   margin-left: 4px;
+}
+.moves-counter {
+  margin-top: 2px;
 }
 
 .timer {
@@ -52,6 +67,8 @@
 
 #btn-stop i{
   font-size: 10px;
+  position: relative;
+  top: -2px;
 }
 
 .btn-audio-player:hover {

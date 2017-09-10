@@ -47,12 +47,13 @@ HanoiTower.prototype.draw = function () {
  */
 HanoiTower.prototype.loadDisks = function () {
 
-    while(diskData.length > 0) {
+    while(hanoiTowersGame.quantDisks > 0) {
         let diskSpec = diskData.pop();
         let disk = new Disk(this, diskSpec.width, diskSpec.colour);
         this.disks.push(disk);
         this.top -= DISK_HEIGHT; 
         disk.draw(this);
+        hanoiTowersGame.quantDisks--;
     }
     
     this.disks[this.disks.length - 1].draggable = true;
