@@ -52,7 +52,7 @@ function Disk(HanoiTower, width, colour) {
 }
 
 Disk.prototype.draw = function(HanoiTower = null, x = null, y = null) {
-    canvasHanoiTower.ctx.beginPath();   
+    canvasHanoiTower.ctx.beginPath();  
 
     let posX = (x) ? x : HanoiTower.basePosX + HANOI_TOWER_WIDTH - this.width - (HANOI_TOWER_WIDTH - this.width) / 2;
     let posY = (y) ? y : HanoiTower.top;
@@ -64,7 +64,16 @@ Disk.prototype.draw = function(HanoiTower = null, x = null, y = null) {
 
     canvasHanoiTower.ctx.closePath(); 
     canvasHanoiTower.ctx.save();
-    canvasHanoiTower.ctx.fillStyle = this.colour;
+
+    let grd = canvasHanoiTower.ctx.createLinearGradient(this.posX, this.posY, this.posX + this.width, this.posY + this.height);
+    grd.addColorStop(0,this.colour);
+    grd.addColorStop(0.9,this.colour);
+    grd.addColorStop(1, "#f0ffea" );
+    
+    canvasHanoiTower.ctx.fillStyle = grd;
+    // canvasHanoiTower.ctx.fillRect(20,20,150,100);
+
+    // canvasHanoiTower.ctx.fillStyle = this.colour;
     canvasHanoiTower.ctx.fill();
     canvasHanoiTower.ctx.restore();
 }
