@@ -42,6 +42,9 @@ HanoiTower.prototype.draw = function () {
     canvasHanoiTower.ctx.closePath();
 }
 
+/**
+ * Load Disks
+ */
 HanoiTower.prototype.loadDisks = function () {
 
     while(diskData.length > 0) {
@@ -52,15 +55,22 @@ HanoiTower.prototype.loadDisks = function () {
         disk.draw(this);
     }
     
+    this.disks[this.disks.length - 1].draggable = true;
 }
 
+/**
+ * Add a Disk
+ */
 HanoiTower.prototype.pushDisk = function (disk) {
     
             this.top -= DISK_HEIGHT; 
             this.disks.push(disk);
-        
+            
 }
 
+/**
+ * Remove the Disk from the tower
+ */
 HanoiTower.prototype.removeDisk = function () {
     
             this.disks.pop();
@@ -68,8 +78,11 @@ HanoiTower.prototype.removeDisk = function () {
         
 }
 
+/**
+ * Is Disk is on the TOP
+ */
 HanoiTower.prototype.isDiskonTop = function (disk) { 
-    
+
     let diskTop = (this.disks && this.disks.length > 0 ) ? this.disks[this.disks.length - 1] : null;
     
     if(diskTop && diskTop.width === disk.width) {
@@ -80,6 +93,9 @@ HanoiTower.prototype.isDiskonTop = function (disk) {
     }
 }
 
+/**
+ * if the Disk can be pushed to the top
+ */
 HanoiTower.prototype.canPushDiskonTop = function (disk) { 
     
     let diskTop = (this.disks && this.disks.length > 0 ) ? this.disks[this.disks.length - 1] : null;
@@ -94,5 +110,7 @@ HanoiTower.prototype.canPushDiskonTop = function (disk) {
         return false;
     }
 }
+
+
 
 

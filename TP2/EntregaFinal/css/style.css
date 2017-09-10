@@ -2,6 +2,26 @@
   max-width: 600px;
 }
 
+.disk-quant,.moves-counter {
+  margin-top: 3px;
+} 
+#disk-quant {
+  width: 50px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 15px;
+  margin-left: 4px;
+}
+
+#moves-counter {
+  margin-left: 4px;
+}
+
+.timer {
+  margin-left: 110px;
+  margin-right: 110px;
+}
+
 /*Audio Player*/
 
 .btn-audio-player {

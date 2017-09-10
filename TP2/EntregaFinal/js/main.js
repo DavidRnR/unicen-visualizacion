@@ -117,21 +117,24 @@ function myDown(e) {
     // Get the current mouse position
     var mouseX = parseInt(e.clientX - canvasHanoiTower.bb.left);
     var mouseY = parseInt(e.clientY - canvasHanoiTower.bb.top);
-console.log(mouseX);
+
     // test each rect to see if mouse is inside
     dragok = false;
     for (var i = 0; i < canvasHanoiTower.towers.length; i++) {
-
+     
         for (var index = 0; index < canvasHanoiTower.towers[i].disks.length; index++) {
             var disk = canvasHanoiTower.towers[i].disks[index];
 
-            if (mouseX > disk.posX && mouseX < disk.posX + disk.width && mouseY > disk.posY && mouseY < disk.posY + disk.height) {
+            if (canvasHanoiTower.towers[i].isDiskonTop(disk) && mouseX > disk.posX && mouseX < disk.posX + disk.width && mouseY > disk.posY && mouseY < disk.posY + disk.height) {
 
                 dragok = true;
 
                 disk.draggable = true;
                 diskSelected = disk;
                 towerSelected = canvasHanoiTower.towers[i];
+
+                // Set cursor Hand - Pointer
+                document.getElementById("canvas").style.cursor = "pointer";
             }
 
         }
@@ -161,7 +164,17 @@ function myUp(e) {
     dragok = false;
     var matched = false;
 
-    if(diskSelected) {
+    // Restore Cursor
+    document.getElementById("canvas").style.cursor = "";
+
+    if(diskSelected && diskSelected.draggable) {
+
+        // Moves number updated
+        let moves = document.getElementById("moves-counter").textContent;
+        moves = parseInt(moves) + 1; //Plus one
+        document.getElementById("moves-counter").innerHTML = moves;
+
+        // Disk Selected cleared
         diskSelected.clear();
         
             canvasHanoiTower.towers.forEach((tower) => {
@@ -170,9 +183,9 @@ function myUp(e) {
                     _disk.draggable = false;
                 })
         
-                if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height &&  tower.canPushDiskonTop(diskSelected) ) {
+                if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth && mouseY > tower.height && mouseY < tower.basePosY + tower.height && tower.canPushDiskonTop(diskSelected) ) {
         
-                        // Tower found it
+                        // Tower found 
                         matched = true;
         
                         // Draw
@@ -184,8 +197,9 @@ function myUp(e) {
         
                         // Remove the disk from the tower and push it to the selected.
                         towerSelected.removeDisk();
-                        tower.pushDisk(new Disk(tower, diskSelected.width, diskSelected.colour));
-                        diskSelected.moveToTower(tower);
+                        let newDisk = new Disk(tower, diskSelected.width, diskSelected.colour);
+                        tower.pushDisk(newDisk);
+                        newDisk.moveToTower(tower);
                         diskSelected = null;
                     
         
@@ -271,6 +285,9 @@ function myMove(e) {
         startX = mx;
         startY = my;
 
+    }
+    else {
+       dragok = false;
     }
 }
 
