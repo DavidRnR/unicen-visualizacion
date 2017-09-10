@@ -46,9 +46,16 @@ HanoiTower.prototype.draw = function () {
  * Load Disks
  */
 HanoiTower.prototype.loadDisks = function () {
+    
+    let diskToLoad = new Array();
+
+    // Copy the disks to always keep the original one
+    diskData.forEach((d) => {
+        diskToLoad.push(d);
+    });
 
     while(hanoiTowersGame.quantDisks > 0) {
-        let diskSpec = diskData.pop();
+        let diskSpec = diskToLoad.pop();
         let disk = new Disk(this, diskSpec.width, diskSpec.colour);
         this.disks.push(disk);
         this.top -= DISK_HEIGHT; 

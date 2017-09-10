@@ -105,6 +105,7 @@ function onSetTowers() {
 function HanoiTowersGame() {
     this.canvas = null;
     this.time = 0;
+    this.interval = null;
     this.moves = 0;
     this.win = false;
     this.quantDisks = DISK_QUANT;
@@ -127,49 +128,88 @@ HanoiTowersGame.prototype.checkGame = function () {
 /**
  * Hanoi Towers Timer
  */
-HanoiTowersGame.prototype.timer = function () {
+HanoiTowersGame.prototype.timer = function (reset) {
     let h = 0;
     let s = 0;
     let m = 0;
     let H = 0;
     let M = 0;
-    let S = 0;
+    let S = 0; 
 
-    setInterval(() => {
-        if (!this.win) {
-            s += 1;
-            if (s == 60) {
-                m += 1;
-                s = 0;
+    if(reset) {
+        clearInterval(this.interval);
+    }
+    else {
+        this.interval = setInterval(() => {
+            if (!this.win) {
+                s += 1;
+                if (s == 60) {
+                    m += 1;
+                    s = 0;
+                }
+                if (m == 60) {
+                    h += 1;
+                    m = 0;
+                }
+                if (s < 10) {
+                    S = "0" + s;
+                } else {
+                    S = s;
+                }
+                if (m < 10) {
+                    M = "0" + m;
+                } else {
+                    M = m;
+                }
+                if (h < 10) {
+                    H = "0" + h;
+                } else {
+                    H = h;
+                }
+                let time = H + " : " + M + " : " + S;
+                $(".timer").text(time);
+                // Save time in the Game
+                this.time = time;
+    
             }
-            if (m == 60) {
-                h += 1;
-                m = 0;
-            }
-            if (s < 10) {
-                S = "0" + s;
-            } else {
-                S = s;
-            }
-            if (m < 10) {
-                M = "0" + m;
-            } else {
-                M = m;
-            }
-            if (h < 10) {
-                H = "0" + h;
-            } else {
-                H = h;
-            }
-            let time = H + " : " + M + " : " + S;
-            $(".timer").text(time);
-            // Save time in the Game
-            this.time = time;
+        }, 1000);
+    }
 
-        }
-    }, 1000);
+}
 
+/**
+ * Play Again
+ */
+HanoiTowersGame.prototype.playAgain = function () {
+  
+        // Close Modal
+        $('#hanoiModal').modal('hide');
 
+        // Reset default values
+        this.resetGame();       
+
+        // Redirect to Rules Page
+        renderHtml('html/rules.html');
+}
+
+/**
+* Reset Game
+*/
+HanoiTowersGame.prototype.resetGame = function () {
+
+    this.canvas = null;
+    this.time = 0;
+    this.moves = 0;
+    this.win = false;
+    this.quantDisks = DISK_QUANT;
+    this.timer(true); // Reset timer
+}
+
+/**
+ * On Play Again Call the Game to play
+ */
+function onPlayAgain () {
+    hanoiTowersGame.playAgain();
 }
 
 /**
@@ -179,3 +219,4 @@ HanoiTowersGame.prototype.timer = function () {
 function onSetDisksQuant(event) {
     hanoiTowersGame.quantDisks = event.value;
 }
+

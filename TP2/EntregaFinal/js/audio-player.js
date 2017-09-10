@@ -5,12 +5,12 @@ var muteSoundFX = document.getElementById('btn-mute');
 
 // Play Music
 play.addEventListener("click", function () {
-     document.getElementById("youtube-audio").src = "https://youtube.com/embed/ZToOPy9dLKU?autoplay=1";
+    player.playVideo();
 });
 
 // Stop Music
 stop.addEventListener("click", function () {
-    document.getElementById("youtube-audio").src = "";
+    player.stopVideo();
 });
 
 // SoundFX ON/OFF
@@ -48,3 +48,39 @@ dropDiskFailsFX.src = "./audio/dropDiskFailsFX.mp3";
 soundsFX.push(pickUpDiskFX);
 soundsFX.push(dropDiskOkFX);
 soundsFX.push(dropDiskFailsFX);
+
+
+// This code loads the IFrame Player API code asynchronously.
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// This function creates an <iframe> (and YouTube player)
+// after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-audio', {
+        height: '360',
+        width: '640',
+        videoId: 'ZToOPy9dLKU',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+// The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+    event.target.playVideo();
+    player.setVolume(25);
+}
+
+//    The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+
+function stopVideo() {
+    player.stopVideo();
+}
