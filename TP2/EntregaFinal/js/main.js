@@ -93,7 +93,6 @@ function onSetTowers() {
     towerThree.draw();
     // Add Tower
     canvasHanoiTower.addTower(towerThree);
-    console.log(canvasHanoiTower);
 
     // Start Timer!
     hanoiTowersGame.timer();
@@ -106,17 +105,22 @@ function onSetTowers() {
 function HanoiTowersGame() {
     this.canvas = null;
     this.time = 0;
+    this.moves = 0;
     this.win = false;
-    this.quantDisks = 4;
+    this.quantDisks = DISK_QUANT;
 }
 
 /**
  * Check if the last Tower has got all the Disks
  */
 HanoiTowersGame.prototype.checkGame = function () {
-    if (this.canvas.towers[2].disks.length == 4) {
-        alert("You Win!");
+    if (this.canvas.towers[2].disks.length == DISK_QUANT) {
         this.win = true;
+
+        // Show Modal
+        $('#hanoiModal').modal('show');
+        $('.timer-finished').html('Tiempo ' + this.time);
+        $('.moves-finished').html('Movimientos ' + this.moves);
     }
 }
 
@@ -157,7 +161,10 @@ HanoiTowersGame.prototype.timer = function () {
             } else {
                 H = h;
             }
-            $(".timer").text(H + " : " + M + " : " + S);
+            let time = H + " : " + M + " : " + S;
+            $(".timer").text(time);
+            // Save time in the Game
+            this.time = time;
 
         }
     }, 1000);

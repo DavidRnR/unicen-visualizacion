@@ -58,7 +58,6 @@ function myDown(e) {
     startX = mouseX;
     startY = mouseY;
 
-    console.log("MouseDown", mouseY);
 }
 
 
@@ -88,6 +87,8 @@ function myUp(e) {
         let moves = document.getElementById("moves-counter").textContent;
         moves = parseInt(moves) + 1; //Plus one
         document.getElementById("moves-counter").innerHTML = moves;
+        // Save Moves in the Game
+        hanoiTowersGame.moves = moves;
 
         // Disk Selected cleared
         diskSelected.clear();
@@ -97,8 +98,7 @@ function myUp(e) {
             tower.disks.forEach((_disk) => {
                 _disk.draggable = false;
             })
-            console.log(mouseX);
-            console.log(mouseY);
+            
             if (mouseX > tower.basePosX && mouseX < tower.basePosX + tower.baseWidth
                 && mouseY < tower.basePosY && mouseY < tower.basePosY + tower.height && tower.canPushDiskonTop(diskSelected)) {
 
@@ -148,8 +148,6 @@ function myUp(e) {
         hanoiTowersGame.checkGame();
     }
 
-    console.log("MouseUP");
-    console.log(canvasHanoiTower);
 }
 
 

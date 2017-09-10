@@ -29,16 +29,34 @@
   margin-left: 4px;
 }
 .moves-counter {
-  margin-top: 2px;
+  margin-top: 28px;
 }
 
 .timer {
-  margin-left: 110px;
-  margin-right: 110px;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 2px 15px 2px 15px;
+}
+
+.modal-body {
+  text-align: center;
+  font-size: 30px;
+}
+
+.moves-finished,.timer-finished {
+  font-size: 20px;
+}
+
+.timer-finished {
+  margin-top: 30px;
+}
+
+.play-again {
+  margin-bottom: 30px;
+  margin-top: 70px;
 }
 
 /*Audio Player*/
-
 .btn-audio-player {
   background-color: rgba(255, 255, 255, 0);
   border: 1px solid #000000;
@@ -54,18 +72,18 @@
 #btn-play {
   width: 34px;
   height: 34px;
-  margin: 2px 5px;
+  margin: 2px 5px 0px 22px;
 }
 #btn-play i {
   font-size: 16px;
 }
-#btn-stop {
+#btn-stop,#btn-mute {
   width: 29px;
   height: 29px;
   margin-top: 5px;
 }
 
-#btn-stop i{
+#btn-stop i,#btn-mute i{
   font-size: 10px;
   position: relative;
   top: -2px;
