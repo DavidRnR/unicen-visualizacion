@@ -108,6 +108,12 @@ HanoiTower.prototype.canPushDiskonTop = function (disk) {
         return true;
     }
     else {
+        // If want to push the disk to a tower different than the disk is.
+        if(this != disk.currentTower) {
+            // Play Drop Disk Fails SoundFX
+            dropDiskFailsFX.play();
+        }
+
         return false;
     }
 }

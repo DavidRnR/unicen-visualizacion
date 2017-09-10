@@ -1,3 +1,4 @@
+//********************SoundFX - Music Controls *********************************** */
 var play = document.getElementById('btn-play');
 var stop = document.getElementById('btn-stop');
 
@@ -10,4 +11,10 @@ stop.addEventListener("click", function () {
 });
 
 
+var pickUpDiskFX = new Audio();
+var dropDiskOkFX = new Audio();
+var dropDiskFailsFX = new Audio();
 
+pickUpDiskFX.src = "./audio/pickUpDiskFX.mp3";
+dropDiskOkFX.src = "./audio/dropDiskOK.mp3";
+dropDiskFailsFX.src = "./audio/dropDiskFailsFX.mp3";
