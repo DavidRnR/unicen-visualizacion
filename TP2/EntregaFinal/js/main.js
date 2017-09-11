@@ -217,7 +217,6 @@ function onPlayAgain () {
  * @param {*} event 
  */
 function onSetDisksQuant(event) {
-    debugger
     hanoiTowersGame.quantDisks = event.value;
 }
 
