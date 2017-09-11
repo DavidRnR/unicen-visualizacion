@@ -115,6 +115,7 @@ function HanoiTowersGame() {
  * Check if the last Tower has got all the Disks
  */
 HanoiTowersGame.prototype.checkGame = function () {
+
     if (this.canvas.towers[2].disks.length == this.quantDisks) {
         this.win = true;
 
