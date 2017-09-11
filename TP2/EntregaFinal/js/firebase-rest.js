@@ -1,6 +1,6 @@
 var onSubmitScore = null;
 
-var firebaseUrl = "https://towers-of-hanoi-8c023.firebaseio.com/scores.json";
+var firebaseUrl = "https://towers-of-hanoi-8c023.firebaseio.com/scores";
 
 /**
  * Firebase Get Scores
@@ -13,7 +13,11 @@ function getScores() {
         headers: headers,
         cache: 'default'
     };
-    let myRequest = new Request(firebaseUrl, options);
+
+    // Build endpoint
+    let endpoint = firebaseUrl + "/" + hanoiTowersGame.quantDisks +".json";
+
+    let myRequest = new Request(endpoint, options);
 
     fetch(myRequest)
         .then(response => {
@@ -21,9 +25,9 @@ function getScores() {
         }).then(data => {
 
             if (data) {
-                // Render Data
+                // Render Data              
                 for (var key in data) {
-                    let row = "<tr><td>" + data[key].name + "</td><td>" + data[key].moves + " Movs</td><td>" + data[key].time + "</td></tr>"
+                    let row = "<div class='row'><div class='col-md-3'>" + data[key].name + "</div><div class='col-md-3'>" + data[key].disks + " Disc</div><div class='col-md-3'>" + data[key].moves + " Movs</div><div class='col-md-3'>" + data[key].time + "</div></div><hr>"
                     document.getElementsByClassName('hanoi-score-list')[0].innerHTML += row;                 
                 }
             }
@@ -37,9 +41,10 @@ function getScores() {
  */
 function postScore(data = null) {
     
+    // Keep Original data
     var dataRender = data;
 
-    data = JSON.stringify(data);
+    data = JSON.stringify(data);   
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -50,7 +55,11 @@ function postScore(data = null) {
         body: data,
         cache: 'default'
     };
-    let myRequest = new Request(firebaseUrl, options);
+
+    // Build endpoint
+    let endpoint = firebaseUrl + "/" + hanoiTowersGame.quantDisks +".json";
+
+    let myRequest = new Request(endpoint, options);
 
     fetch(myRequest)
         .then(response => {
@@ -60,9 +69,10 @@ function postScore(data = null) {
             // If response ID
             if (data) {
                 // Render Data
-                let row = "<tr><td>" + dataRender.name + "</td><td>" + dataRender.moves + " Movs</td><td>" + dataRender.time + "</td></tr>"
+                let row = "<div class='row'><div class='col-md-3'>" + dataRender.name + "</div><div class='col-md-3'>" + dataRender.disks + " Disc</div><div class='col-md-3'>" + dataRender.moves + " Movs</div><div class='col-md-3'>" + dataRender.time + "</div></div><hr>"
+ 
                 document.getElementsByClassName('hanoi-score-list')[0].innerHTML += row;
-
+        
                 // Clean Form
                 document.getElementsByClassName('form-score')[0].innerHTML = null;
                 

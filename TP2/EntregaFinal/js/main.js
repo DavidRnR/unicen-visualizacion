@@ -134,6 +134,7 @@ HanoiTowersGame.prototype.checkGame = function () {
             // Set data
             let data = {
                 name: event.target[0].value,
+                disks: hanoiTowersGame.quantDisks,
                 moves: hanoiTowersGame.moves,
                 time: hanoiTowersGame.time
             }

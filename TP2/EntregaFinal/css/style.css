@@ -7,6 +7,10 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdf4dd', endColorstr='#fdefc7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .tudai-title {
   letter-spacing: 2px;
   font-weight: lighter;
@@ -147,7 +151,7 @@ body {
   font-size: 14px;
   max-height: 300px;
   overflow-y: auto;
-  display: -moz-inline-grid;
+  overflow-x: hidden;
 }
 
 .form-score {
