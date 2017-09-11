@@ -33,7 +33,21 @@
                 </div>
                 <div class="col-md-12 moves-finished ">
                         <!-- Render Moves after win -->
-                 </div>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <form class="form-inline form-score">
+                        <div class="form-group">
+                            <input type="text" placeholder="Nombre" class="form-control-plaintext" value="">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <table class="table hanoi-score-list">
+                    <!-- Append List Scores from Firebase -->
+                    </table>
+                </div>
             </div>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-primary play-again" onclick="onPlayAgain()">JUGAR OTRA VEZ!</button>

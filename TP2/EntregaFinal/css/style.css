@@ -98,7 +98,6 @@ body {
 
 .play-again {
   margin-bottom: 30px;
-  margin-top: 70px;
 }
 
 /*Audio Player*/
@@ -143,7 +142,24 @@ body {
   outline: none;
 }
 
+/* Scores */
+.hanoi-score-list {
+  font-size: 14px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: -moz-inline-grid;
+}
 
+.form-score {
+  margin: 12px 0px 12px 0px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.form-score input{
+  padding-left: 7px;
+  background-color: #fdf4dd;
+}
 
 
 /*Audio Player*/

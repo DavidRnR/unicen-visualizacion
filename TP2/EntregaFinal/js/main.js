@@ -122,6 +122,26 @@ HanoiTowersGame.prototype.checkGame = function () {
         $('#hanoiModal').modal('show');
         $('.timer-finished').html('Tiempo ' + this.time);
         $('.moves-finished').html('Movimientos ' + this.moves);
+
+        //Call Firebase API and get Scores
+        getScores();
+        
+        onSubmitScore = document.getElementsByClassName('form-score')[0];
+
+        onSubmitScore.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Set data
+            let data = {
+                name: event.target[0].value,
+                moves: hanoiTowersGame.moves,
+                time: hanoiTowersGame.time
+            }
+
+            //Call Firebase API to save new record
+            postScore(data);
+      
+        });
     }
 }
 
