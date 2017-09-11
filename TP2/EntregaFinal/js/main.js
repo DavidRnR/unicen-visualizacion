@@ -69,11 +69,23 @@ function onSetCanvas() {
     hanoiTowersGame.canvas = canvasHanoiTower;   
 
     // Set Towers
-    onSetTowers();
+    hanoiTowersGame.setTowers();
 
 }
 
-function onSetTowers() {
+/**
+ * Hanoi Tower Game
+ */
+function HanoiTowersGame() {
+    this.canvas = null;
+    this.time = 0;
+    this.interval = null;
+    this.moves = 0;
+    this.win = false;
+    this.quantDisks = DISK_QUANT;
+}
+
+HanoiTowersGame.prototype.setTowers = function () {
     // First Tower
     towerOne = new HanoiTower();
     towerOne.draw();
@@ -95,20 +107,7 @@ function onSetTowers() {
     canvasHanoiTower.addTower(towerThree);
 
     // Start Timer!
-    hanoiTowersGame.timer();
-}
-
-
-/**
- * Hanoi Tower Game
- */
-function HanoiTowersGame() {
-    this.canvas = null;
-    this.time = 0;
-    this.interval = null;
-    this.moves = 0;
-    this.win = false;
-    this.quantDisks = DISK_QUANT;
+    this.timer();
 }
 
 /**
@@ -194,7 +193,7 @@ HanoiTowersGame.prototype.playAgain = function () {
 }
 
 /**
-* Reset Game
+* Reset Game | Choose Disks Again
 */
 HanoiTowersGame.prototype.resetGame = function () {
 
@@ -204,6 +203,26 @@ HanoiTowersGame.prototype.resetGame = function () {
     this.win = false;
     this.quantDisks = DISK_QUANT;
     this.timer(true); // Reset timer
+}
+
+/**
+* Reset Game | Same Last Configuration
+*/
+HanoiTowersGame.prototype.restartGame = function () {
+
+        this.canvas.clearCanvas();
+
+         // Reset timer
+        document.getElementsByClassName('timer')[0].innerHTML = "00 : 00 : 00";
+        this.time = 0;
+        this.timer(true);
+
+        // Reset Moves
+        this.moves = 0;
+        document.getElementById('moves-counter').innerHTML = this.moves;
+        
+        // Reset canvas
+        onSetCanvas();
 }
 
 /**
@@ -221,3 +240,9 @@ function onSetDisksQuant(event) {
     hanoiTowersGame.quantDisks = event.value;
 }
 
+/**
+ * Restart Game | Same last configuration
+ */
+function onRestartGame() {
+    hanoiTowersGame.restartGame();
+}

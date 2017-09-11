@@ -17,6 +17,11 @@ CanvasHanoiTower.prototype.addTower = function (t) {
     this.towers.push(t);
 }
 
+CanvasHanoiTower.prototype.clearCanvas = function (t) {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
+
 /**
  * Mouse Down Event
  * @param {*} e 

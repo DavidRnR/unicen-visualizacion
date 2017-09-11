@@ -9,6 +9,7 @@ body {
 
 .tudai-title {
   letter-spacing: 2px;
+  font-weight: lighter;
 }
 
 .img-home {
@@ -28,6 +29,7 @@ body {
   font-size: 30px;
   line-height: 2;
   font-variant: petite-caps;
+  font-weight: lighter;
 }
 
 .disk-quant {
@@ -73,6 +75,10 @@ body {
   padding: 2px 15px 2px 15px;
 }
 
+.restart-game {
+  margin-top: 10px;
+}
+
 .modal-body {
   text-align: center;
   font-size: 30px;
@@ -84,6 +90,10 @@ body {
 
 .timer-finished {
   margin-top: 30px;
+}
+
+.btn-warning i {
+  padding-right: 3px;
 }
 
 .play-again {
