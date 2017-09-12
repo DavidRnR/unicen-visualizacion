@@ -145,6 +145,13 @@ body {
 .btn-audio-player:focus {
   outline: none;
 }
+/*Audio Player*/
+
+
+/* Modal */
+.modal-win-game {
+  letter-spacing: 5px;
+}
 
 /* Scores */
 .hanoi-score-list {
@@ -152,6 +159,12 @@ body {
   max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.hanoi-score-new-record {
+  background-color: gainsboro;;
+  font-size: 14px;
+  border-radius: 2px;
 }
 
 .form-score {
@@ -165,8 +178,6 @@ body {
   background-color: #fdf4dd;
 }
 
-
-/*Audio Player*/
 
 /* Sticky footer styles
 -------------------------------------------------- */

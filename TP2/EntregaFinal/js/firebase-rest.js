@@ -71,7 +71,7 @@ function postScore(data = null) {
                 // Render Data
                 let row = "<div class='row'><div class='col-md-3'>" + dataRender.name + "</div><div class='col-md-3'>" + dataRender.disks + " Disc</div><div class='col-md-3'>" + dataRender.moves + " Movs</div><div class='col-md-3'>" + dataRender.time + "</div></div><hr>"
  
-                document.getElementsByClassName('hanoi-score-list')[0].innerHTML += row;
+                document.getElementsByClassName('hanoi-score-new-record')[0].innerHTML += row;
         
                 // Clean Form
                 document.getElementsByClassName('form-score')[0].innerHTML = null;
