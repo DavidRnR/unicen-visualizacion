@@ -8,7 +8,7 @@ var firebaseUrl = "https://towers-of-hanoi-8c023.firebaseio.com/scores";
 function getScores() {
 
     // Loading Icon
-    document.getElementsByClassName('hanoi-score-list')[0].innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+    document.getElementsByClassName('hanoi-score-list')[0].innerHTML = '<i class="fa fa-spinner fa-2x fa-spin"></i>';
 
     // Headers
     let headers = new Headers();
