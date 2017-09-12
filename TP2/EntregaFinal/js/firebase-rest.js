@@ -6,6 +6,11 @@ var firebaseUrl = "https://towers-of-hanoi-8c023.firebaseio.com/scores";
  * Firebase Get Scores
  */
 function getScores() {
+
+    // Loading Icon
+    document.getElementsByClassName('hanoi-score-list')[0].innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+
+    // Headers
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
@@ -25,6 +30,10 @@ function getScores() {
         }).then(data => {
 
             if (data) {
+
+                 // Hide Loading Icon
+                document.getElementsByClassName('hanoi-score-list')[0].innerHTML = '';
+
                 // Render Data              
                 for (var key in data) {
                     let row = "<div class='row'><div class='col-md-3'>" + data[key].name + "</div><div class='col-md-3'>" + data[key].disks + " Disc</div><div class='col-md-3'>" + data[key].moves + " Movs</div><div class='col-md-3'>" + data[key].time + "</div></div><hr>"
