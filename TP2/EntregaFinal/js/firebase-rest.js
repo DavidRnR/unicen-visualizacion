@@ -15,11 +15,23 @@ firebase.initializeApp(config);
  * Firebase Get Scores
  */
 function getScores(newRecord = null) {
+    // Loaded for Spinner Icon
+    var loaded = false;
+
+    // Loading
+    document.getElementsByClassName('hanoi-score-list')[0].innerHTML = '<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>'; 
+
     var ref = firebase.database().ref('/scores/'+ hanoiTowersGame.quantDisks);    
     
     ref.orderByChild("moves").on("child_added", function (data) {
+
+        if(!loaded) {
+            // Loaded
+            document.getElementsByClassName('hanoi-score-list')[0].innerHTML = '';
+        }
         let row = "<div class='row'><div class='col-md-3'>" + data.val().name + "</div><div class='col-md-3'>" + data.val().disks + " Disc</div><div class='col-md-3'>" + data.val().moves + " Movs</div><div class='col-md-3'>" + data.val().time + "</div></div><hr>"
-        document.getElementsByClassName('hanoi-score-list')[0].innerHTML += row;       
+        document.getElementsByClassName('hanoi-score-list')[0].innerHTML += row;   
+        loaded = true;    
     });
 }
 
