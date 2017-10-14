@@ -3,35 +3,94 @@
     height: 600px;
     position: relative;
 }
+
 .cyberpunk-back {
     height: 100%;
     width: 100%;
     position: absolute;
     background-position: left;
-    background-repeat:repeat-x; 
+    background-repeat: repeat-x;
 }
 
 @keyframes cyber-parallax-1 {
- 100% {
+    100% {
         background-position-x: -1100px;
     }
 }
 
 @keyframes cyber-parallax-2 {
- 100% {
+    100% {
         background-position-x: -800px;
     }
 }
 
 .cyberpunk-back-1 {
     background-image: url('../img/parallax/back-buildings.png');
-     animation: 5s cyber-parallax-2 linear infinite;  
+    /* animation: 5s cyber-parallax-2 linear infinite;   */
 }
+
 .cyberpunk-back-2 {
     background-image: url('../img/parallax/far-buildings.png');
-     animation: 5s cyber-parallax-2 linear infinite;  
+    /* animation: 5s cyber-parallax-2 linear infinite;   */
 }
+
 .cyberpunk-back-3 {
     background-image: url('../img/parallax/foreground.png');
-     animation: 5s cyber-parallax-1 linear infinite;  
+    /* animation: 5s cyber-parallax-1 linear infinite;   */
+}
+
+.ninja-run {
+    width: 373px;
+    height: 468px;
+    position: absolute;
+    background: url('../img/sprites/ninja-run.png') left center;
+    animation: run 0.5s steps(10) infinite;
+}
+
+@keyframes run {
+    100% {
+        background-position: -3730px;
+    }
+}
+
+.ninja-idle {
+    width: 242px;
+    height: 449px;
+    position: absolute;
+    background: url('../img/sprites/ninja-idle.png') left center;
+    animation: idle 0.5s steps(10) infinite;
+}
+
+@keyframes idle {
+    100% {
+        background-position: -2420px;
+    }
+}
+
+.ninja-attack {
+    width: 546px;
+    height: 505px;
+    position: absolute;
+    background: url('../img/sprites/ninja-attack.png') left center;
+    animation: attack 0.5s steps(10) infinite;
+}
+
+@keyframes attack {
+    100% {
+        background-position: -5460px;
+    }
+}
+
+.ninja-dead {
+    width: 492px;
+    height: 508px;
+    position: absolute;
+    background: url('../img/sprites/ninja-dead.png') left center;
+    animation: dead 1.3s steps(10) infinite;
+}
+
+@keyframes dead {
+    100% {
+        background-position: -4920px;
+    }
 }
