@@ -26,37 +26,32 @@
 
 .cyberpunk-back-1 {
     background-image: url('../img/parallax/back-buildings.png');
-    /* animation: 5s cyber-parallax-2 linear infinite;   */
+    animation: 50s cyber-parallax-2 linear infinite;   
+    animation-play-state: paused;
 }
 
 .cyberpunk-back-2 {
     background-image: url('../img/parallax/far-buildings.png');
-    /* animation: 5s cyber-parallax-2 linear infinite;   */
+     animation: 50s cyber-parallax-2 linear infinite;   
+     animation-play-state: paused;
 }
 
 .cyberpunk-back-3 {
     background-image: url('../img/parallax/foreground.png');
-    /* animation: 5s cyber-parallax-1 linear infinite;   */
+     animation: 5s cyber-parallax-1 linear infinite;   
+     animation-play-state: paused;
 }
 
-.ninja-run {
-    width: 373px;
-    height: 468px;
+#ninja {
+    transform: scale(0.5);
     position: absolute;
-    background: url('../img/sprites/ninja-run.png') left center;
-    animation: run 0.5s steps(10) infinite;
-}
-
-@keyframes run {
-    100% {
-        background-position: -3730px;
-    }
+    left: 320px;
+    top: 240px;
 }
 
 .ninja-idle {
     width: 242px;
     height: 449px;
-    position: absolute;
     background: url('../img/sprites/ninja-idle.png') left center;
     animation: idle 0.5s steps(10) infinite;
 }
@@ -67,10 +62,24 @@
     }
 }
 
+.ninja-run {
+    width: 373px;
+    height: 468px;
+    background: url('../img/sprites/ninja-run.png') left center;
+    animation: run 0.5s steps(10) infinite;
+}
+
+@keyframes run {
+    100% {
+        background-position: -3730px;
+    }
+}
+
 .ninja-attack {
     width: 546px;
     height: 505px;
-    position: absolute;
+    left: 228px !important;
+    top: 220px !important;
     background: url('../img/sprites/ninja-attack.png') left center;
     animation: attack 0.5s steps(10) infinite;
 }
@@ -84,7 +93,6 @@
 .ninja-dead {
     width: 492px;
     height: 508px;
-    position: absolute;
     background: url('../img/sprites/ninja-dead.png') left center;
     animation: dead 1.3s steps(10) infinite;
 }

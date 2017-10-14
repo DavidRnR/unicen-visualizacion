@@ -35,3 +35,21 @@ function renderHtml(url) {
             }
         }).catch(err => console.log(err));
 }
+
+/**
+ * Preload Images - Sprites, etc
+ */
+function preloadImages() {
+    var ninjaIdle = new Image();
+    ninjaIdle.src = 'img/sprites/ninja-idle.png';
+    
+    var ninjaRun = new Image();
+    ninjaRun.src = 'img/sprites/ninja-run.png';
+
+    var ninjaAttack = new Image();
+    ninjaAttack.src = 'img/sprites/ninja-attack.png';
+
+    var ninjaDead = new Image();
+    ninjaDead.src = 'img/sprites/ninja-dead.png';
+}
+preloadImages();
