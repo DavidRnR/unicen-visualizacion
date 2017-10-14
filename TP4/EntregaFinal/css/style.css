@@ -1,0 +1,37 @@
+.main-game {
+    width: 1100px;
+    height: 600px;
+    position: relative;
+}
+.cyberpunk-back {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-position: left;
+    background-repeat:repeat-x; 
+}
+
+@keyframes cyber-parallax-1 {
+ 100% {
+        background-position-x: -1100px;
+    }
+}
+
+@keyframes cyber-parallax-2 {
+ 100% {
+        background-position-x: -800px;
+    }
+}
+
+.cyberpunk-back-1 {
+    background-image: url('../img/parallax/back-buildings.png');
+     animation: 5s cyber-parallax-2 linear infinite;  
+}
+.cyberpunk-back-2 {
+    background-image: url('../img/parallax/far-buildings.png');
+     animation: 5s cyber-parallax-2 linear infinite;  
+}
+.cyberpunk-back-3 {
+    background-image: url('../img/parallax/foreground.png');
+     animation: 5s cyber-parallax-1 linear infinite;  
+}
