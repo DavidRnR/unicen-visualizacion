@@ -1,0 +1,49 @@
+#zombie {
+    transform: scaleX(-0.5) scaleY(0.5);
+    position: absolute;
+}
+
+.zombie-attack {
+    width: 420px;
+    height: 529px;
+    right: 200px !important;
+    top: 187px !important;
+    background: url('../img/sprites/zombie-attack.png') left center;
+    animation: zombieAttack 1s steps(8) infinite;
+}
+
+@keyframes zombieAttack {
+    100% {
+        background-position: -3520px;
+    }
+}
+
+.zombie-walk {
+    width: 440px;
+    height: 529px;
+    right: 200px !important;
+    top: 187px !important;
+    background: url('../img/sprites/zombie-walk.png') left center;
+    animation: zombieWalk 2s steps(10) infinite;
+}
+
+@keyframes zombieWalk {
+    100% {
+        background-position: -4400px;
+    }
+}
+
+.zombie-dead {
+    width: 624px;
+    height: 536px;
+    right: 200px !important;
+    top: 211px !important;
+    background: url('../img/sprites/zombie-dead.png') left center;
+    animation: zombieDead 1.3s steps(12) infinite;
+}
+
+@keyframes zombieDead {
+    100% {
+        background-position: -7668px;
+    }
+}

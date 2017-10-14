@@ -51,5 +51,14 @@ function preloadImages() {
 
     var ninjaDead = new Image();
     ninjaDead.src = 'img/sprites/ninja-dead.png';
+
+    var zombieDead = new Image();
+    zombieDead.src = 'img/sprites/zombie-dead.png';
+    
+    var zombieAttack = new Image();
+    zombieAttack.src = 'img/sprites/zombie-attack.png';
+
+    var zombieWalk = new Image();
+    zombieWalk.src = 'img/sprites/zombie-walk.png';
 }
 preloadImages();

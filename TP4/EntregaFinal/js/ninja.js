@@ -14,8 +14,6 @@ Ninja.prototype.attack = function () {
     document.getElementById('ninja').className = 'ninja-attack';
 }
 
-var ninja = new Ninja();
-
 $(document).ready(function(){
     window.addEventListener("keydown", onKeyDown, false);
     window.addEventListener("keyup", onKeyUp, false);
@@ -29,9 +27,11 @@ function onKeyDown(e){
     }
     else if(keyCode == 83){
         ninja.run();
-          document.getElementsByClassName('cyberpunk-back-1')[0].style.webkitAnimationPlayState = "running";
-          document.getElementsByClassName('cyberpunk-back-2')[0].style.webkitAnimationPlayState = "running";
-          document.getElementsByClassName('cyberpunk-back-3')[0].style.webkitAnimationPlayState = "running";
+        document.getElementsByClassName('cyberpunk-back-1')[0].style.webkitAnimationPlayState = "running";
+        document.getElementsByClassName('cyberpunk-back-2')[0].style.webkitAnimationPlayState = "running";
+        document.getElementsByClassName('cyberpunk-back-3')[0].style.webkitAnimationPlayState = "running";
+
+
     }
 };
 
