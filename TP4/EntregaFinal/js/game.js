@@ -13,8 +13,15 @@ Game.prototype.update = function () {
     zombie.move();
     
     setInterval(function() {
-        if(Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft) < 10) {
+        if(Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft) < 120) {
             console.log('crash!');
+            if(ninja.status == 'attack') {
+                zombie.die();
+                clearInterval(zombie.movesInterval);
+            }
+            else {
+                ninja.die();
+            }
         }
     },100);
 }

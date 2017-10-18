@@ -46,15 +46,15 @@
     }
 }
 
-.ninja-dead {
+.ninja-die {
     width: 492px;
     height: 508px;
     background: url('../img/sprites/ninja-dead.png') left center;
-    animation: dead 1.3s steps(10) infinite;
+    animation: die 1.3s steps(9) forwards;
 }
 
-@keyframes dead {
+@keyframes die {
     100% {
-        background-position: -4920px;
+        background-position: -4428px;
     }
 }

@@ -17,8 +17,8 @@ Zombie.prototype.attack = function () {
     this.element.className = 'zombie-attack';
 }
 
-Zombie.prototype.dead = function () {
-    this.element.className = 'zombie-dead';
+Zombie.prototype.die = function () {
+    this.element.className = 'zombie-die';
 }
 
 Zombie.prototype.move = function () {

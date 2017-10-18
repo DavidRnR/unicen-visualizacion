@@ -30,17 +30,14 @@
     }
 }
 
-.zombie-dead {
-    width: 624px;
-    height: 536px;
-    right: 200px !important;
-    top: 211px !important;
+.zombie-die {
+    width: 550px !important;
     background: url('../img/sprites/zombie-dead.png') left center;
-    animation: zombieDead 1.3s steps(12) infinite;
+    animation: zombieDie 1.3s steps(11) forwards;
 }
 
-@keyframes zombieDead {
+@keyframes zombieDie {
     100% {
-        background-position: -7668px;
+        background-position: -7120px;
     }
 }
