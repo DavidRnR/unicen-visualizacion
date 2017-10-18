@@ -4,25 +4,48 @@ function Game() {
     this.parallaxLayer1 = document.getElementsByClassName('cyberpunk-back-1')[0];
     this.parallaxLayer2 = document.getElementsByClassName('cyberpunk-back-2')[0];
     this.parallaxLayer3 = document.getElementsByClassName('cyberpunk-back-3')[0];
+    this.gameOver = false;
   
 }
 
 Game.prototype.update = function () {
     var ninja = this.ninja;
     var zombie = this.zombie;
+    var gameOver = this.gameOver;
+
     zombie.move();
     
     setInterval(function() {
-        if(Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft) < 120) {
-            console.log('crash!');
-            if(ninja.status == 'attack') {
+
+    if(!gameOver) {
+        window.addEventListener("keydown", onKeyDown, false);
+        window.addEventListener("keyup", onKeyUp, false);
+
+        let divsDistance = Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft);
+
+        if(zombie.status != 'dead') {
+            if(ninja.status == 'attack' &&  divsDistance < 230) {
+                console.log('crash attack!');
                 zombie.die();
+                zombie.status = 'dead';
                 clearInterval(zombie.movesInterval);
             }
-            else {
+            else if((ninja.status == 'idle' || ninja.status == 'run') && divsDistance < 30) {
+                console.log('crash die!');
                 ninja.die();
+                ninja.status = 'dead';
+                
+                // Game Over
+                gameOver = true;
+
             }
+            
         }
+        if(ninja.status == 'run') {
+            zombie.element.style.transition = 'right 1s linear';
+        }        
+    }
+       
     },100);
 }
 

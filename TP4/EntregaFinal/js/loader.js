@@ -71,7 +71,6 @@ function startGame() {
     game.update();
     
     $(document).ready(function () {
-        window.addEventListener("keydown", onKeyDown, false);
-        window.addEventListener("keyup", onKeyUp, false);
+     
     });
 }

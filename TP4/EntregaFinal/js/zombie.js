@@ -1,24 +1,44 @@
 function Zombie() {
     this.element = document.getElementById('zombie');
-    this.status = 'walk';
+    this.status = 'attack';
     this.movesInterval = null;
+    this.element.style.visibility = 'hidden';
     this.pos = 0;
 }
 
 Zombie.prototype.walk = function () {
 
-    this.pos += 250;
-    this.element.style.right = this.pos + 'px';
-    this.element.className = 'zombie-walk';
+    if(this.pos > 500) {
+        this.element.style.visibility = 'hidden';
+        this.element.style.right = '0px';
+        this.pos = -250;
+    }
+    else if(this.pos == 0) {
+        this.element.style.visibility = 'inherit';
+        this.pos += 250;
+        this.element.style.right = this.pos + 'px';
+        this.element.className = 'zombie-walk';
+    }
      
 }
 
 Zombie.prototype.attack = function () {
-    this.element.className = 'zombie-attack';
+
+    if(this.pos > 500) {
+        this.element.style.visibility = 'hidden';
+        this.element.style.right = '0px';
+        this.pos = -250;
+    }
+    else {
+        this.element.style.visibility = 'inherit';
+        this.element.className = 'zombie-attack';
+    }
+   
 }
 
 Zombie.prototype.die = function () {
     this.element.className = 'zombie-die';
+    this.status = 'dead';
 }
 
 Zombie.prototype.move = function () {
