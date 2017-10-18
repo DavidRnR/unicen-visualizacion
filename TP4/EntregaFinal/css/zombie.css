@@ -1,13 +1,13 @@
 #zombie {
     transform: scaleX(-0.5) scaleY(0.5);
     position: absolute;
-}
-
-.zombie-attack {
     width: 420px;
     height: 529px;
-    right: 200px !important;
-    top: 187px !important;
+    top: 187px;
+    right: 0px;
+}
+
+.zombie-attack { 
     background: url('../img/sprites/zombie-attack.png') left center;
     animation: zombieAttack 1s steps(8) infinite;
 }
@@ -19,15 +19,12 @@
 }
 
 .zombie-walk {
-    width: 440px;
-    height: 529px;
-    right: 200px !important;
-    top: 187px !important;
     background: url('../img/sprites/zombie-walk.png') left center;
     animation: zombieWalk 2s steps(10) infinite;
+    transition: right 3s linear;
 }
 
-@keyframes zombieWalk {
+@keyframes zombieWalk {     
     100% {
         background-position: -4400px;
     }

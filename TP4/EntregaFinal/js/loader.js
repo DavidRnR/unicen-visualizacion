@@ -24,11 +24,14 @@ function renderHtml(url) {
         }).then(data => {
 
             switch (url) {
-                 case 'html/home.html':
+                case 'html/home.html':
                     document.getElementById('app-loader').innerHTML = data;
                     break;
                 case 'html/game.html':
                     document.getElementById('app-loader').innerHTML = data;
+
+                    // Start Game
+                    startGame();
                     break;
                 default:
                     break;
@@ -54,7 +57,7 @@ function preloadImages() {
 
     var zombieDead = new Image();
     zombieDead.src = 'img/sprites/zombie-dead.png';
-    
+
     var zombieAttack = new Image();
     zombieAttack.src = 'img/sprites/zombie-attack.png';
 
@@ -62,3 +65,13 @@ function preloadImages() {
     zombieWalk.src = 'img/sprites/zombie-walk.png';
 }
 preloadImages();
+
+function startGame() {
+    game = new Game();
+    game.update();
+    
+    $(document).ready(function () {
+        window.addEventListener("keydown", onKeyDown, false);
+        window.addEventListener("keyup", onKeyUp, false);
+    });
+}

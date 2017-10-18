@@ -1,18 +1,24 @@
 function Zombie() {
+    this.element = document.getElementById('zombie');
     this.status = 'walk';
     this.movesInterval = null;
+    this.pos = 0;
 }
 
 Zombie.prototype.walk = function () {
-    document.getElementById('zombie').className = 'zombie-walk';
+
+    this.pos += 250;
+    this.element.style.right = this.pos + 'px';
+    this.element.className = 'zombie-walk';
+     
 }
 
 Zombie.prototype.attack = function () {
-    document.getElementById('zombie').className = 'zombie-attack';
+    this.element.className = 'zombie-attack';
 }
 
 Zombie.prototype.dead = function () {
-    document.getElementById('zombie').className = 'zombie-dead';
+    this.element.className = 'zombie-dead';
 }
 
 Zombie.prototype.move = function () {
