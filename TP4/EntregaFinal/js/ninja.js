@@ -22,7 +22,7 @@ Ninja.prototype.die = function () {
     this.element.className = 'ninja-die';
     this.element.style.left = '260px';
     this.element.style.top = '210px';
-    this.status = 'die';
+    this.status = 'dead';
 }
 
 

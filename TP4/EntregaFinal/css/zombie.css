@@ -4,7 +4,7 @@
     width: 420px;
     height: 529px;
     top: 187px;
-    right: 0px;
+    right: -350px;
 }
 
 .zombie-attack { 
@@ -31,7 +31,7 @@
 }
 
 .zombie-die {
-    width: 550px !important;
+    width: 590px !important;
     background: url('../img/sprites/zombie-dead.png') left center;
     animation: zombieDie 1.3s steps(11) forwards;
 }
@@ -41,3 +41,10 @@
         background-position: -7120px;
     }
 }
+
+@keyframes zombieMoveDead {
+    100% {
+        right: 980px;
+    }
+}
+

@@ -25,15 +25,12 @@ Game.prototype.update = function () {
 
         if(zombie.status != 'dead') {
             if(ninja.status == 'attack' &&  divsDistance < 230) {
-                console.log('crash attack!');
+                // Zombie Die
                 zombie.die();
-                zombie.status = 'dead';
-                clearInterval(zombie.movesInterval);
             }
             else if((ninja.status == 'idle' || ninja.status == 'run') && divsDistance < 30) {
-                console.log('crash die!');
+                // Ninja Die
                 ninja.die();
-                ninja.status = 'dead';
                 
                 // Game Over
                 gameOver = true;
@@ -41,9 +38,13 @@ Game.prototype.update = function () {
             }
             
         }
-        if(ninja.status == 'run') {
-            zombie.element.style.transition = 'right 1s linear';
-        }        
+        else if (zombie.status == 'deadMoving') {
+            zombie.pausePlayMoveDead(ninja.status);
+        }       
+        else if (ninja.status == 'run' && zombie.status == 'dead') { 
+            console.log('dead');
+            zombie.moveDead();   
+        }
     }
        
     },100);
