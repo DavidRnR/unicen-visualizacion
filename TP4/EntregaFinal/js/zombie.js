@@ -7,24 +7,14 @@ function Zombie() {
 
 Zombie.prototype.walk = function () {
 
-    if (this.pos > 750) {
-        this.element.style.right = '-350px';
-        this.pos = 0;
-    }
-
     this.pos += 250;
     this.element.style.right = this.pos + 'px';
     this.element.className = 'zombie-walk';
-
 
 }
 
 Zombie.prototype.attack = function () {
 
-    if (this.pos > 750) {
-        this.element.style.right = '-350px';
-        this.pos = 0;
-    }
     this.element.className = 'zombie-attack';
    
 }
@@ -43,11 +33,11 @@ Zombie.prototype.moveDead = function () {
 
     var that = this;
 
-    this.element.addEventListener("animationend", function () {
+    this.element.addEventListener("webkitAnimationEnd", function () {
+        clearInterval(that.movesInterval);
         that.status = 'attack';
         that.element.className = 'zombie-attack';
         that.element.style = null;
-        that.element.style.right = '-350px';
         that.pos = 0;
         that.move();
     }, false);

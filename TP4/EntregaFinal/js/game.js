@@ -5,6 +5,7 @@ function Game() {
     this.parallaxLayer2 = document.getElementsByClassName('cyberpunk-back-2')[0];
     this.parallaxLayer3 = document.getElementsByClassName('cyberpunk-back-3')[0];
     this.gameOver = false;
+    this.interval = null;
   
 }
 
@@ -12,18 +13,19 @@ Game.prototype.update = function () {
     var ninja = this.ninja;
     var zombie = this.zombie;
     var gameOver = this.gameOver;
+    var interval = this.interval;
 
     zombie.move();
-    
-    setInterval(function() {
+    document.addEventListener("keydown", onKeyDown, false);
+    document.addEventListener("keyup", onKeyUp, false);
+
+    interval = setInterval(function() {
 
     if(!gameOver) {
-        window.addEventListener("keydown", onKeyDown, false);
-        window.addEventListener("keyup", onKeyUp, false);
-
+      
         let divsDistance = Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft);
 
-        if(zombie.status != 'dead') {
+        if(zombie.status != 'dead' && zombie.status != 'deadMoving') {
             if(ninja.status == 'attack' &&  divsDistance < 230) {
                 // Zombie Die
                 zombie.die();
@@ -42,31 +44,41 @@ Game.prototype.update = function () {
             zombie.pausePlayMoveDead(ninja.status);
         }       
         else if (ninja.status == 'run' && zombie.status == 'dead') { 
-            console.log('dead');
             zombie.moveDead();   
         }
     }
+    else {
+        console.log('gameover');
+        clearInterval(interval);
+    }
        
     },100);
+
 }
 
-function onKeyDown (e) {
-    var keyCode = e.keyCode;
+function onKeyDown(e) {
+console.log(game);
+    if (!game.gameOver) {
+        var keyCode = e.keyCode;
 
-    if (keyCode == 65) {
-        game.ninja.attack();
+        if (keyCode == 65) {
+            game.ninja.attack();
+        }
+        else if (keyCode == 83) {
+            game.ninja.run();
+            game.parallaxLayer1.style.webkitAnimationPlayState = "running";
+            game.parallaxLayer2.style.webkitAnimationPlayState = "running";
+            game.parallaxLayer3.style.webkitAnimationPlayState = "running";
+        }
     }
-    else if (keyCode == 83) {
-        game.ninja.run();
-        game.parallaxLayer1.style.webkitAnimationPlayState = "running";
-        game.parallaxLayer2.style.webkitAnimationPlayState = "running";
-        game.parallaxLayer3.style.webkitAnimationPlayState = "running";
-    }
+
 };
 
-function onKeyUp (e) {
-    game.ninja.idle();
-    game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
-    game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
-    game.parallaxLayer3.style.webkitAnimationPlayState = "paused";
+function onKeyUp(e) {
+    if (!game.gameOver) {
+        game.ninja.idle();
+        game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
+        game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
+        game.parallaxLayer3.style.webkitAnimationPlayState = "paused";
+    }
 };

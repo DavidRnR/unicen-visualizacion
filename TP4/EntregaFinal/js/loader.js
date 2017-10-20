@@ -66,11 +66,10 @@ function preloadImages() {
 }
 preloadImages();
 
+var game = null;
+
 function startGame() {
     game = new Game();
     game.update();
-    
-    $(document).ready(function () {
-     
-    });
+
 }
