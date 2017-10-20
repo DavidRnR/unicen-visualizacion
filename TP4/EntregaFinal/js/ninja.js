@@ -1,6 +1,7 @@
 function Ninja () {
     this.element = document.getElementById('ninja');
     this.status = 'idle';
+    this.zombiesCounter = 0;
 }
 
 Ninja.prototype.idle = function () {

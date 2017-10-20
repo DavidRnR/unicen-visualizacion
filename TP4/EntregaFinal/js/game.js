@@ -6,36 +6,40 @@ function Game() {
     this.parallaxLayer3 = document.getElementsByClassName('cyberpunk-back-3')[0];
     this.gameOver = false;
     this.interval = null;
+    this.zombiesScore = document.getElementById('dead-zombies');
   
 }
 
 Game.prototype.update = function () {
+    var gameThis = this;
+
     var ninja = this.ninja;
     var zombie = this.zombie;
-    var gameOver = this.gameOver;
-    var interval = this.interval;
 
     zombie.move();
     document.addEventListener("keydown", onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
 
-    interval = setInterval(function() {
+    gameThis.interval = setInterval(function() {
 
-    if(!gameOver) {
-      
+    if(!gameThis.gameOver) {
+        
         let divsDistance = Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft);
+        
+        gameThis.updateScore(ninja.zombiesCounter);
 
         if(zombie.status != 'dead' && zombie.status != 'deadMoving') {
             if(ninja.status == 'attack' &&  divsDistance < 230) {
                 // Zombie Die
                 zombie.die();
+                ninja.zombiesCounter++;
             }
             else if((ninja.status == 'idle' || ninja.status == 'run') && divsDistance < 30) {
                 // Ninja Die
                 ninja.die();
                 
                 // Game Over
-                gameOver = true;
+                gameThis.gameOver = true;
 
             }
             
@@ -48,7 +52,9 @@ Game.prototype.update = function () {
         }
     }
     else {
-        console.log('gameover');
+        // Game Over
+        document.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener("keyup", onKeyUp);
         clearInterval(interval);
     }
        
@@ -56,29 +62,32 @@ Game.prototype.update = function () {
 
 }
 
-function onKeyDown(e) {
-console.log(game);
-    if (!game.gameOver) {
-        var keyCode = e.keyCode;
+Game.prototype.updateScore = function (newScore) {
+    this.zombiesScore.innerHTML = newScore;
+}
 
-        if (keyCode == 65) {
-            game.ninja.attack();
-        }
-        else if (keyCode == 83) {
-            game.ninja.run();
-            game.parallaxLayer1.style.webkitAnimationPlayState = "running";
-            game.parallaxLayer2.style.webkitAnimationPlayState = "running";
-            game.parallaxLayer3.style.webkitAnimationPlayState = "running";
-        }
+function onKeyDown(e) {
+
+    var keyCode = e.keyCode;
+
+    if (keyCode == 65) {
+        game.ninja.attack();
     }
+    else if (keyCode == 83) {
+        game.ninja.run();
+        game.parallaxLayer1.style.webkitAnimationPlayState = "running";
+        game.parallaxLayer2.style.webkitAnimationPlayState = "running";
+        game.parallaxLayer3.style.webkitAnimationPlayState = "running";
+    }
+
 
 };
 
 function onKeyUp(e) {
-    if (!game.gameOver) {
-        game.ninja.idle();
-        game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
-        game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
-        game.parallaxLayer3.style.webkitAnimationPlayState = "paused";
-    }
+
+    game.ninja.idle();
+    game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
+    game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
+    game.parallaxLayer3.style.webkitAnimationPlayState = "paused";
+
 };
