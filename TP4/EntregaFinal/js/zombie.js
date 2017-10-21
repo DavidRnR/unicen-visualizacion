@@ -1,27 +1,17 @@
 function Zombie() {
     this.element = document.getElementById('zombie');
-    this.status = 'attack';
-    this.movesInterval = null;
-    this.pos = 0;
+    this.status = 'walk';
 }
 
 Zombie.prototype.walk = function () {
-
-    this.pos += 250;
-    this.element.style.right = this.pos + 'px';
-    this.element.className = 'zombie-walk';
-
+    this.status = 'walk';
+    this.element.className = 'zombie-walk'; 
 }
 
-Zombie.prototype.attack = function () {
-
-    this.element.className = 'zombie-attack';
-   
-}
 
 Zombie.prototype.die = function () {
-    this.element.className = 'zombie-die';
     this.status = 'dead';
+    this.element.className = 'zombie-die';
 }
 
 Zombie.prototype.moveDead = function () {
@@ -34,38 +24,16 @@ Zombie.prototype.moveDead = function () {
     var that = this;
 
     this.element.addEventListener("webkitAnimationEnd", function () {
-        clearInterval(that.movesInterval);
-        that.status = 'attack';
-        that.element.className = 'zombie-attack';
         that.element.style = null;
-        that.pos = 0;
-        that.move();
+        that.walk();
     }, false);
 }
 
 
 Zombie.prototype.pausePlayMoveDead = function (ninjaStatus) {
+    console.log('play pause')
     this.element.style.webkitAnimationPlayState = (ninjaStatus == 'idle') ? 'paused' : 'running';
 }
 
-Zombie.prototype.move = function () {
 
-    this.movesInterval = setInterval(() => {
-        switch (this.status) {
-            case 'walk':
-                this.attack();
-                this.status = 'attack';
-                break;
-            case 'attack':
-                this.walk();
-                this.status = 'walk';
-                break;
-            case 'dead':
-                clearInterval(this.movesInterval);
-                break;
-            default:
-                break;
-        }
-    }, 3000);
-}
 

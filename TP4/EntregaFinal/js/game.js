@@ -10,13 +10,40 @@ function Game() {
   
 }
 
+Game.prototype.ready = function () { 
+
+    var that = this;
+    var countdown = 3;
+    var elm = document.getElementsByClassName('countdown-ready')[0];
+    
+    var countdownInterval = setInterval(function () {
+        
+        elm.innerHTML = countdown;
+
+
+        if(countdown == 0) {
+            elm.innerHTML = "¡CORRE!";
+            that.hiddenCountdown(elm);
+            that.update();
+            clearInterval(countdownInterval);
+        }
+        countdown--;
+        
+    },2000);
+
+}
+
+Game.prototype.hiddenCountdown = function (elm) { 
+    elm.className += " coundown-ready-fade-out";
+}
+
 Game.prototype.update = function () {
     var gameThis = this;
 
     var ninja = this.ninja;
     var zombie = this.zombie;
+    zombie.walk();
 
-    zombie.move();
     document.addEventListener("keydown", onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
 
@@ -44,18 +71,20 @@ Game.prototype.update = function () {
             }
             
         }
-        else if (zombie.status == 'deadMoving') {
+        else if (zombie.status == 'deadMoving' && ninja.status != 'attack') {
             zombie.pausePlayMoveDead(ninja.status);
         }       
         else if (ninja.status == 'run' && zombie.status == 'dead') { 
             zombie.moveDead();   
-        }
+      
+}
+        
     }
     else {
         // Game Over
         document.removeEventListener("keydown", onKeyDown);
         document.removeEventListener("keyup", onKeyUp);
-        clearInterval(interval);
+        clearInterval(gameThis.interval);
     }
        
     },100);

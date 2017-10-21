@@ -6,6 +6,14 @@
     z-index: 2000;
 }
 
+.ninja-home {
+    transform: scale(0.5);
+    position: absolute;
+    left: 320px;
+    top: 240px;
+    z-index: 2000;
+}
+
 .ninja-idle {
     width: 242px;
     height: 449px;

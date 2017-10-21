@@ -1,19 +1,41 @@
+.tudai-title {
+  letter-spacing: 2px;
+  font-weight: lighter;
+}
+
 .main-loader {
     width: 100%;
 }
 
+.logo-home {
+   
+}
+
 .main-game {
+    position: relative;
     min-width: 1100px;
     width: 1100px;
     height: 600px;
-    position: relative;
+    overflow: hidden;
 }
 
-.panel-sides {
-    width: calc((100% - 1100px) / 2); 
-    height:600px; 
-    background: white; 
-    z-index: 2000;
+.countdown-ready {
+    position: absolute;
+    top: 200px;
+    color: red;
+    font-size: 40px;
+}
+
+.coundown-ready-fade-out {
+    animation: countdownFadeout 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes countdownFadeout {
+    100% {
+        opacity: 0;
+        display: hidden;
+    }
 }
 
 .game-counter {
@@ -60,3 +82,66 @@
      animation-play-state: paused;
 }
 
+/*Audio Player*/
+.btn-audio-player {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid #000000;
+  border-radius: 50%;
+  color: #000000;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transition: all 0.2s ease 0;
+  transition: all 0.2s ease 0;
+}
+
+#btn-play {
+  width: 34px;
+  height: 34px;
+  margin: 2px 5px 0px 22px;
+}
+#btn-play i {
+  font-size: 16px;
+}
+#btn-stop,#btn-mute {
+  width: 29px;
+  height: 29px;
+  margin-top: 5px;
+}
+
+#btn-stop i,#btn-mute i{
+  font-size: 10px;
+  position: relative;
+  top: -2px;
+}
+
+.btn-audio-player:hover {
+  color: #999;
+  border-color: #999;
+  cursor: pointer;
+}
+.btn-audio-player:focus {
+  outline: none;
+}
+/*Audio Player*/
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 40px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 40px;
+    line-height: 40px; /* Vertically center the text there */
+    text-align: center;
+    font-weight: lighter;
+  }

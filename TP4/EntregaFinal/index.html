@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/ninja.css" rel="stylesheet">
     <link href="css/zombie.css" rel="stylesheet">
@@ -13,14 +14,36 @@
 
 <body>
     <div class="container-fluid">
-         <div class="row">
-            <!-- Main - Loader -->    
+        <!-- NavBar - Icon and Title -->
+        <nav class="navbar navbar-light bg-faded">
+            <a class="navbar-brand" href="./index.html" title="Home">
+                <img src="img/logo.png" width="20" height="30" class="d-inline-block align-top" alt="">
+             <span class="tudai-title">TUDAI - NINJA CAOS</span> 
+            </a>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn-audio-player" id="btn-mute" title="SoundFX off"><i class="fa fa-volume-up"></i></button>
+                <button class="btn-audio-player" id="btn-play" title="Play Music"><i class="fa fa-play"></i></button>
+                <button class="btn-audio-player" id="btn-stop" title="Stop Music"><i class="fa fa-stop"></i></button>
+            </div>
+        </nav>
+        <!-- NavBar - Icon and Title -->
+        <div class="row">
+            <!-- Main - Loader -->
             <div class="main-loader" id="app-loader">
 
             </div>
             <!-- Main - Loader -->
         </div>
-    </div>       
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Creado por David Martín - 2017 -
+            <a href="https://www.github.com/DavidRnR" target="_blank" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></span>
+        </div>
+
+    </footer>
 </body>
 
 </html>

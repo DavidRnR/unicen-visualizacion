@@ -4,29 +4,28 @@
     width: 420px;
     height: 529px;
     top: 187px;
-    right: 0px;
-}
-
-.zombie-attack { 
-    background: url('../img/sprites/zombie-attack.png') left center;
-    animation: zombieAttack 1s steps(8) infinite;
-}
-
-@keyframes zombieAttack {
-    100% {
-        background-position: -3520px;
-    }
 }
 
 .zombie-walk {
     background: url('../img/sprites/zombie-walk.png') left center;
-    animation: zombieWalk 2s steps(10) infinite;
-    transition: right 3s linear;
+    animation-name: zombieWalk,zombieMove;
+    animation-duration: 2s,10s;
+    animation-timing-function: steps(10),linear;
+    animation-iteration-count: infinite,infinite;
 }
 
 @keyframes zombieWalk {     
     100% {
         background-position: -4400px;
+    }
+}
+
+@keyframes zombieMove {
+    0% {
+        right: -250px;
+    }     
+    100% {
+        right: 1100px;
     }
 }
 
@@ -44,7 +43,7 @@
 
 @keyframes zombieMoveDead {
     100% {
-        right: 980px;
+        right: 1100px;
     }
 }
 

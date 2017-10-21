@@ -58,9 +58,6 @@ function preloadImages() {
     var zombieDead = new Image();
     zombieDead.src = 'img/sprites/zombie-dead.png';
 
-    var zombieAttack = new Image();
-    zombieAttack.src = 'img/sprites/zombie-attack.png';
-
     var zombieWalk = new Image();
     zombieWalk.src = 'img/sprites/zombie-walk.png';
 }
@@ -70,6 +67,6 @@ var game = null;
 
 function startGame() {
     game = new Game();
-    game.update();
+    game.ready();
 
 }
