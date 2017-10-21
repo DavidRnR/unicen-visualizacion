@@ -11,7 +11,7 @@ function Game() {
 }
 
 Game.prototype.ready = function () { 
-
+    
     var that = this;
     var countdown = 3;
     var elm = document.getElementsByClassName('countdown-ready')[0];
@@ -29,7 +29,7 @@ Game.prototype.ready = function () {
         }
         countdown--;
         
-    },2000);
+    },1000);
 
 }
 

@@ -1,6 +1,7 @@
 .tudai-title {
   letter-spacing: 2px;
   font-weight: lighter;
+  font-family: ziperhead;
 }
 
 .main-loader {
@@ -22,12 +23,15 @@
 .countdown-ready {
     position: absolute;
     top: 200px;
-    color: red;
-    font-size: 40px;
+    color: #FF7C00;
+    font-family: ziperhead;
+    font-weight: bolder;
+    font-size: 100px;
+    text-shadow: 2px 2px #080B35;
 }
 
 .coundown-ready-fade-out {
-    animation: countdownFadeout 2s;
+    animation: countdownFadeout 3s;
     animation-fill-mode: forwards;
 }
 
@@ -42,6 +46,7 @@
     position: absolute;
     right: 35px;
     top: 20px;
+    font-family: ziperhead;
     color: white;
 }
 .cyberpunk-back {
