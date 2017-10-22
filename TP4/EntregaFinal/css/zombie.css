@@ -32,7 +32,10 @@
 .zombie-die {
     width: 590px !important;
     background: url('../img/sprites/zombie-dead.png') left center;
-    animation: zombieDie 1.3s steps(11) forwards;
+    animation: zombieDie 1.3s steps(11);
+    animation-fill-mode: forwards;
+    top: 210px !important;
+    left: 120px !important;
 }
 
 @keyframes zombieDie {
@@ -41,9 +44,18 @@
     }
 }
 
+.zombie-dead-moving {
+    width: 590px !important;
+    background: url('../img/zombie/zombie-dead.png') left center;
+    animation: zombieMoveDead 1s linear forwards;
+    animation-play-state: paused;
+    top: 210px !important;
+    left: 120px !important;
+}
+
 @keyframes zombieMoveDead {
     100% {
-        right: 1100px;
+        left: -300px;
     }
 }
 

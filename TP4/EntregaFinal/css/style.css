@@ -20,7 +20,7 @@
     overflow: hidden;
 }
 
-.countdown-ready {
+.game-messages {
     position: absolute;
     top: 200px;
     color: #FF7C00;
@@ -38,7 +38,6 @@
 @keyframes countdownFadeout {
     100% {
         opacity: 0;
-        display: hidden;
     }
 }
 

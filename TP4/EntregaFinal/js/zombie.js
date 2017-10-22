@@ -8,31 +8,38 @@ Zombie.prototype.walk = function () {
     this.element.className = 'zombie-walk'; 
 }
 
+Zombie.prototype.faster = function () {
+    //TODO Zombie should runs faster
+}
 
 Zombie.prototype.die = function () {
     this.status = 'dead';
     this.element.className = 'zombie-die';
+
+    var that = this;
+
+    this.element.addEventListener("animationend", function () {
+        // After Finish the animation start the animation move
+        that.moveDead();
+    }, false);
 }
 
 Zombie.prototype.moveDead = function () {
 
     this.status = 'deadMoving';
-
-    this.element.style.transition = 'right 2s linear';
-    this.element.style.animation = 'zombieMoveDead 2s';
+    this.element.className = 'zombie-dead-moving';
 
     var that = this;
 
-    this.element.addEventListener("webkitAnimationEnd", function () {
-        that.element.style = null;
+    this.element.addEventListener("animationend", function () {
         that.walk();
     }, false);
+
 }
 
 
 Zombie.prototype.pausePlayMoveDead = function (ninjaStatus) {
-    console.log('play pause')
-    this.element.style.webkitAnimationPlayState = (ninjaStatus == 'idle') ? 'paused' : 'running';
+    this.element.style.animationPlayState = (ninjaStatus == 'idle') ? 'paused' : 'running';
 }
 
 
