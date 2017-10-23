@@ -1,7 +1,7 @@
 #ninja {
     transform: scale(0.5);
     position: absolute;
-    left: 150px;
+    left: 400px;
     top: 240px;
     z-index: 2000;
 }
@@ -43,7 +43,7 @@
 .ninja-attack {
     width: 546px;
     height: 505px;
-    left: 58px !important;
+    left: 300px !important;
     top: 220px !important;
     background: url('../img/sprites/ninja-attack.png') left center;
     animation: attack 0.5s steps(10) infinite;

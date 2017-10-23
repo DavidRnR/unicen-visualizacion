@@ -9,6 +9,14 @@ Ninja.prototype.idle = function () {
    this.status = 'idle';
 }
 
+Ninja.prototype.turnLeft = function () {
+    this.element.style.transform = 'scaleX(-0.5) scaleY(0.5)';
+}
+
+Ninja.prototype.turnRight = function () {
+    this.element.style.transform = 'scaleX(0.5) scaleY(0.5)';
+}
+
 Ninja.prototype.run = function () {
     this.element.className = 'ninja-run';
     this.status = 'run';

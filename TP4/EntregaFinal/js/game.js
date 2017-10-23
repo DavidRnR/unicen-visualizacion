@@ -1,6 +1,7 @@
 function Game() {
     this.ninja = new Ninja();
     this.zombie = new Zombie();
+    this.zombieFemale = new ZombieFemale();
     this.parallaxLayer1 = document.getElementsByClassName('cyberpunk-back-1')[0];
     this.parallaxLayer2 = document.getElementsByClassName('cyberpunk-back-2')[0];
     this.parallaxLayer3 = document.getElementsByClassName('cyberpunk-back-3')[0];
@@ -42,7 +43,13 @@ Game.prototype.update = function () {
 
     var ninja = this.ninja;
     var zombie = this.zombie;
+    var zombieFemale = this.zombieFemale;
     zombie.walk();
+
+    // After 8seg shows up Zombie Female
+    setTimeout(function () {
+        zombieFemale.walk();
+    }, 8000);
 
     document.addEventListener("keydown", onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
@@ -50,10 +57,13 @@ Game.prototype.update = function () {
     gameThis.interval = setInterval(function () {
 
         if (!gameThis.gameOver) {
-
+            
+            // Update Score
+            gameThis.updateScore(ninja.zombiesCounter);
+            
+            // **************************** Zombie Male **************************************
             let divsDistance = Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft);
 
-            gameThis.updateScore(ninja.zombiesCounter);
 
             if (zombie.status != 'dead' && zombie.status != 'deadMoving') {
                 if (ninja.status == 'attack' && divsDistance < 230) {
@@ -74,7 +84,30 @@ Game.prototype.update = function () {
             else if (zombie.status == 'deadMoving' && ninja.status != 'attack') {
                 zombie.pausePlayMoveDead(ninja.status);
             }
-     
+            
+            // ***********************************Zombie Female*************************************
+            // Zombie Female
+            let divsDistanceFem = Math.abs(ninja.element.offsetLeft - zombieFemale.element.offsetLeft);
+
+            if (zombieFemale.status != 'dead' && zombieFemale.status != 'deadMoving') {
+                if (ninja.status == 'attack' && divsDistanceFem < 230) {
+                    // Zombie Female Die
+                    zombieFemale.die();
+                    ninja.zombiesCounter++;
+                }
+                else if ((ninja.status == 'idle' || ninja.status == 'run') && divsDistanceFem < 30) {
+                    // Ninja Die
+                    ninja.die();
+
+                    // Game Over
+                    gameThis.onGameOver();
+
+                }
+
+            }
+            else if (zombieFemale.status == 'deadMoving' && ninja.status != 'attack') {
+                zombieFemale.pausePlayMoveDead(ninja.status);
+            }
         }
         else {
             // Game Over
@@ -110,7 +143,7 @@ Game.prototype.onGameOver = function () {
  * @param {*} e 
  */
 function onKeyDown(e) {
-
+    
     var keyCode = e.keyCode;
 
     if (keyCode == 65) {
@@ -122,6 +155,12 @@ function onKeyDown(e) {
         game.parallaxLayer2.style.webkitAnimationPlayState = "running";
         game.parallaxLayer3.style.webkitAnimationPlayState = "running";
 
+    }
+    else if (keyCode == 37) {
+        game.ninja.turnLeft();
+    }
+    else if (keyCode == 39) {
+        game.ninja.turnRight();
     }
 
 

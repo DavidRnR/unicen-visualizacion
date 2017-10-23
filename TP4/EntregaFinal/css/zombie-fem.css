@@ -1,0 +1,60 @@
+#zombie-fem {
+    transform: scaleX(0.5) scaleY(0.5);
+    position: absolute;
+    width: 531px;
+    height: 529px;
+    top: 187px;
+}
+
+.zombie-fem-walk {
+    background: url('../img/sprites/zombie-fem-walk.png') left center;
+    animation-name: zombieFemWalk,zombieFemMove;
+    animation-duration: 2s,16s;
+    animation-timing-function: steps(10),linear;
+    animation-iteration-count: infinite,infinite;
+}
+
+@keyframes zombieFemWalk {     
+    100% {
+        background-position: -5310px;
+    }
+}
+
+@keyframes zombieFemMove {
+    0% {
+        left: -250px;
+    }     
+    100% {
+        left: 1100px;
+    }
+}
+
+.zombie-fem-die {
+    width: 625px !important;
+    background: url('../img/sprites/zombie-fem-dead.png') left center;
+    animation: zombieFemDie 1.3s steps(9);
+    animation-fill-mode: forwards;
+    top: 190px !important;
+    left: 120px !important;
+}
+
+@keyframes zombieFemDie {
+    100% {
+        background-position: -6246px;
+    }
+}
+
+.zombie-fem-dead-moving {
+    width: 615px !important;
+    background: url('../img/zombie/zombie-fem-dead.png') left center;
+    animation: zombieFemMoveDead 1s linear forwards;
+    animation-play-state: paused;
+    top: 190px !important;
+    left: 120px !important;
+}
+
+@keyframes zombieFemMoveDead {
+    100% {
+        left: -300px;
+    }
+}
