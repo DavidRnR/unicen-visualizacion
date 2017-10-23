@@ -16,7 +16,10 @@ Ninja.prototype.run = function () {
 
 Ninja.prototype.attack = function () {
     this.element.className = 'ninja-attack';
+    
+    ninjaSwordFX.play();
     this.status = 'attack';
+
 }
 
 Ninja.prototype.die = function () {

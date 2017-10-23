@@ -6,13 +6,15 @@ function Zombie() {
 Zombie.prototype.walk = function () {
     this.status = 'walk';
     this.element.className = 'zombie-walk'; 
-}
-
-Zombie.prototype.faster = function () {
-    //TODO Zombie should runs faster
+     
+    
+    zombieFX.loop = true;
+    zombieFX.play();
 }
 
 Zombie.prototype.die = function () {
+    zombieFX.pause();
+    zombieFX.load();
     this.status = 'dead';
     this.element.className = 'zombie-die';
 
@@ -41,6 +43,5 @@ Zombie.prototype.moveDead = function () {
 Zombie.prototype.pausePlayMoveDead = function (ninjaStatus) {
     this.element.style.animationPlayState = (ninjaStatus == 'idle') ? 'paused' : 'running';
 }
-
 
 

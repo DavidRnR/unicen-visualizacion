@@ -9,7 +9,7 @@
 .zombie-walk {
     background: url('../img/sprites/zombie-walk.png') left center;
     animation-name: zombieWalk,zombieMove;
-    animation-duration: 2s,10s;
+    animation-duration: 2s,7s;
     animation-timing-function: steps(10),linear;
     animation-iteration-count: infinite,infinite;
 }

@@ -73,7 +73,7 @@ function preloadImages() {
     // Create an hidden Element for every Image
     imagesPreloaded.forEach((img) => {
         img.onload = function () {
-            document.createElement('img').style.display = 'hidden';
+           document.getElementById('pre-load-img').src = img.src;
         }
     });
 
