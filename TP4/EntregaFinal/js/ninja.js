@@ -1,6 +1,7 @@
 function Ninja () {
     this.element = document.getElementById('ninja');
     this.status = 'idle';
+    this.look = 'right';
     this.zombiesCounter = 0;
 }
 
@@ -10,16 +11,20 @@ Ninja.prototype.idle = function () {
 }
 
 Ninja.prototype.turnLeft = function () {
+    this.look = 'left';
     this.element.style.transform = 'scaleX(-0.5) scaleY(0.5)';
 }
 
 Ninja.prototype.turnRight = function () {
+    this.look = 'right';
     this.element.style.transform = 'scaleX(0.5) scaleY(0.5)';
 }
 
 Ninja.prototype.run = function () {
-    this.element.className = 'ninja-run';
-    this.status = 'run';
+    if(this.look == 'right') {
+        this.element.className = 'ninja-run';
+        this.status = 'run';
+    }
 }
 
 Ninja.prototype.attack = function () {

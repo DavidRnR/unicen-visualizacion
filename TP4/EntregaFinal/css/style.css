@@ -1,15 +1,11 @@
 .tudai-title {
-  letter-spacing: 2px;
-  font-weight: lighter;
-  font-family: ziperhead;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    font-family: ziperhead;
 }
 
 .main-loader {
     width: 100%;
-}
-
-.logo-home {
-   
 }
 
 .main-game {
@@ -48,6 +44,7 @@
     font-family: ziperhead;
     color: white;
 }
+
 .cyberpunk-back {
     height: 100%;
     width: 100%;
@@ -70,82 +67,131 @@
 
 .cyberpunk-back-1 {
     background-image: url('../img/parallax/back-buildings.png');
-    animation: 50s cyber-parallax-2 linear infinite;   
+    animation: 50s cyber-parallax-2 linear infinite;
     animation-play-state: paused;
 }
 
 .cyberpunk-back-2 {
     background-image: url('../img/parallax/far-buildings.png');
-     animation: 50s cyber-parallax-2 linear infinite;   
-     animation-play-state: paused;
+    animation: 50s cyber-parallax-2 linear infinite;
+    animation-play-state: paused;
 }
 
 .cyberpunk-back-3 {
     background-image: url('../img/parallax/foreground.png');
-     animation: 5s cyber-parallax-1 linear infinite;   
-     animation-play-state: paused;
+    animation: 5s cyber-parallax-1 linear infinite;
+    animation-play-state: paused;
 }
 
+
+/* Modal */
+.modal-win-game {
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+/* Scores */
+.ninja-caos-score-list {
+    font-size: 14px;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.form-score {
+    margin: 12px 0px 12px 0px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.form-score input {
+    padding-left: 7px;
+    background-color: #fdf4dd;
+}
+
+
+/*Media Queries*/
+
+@media only screen and (max-width: 1200px) {
+    .main-game {
+        transform: scale(0.6);
+    }
+}
+
+
 /*Audio Player*/
+
 .btn-audio-player {
-  background-color: rgba(255, 255, 255, 0);
-  border: 1px solid #000000;
-  border-radius: 50%;
-  color: #000000;
-  text-align: center;
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transition: all 0.2s ease 0;
-  transition: all 0.2s ease 0;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #000000;
+    border-radius: 50%;
+    color: #000000;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transition: all 0.2s ease 0;
+    transition: all 0.2s ease 0;
 }
 
 #btn-play {
-  width: 34px;
-  height: 34px;
-  margin: 2px 5px 0px 22px;
-}
-#btn-play i {
-  font-size: 16px;
-}
-#btn-stop,#btn-mute {
-  width: 29px;
-  height: 29px;
-  margin-top: 5px;
+    width: 34px;
+    height: 34px;
+    margin: 2px 5px 0px 22px;
 }
 
-#btn-stop i,#btn-mute i{
-  font-size: 10px;
-  position: relative;
-  top: -2px;
+#btn-play i {
+    font-size: 16px;
+}
+
+#btn-stop,
+#btn-mute {
+    width: 29px;
+    height: 29px;
+    margin-top: 5px;
+}
+
+#btn-stop i,
+#btn-mute i {
+    font-size: 10px;
+    position: relative;
+    top: -2px;
 }
 
 .btn-audio-player:hover {
-  color: #999;
-  border-color: #999;
-  cursor: pointer;
+    color: #999;
+    border-color: #999;
+    cursor: pointer;
 }
+
 .btn-audio-player:focus {
-  outline: none;
+    outline: none;
 }
+
+
 /*Audio Player*/
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
     position: relative;
     min-height: 100%;
-  }
-  body {
+}
+
+body {
     /* Margin bottom by footer height */
     margin-bottom: 40px;
-  }
-  .footer {
+}
+
+.footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 40px;
-    line-height: 40px; /* Vertically center the text there */
+    line-height: 40px;
+    /* Vertically center the text there */
     text-align: center;
     font-weight: lighter;
-  }
+}

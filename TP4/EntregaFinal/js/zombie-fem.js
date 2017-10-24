@@ -34,7 +34,12 @@ ZombieFemale.prototype.moveDead = function () {
     var that = this;
 
     this.element.addEventListener("animationend", function () {
-        that.walk();
+
+        that.status = 'walk';
+        // Wait 3s and show the Zombie walking again
+        setTimeout(function(){
+            that.walk();
+        },3000);
     }, false);
 
 }

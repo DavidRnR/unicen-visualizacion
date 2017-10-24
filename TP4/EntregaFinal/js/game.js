@@ -35,7 +35,7 @@ Game.prototype.ready = function () {
 }
 
 Game.prototype.hiddenCountdown = function () {
-     this.gameMessages.className += " coundown-ready-fade-out";
+    this.gameMessages.className += " coundown-ready-fade-out";
 }
 
 Game.prototype.update = function () {
@@ -57,10 +57,10 @@ Game.prototype.update = function () {
     gameThis.interval = setInterval(function () {
 
         if (!gameThis.gameOver) {
-            
+
             // Update Score
             gameThis.updateScore(ninja.zombiesCounter);
-            
+
             // **************************** Zombie Male **************************************
             let divsDistance = Math.abs(ninja.element.offsetLeft - zombie.element.offsetLeft);
 
@@ -74,7 +74,7 @@ Game.prototype.update = function () {
                 else if ((ninja.status == 'idle' || ninja.status == 'run') && divsDistance < 30) {
                     // Ninja Die
                     ninja.die();
-                    
+
                     // Game Over
                     gameThis.onGameOver();
 
@@ -84,18 +84,18 @@ Game.prototype.update = function () {
             else if (zombie.status == 'deadMoving' && ninja.status != 'attack') {
                 zombie.pausePlayMoveDead(ninja.status);
             }
-            
+
             // ***********************************Zombie Female*************************************
             // Zombie Female
             let divsDistanceFem = Math.abs(ninja.element.offsetLeft - zombieFemale.element.offsetLeft);
-
+     
             if (zombieFemale.status != 'dead' && zombieFemale.status != 'deadMoving') {
-                if (ninja.status == 'attack' && divsDistanceFem < 230) {
+                if (ninja.status == 'attack' && divsDistanceFem < 150) {
                     // Zombie Female Die
                     zombieFemale.die();
                     ninja.zombiesCounter++;
                 }
-                else if ((ninja.status == 'idle' || ninja.status == 'run') && divsDistanceFem < 30) {
+                else if ((ninja.status == 'idle' || ninja.status == 'run') && divsDistanceFem < 210) {
                     // Ninja Die
                     ninja.die();
 
@@ -116,7 +116,7 @@ Game.prototype.update = function () {
             clearInterval(gameThis.interval);
         }
 
-    }, 100);
+    }, 10);
 
 }
 
@@ -135,6 +135,30 @@ Game.prototype.onGameOver = function () {
     // Show Message on the Screen
     this.gameMessages.innerHTML = "GAME OVER";
     this.gameMessages.className = "game-messages";
+
+    var that = this;
+
+    // Show Modal
+    $('#ninjaCaosModal').modal('show');
+
+    //Call Firebase API and get Scores
+    getScores();
+    
+    onSubmitScore = document.getElementsByClassName('form-score')[0];
+
+    onSubmitScore.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Set data
+        let data = {
+            name: event.target[0].value,
+            zombies: that.ninja.zombiesCounter
+        }
+
+        //Call Firebase API to save new record
+        postScore(data);
+  
+    });
 }
 
 
@@ -143,25 +167,31 @@ Game.prototype.onGameOver = function () {
  * @param {*} e 
  */
 function onKeyDown(e) {
-    
+
     var keyCode = e.keyCode;
 
-    if (keyCode == 65) {
-        game.ninja.attack();
-    }
-    else if (keyCode == 83) {
-        game.ninja.run();
-        game.parallaxLayer1.style.webkitAnimationPlayState = "running";
-        game.parallaxLayer2.style.webkitAnimationPlayState = "running";
-        game.parallaxLayer3.style.webkitAnimationPlayState = "running";
+    // If the Game is Over prevent do actions
+    if (!game.gameOver) {
+        if (keyCode == 65) {
+            game.ninja.attack();
+        }
+        else if (keyCode == 83) {
+            if (game.ninja.look == 'right') {
+                game.ninja.run();
+                game.parallaxLayer1.style.webkitAnimationPlayState = "running";
+                game.parallaxLayer2.style.webkitAnimationPlayState = "running";
+                game.parallaxLayer3.style.webkitAnimationPlayState = "running";
+            }
 
+        }
+        else if (keyCode == 37) {
+            game.ninja.turnLeft();
+        }
+        else if (keyCode == 39) {
+            game.ninja.turnRight();
+        }
     }
-    else if (keyCode == 37) {
-        game.ninja.turnLeft();
-    }
-    else if (keyCode == 39) {
-        game.ninja.turnRight();
-    }
+
 
 
 };
@@ -172,9 +202,16 @@ function onKeyDown(e) {
  */
 function onKeyUp(e) {
 
-    game.ninja.idle();
-    game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
-    game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
-    game.parallaxLayer3.style.webkitAnimationPlayState = "paused";
-
+    // If the Game is Over prevent do actions
+    if (!game.gameOver) {
+        game.ninja.idle();
+        game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
+        game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
+        game.parallaxLayer3.style.webkitAnimationPlayState = "paused";
+    }
 };
+
+
+function playAgain() {
+    // TODO Restart the game
+}
