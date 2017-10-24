@@ -12,6 +12,9 @@ function Game() {
 
 }
 
+/**
+ * Show on the Screen - Get Readey- Counter - etc | Then Start the game
+ */
 Game.prototype.ready = function () {
 
     var that = this;
@@ -20,7 +23,6 @@ Game.prototype.ready = function () {
     var countdownInterval = setInterval(function () {
 
         that.gameMessages.innerHTML = countdown;
-
 
         if (countdown == 0) {
             that.gameMessages.innerHTML = "¡CORRE!";
@@ -34,11 +36,18 @@ Game.prototype.ready = function () {
 
 }
 
+/**
+ * Hidden Countdown
+ */
 Game.prototype.hiddenCountdown = function () {
     this.gameMessages.className += " coundown-ready-fade-out";
 }
 
+/**
+ * Main Update of the Game. Every 10ms check the status of the caracter, etc.
+ */
 Game.prototype.update = function () {
+    
     var gameThis = this;
 
     var ninja = this.ninja;
@@ -75,10 +84,14 @@ Game.prototype.update = function () {
                     // Ninja Die
                     ninja.die();
 
+                    // Clear Interval
+                    clearInterval(gameThis.interval);
+                    gameThis.interval = null;
+
                     // Game Over
                     gameThis.onGameOver();
-
-                }
+                    
+               }
 
             }
             else if (zombie.status == 'deadMoving' && ninja.status != 'attack') {
@@ -99,6 +112,10 @@ Game.prototype.update = function () {
                     // Ninja Die
                     ninja.die();
 
+                    // Clear Interval
+                    clearInterval(gameThis.interval);
+                    gameThis.interval = null;
+                    
                     // Game Over
                     gameThis.onGameOver();
 
@@ -130,8 +147,11 @@ Game.prototype.updateScore = function (newScore) {
 /**
  * Game Over
  */
-Game.prototype.onGameOver = function () {
+Game.prototype.onGameOver = function () {   
+
+    // Set Game Over True
     this.gameOver = true;
+    
     // Show Message on the Screen
     this.gameMessages.innerHTML = "GAME OVER";
     this.gameMessages.className = "game-messages";
@@ -192,8 +212,6 @@ function onKeyDown(e) {
         }
     }
 
-
-
 };
 
 /**
@@ -211,7 +229,15 @@ function onKeyUp(e) {
     }
 };
 
+/**
+ * Restart the Game - Play Again
+ */
+function onPlayAgain() {
 
-function playAgain() {
-    // TODO Restart the game
+    // Hide Modal
+    $('#ninjaCaosModal').modal('hide');
+
+    // Reload the Page - Restarting 
+    renderHtml('html/game.html');
+    
 }
