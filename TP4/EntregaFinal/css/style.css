@@ -8,12 +8,27 @@
     width: 100%;
 }
 
+.logo-home {
+    margin-top: 20px;
+}
+
 .main-game {
     position: relative;
     min-width: 1100px;
     width: 1100px;
     height: 600px;
     overflow: hidden;
+}
+
+.btn-play {
+    letter-spacing: 8px;
+    text-align: center;
+    font-family: ziperhead;
+    color: #FF7C00;
+    text-shadow: 2px 2px #080B35;
+    font-size: 40px;
+    background-color: rgba(255, 165, 0, 0.35);
+    margin-top: 45px;
 }
 
 .game-messages {
@@ -85,10 +100,16 @@
 
 
 /* Modal */
+
 .modal-win-game {
     letter-spacing: 5px;
     text-align: center;
+    font-family: ziperhead;
+    color: #FF7C00;
+    text-shadow: 2px 2px #080B35;
+    font-size: 20px;
 }
+
 
 /* Scores */
 .ninja-caos-score-list {
@@ -96,6 +117,9 @@
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
+    font-family: ziperhead;
+    text-align: center;
+    letter-spacing: 2px;
 }
 
 .form-score {
@@ -109,12 +133,27 @@
     background-color: #fdf4dd;
 }
 
+.form-score button {
+    background-color: rgba(255, 165, 0, 0.35);
+}
+
+.play-again {
+    margin-bottom: 30px;
+    font-family: ziperhead;
+    color: #FF7C00;
+    background-color: rgba(255, 165, 0, 0.35);
+}
+
+/* Cursor Pointer */
+.btn:hover {
+    cursor: pointer;
+}
 
 /*Media Queries*/
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
     .main-game {
-        transform: scale(0.6);
+        transform: scale(0.8);
     }
 }
 

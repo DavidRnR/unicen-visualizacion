@@ -1,9 +1,14 @@
 function ZombieFemale() {
     this.element = document.getElementById('zombie-fem');
     this.status = 'walk';
+    this.blood = this.element.childNodes[1];
 }
 
+/**
+ * Zombie Walk
+ */
 ZombieFemale.prototype.walk = function () {
+    this.blood.style.display = 'none';
     this.status = 'walk';
     this.element.className = 'zombie-fem-walk'; 
      
@@ -12,11 +17,15 @@ ZombieFemale.prototype.walk = function () {
     zombieFX.play();
 }
 
+/**
+ * Zombie Die
+ */
 ZombieFemale.prototype.die = function () {
     zombieFX.pause();
     zombieFX.load();
     this.status = 'dead';
     this.element.className = 'zombie-fem-die';
+    this.blood.style.display = 'initial';
 
     var that = this;
 
@@ -26,8 +35,12 @@ ZombieFemale.prototype.die = function () {
     }, false);
 }
 
+/**
+ * Zombie Moving after die
+ */
 ZombieFemale.prototype.moveDead = function () {
 
+    this.blood.style.display = 'none';
     this.status = 'deadMoving';
     this.element.className = 'zombie-fem-dead-moving';
 
@@ -44,7 +57,9 @@ ZombieFemale.prototype.moveDead = function () {
 
 }
 
-
+/**
+ * Play or Pause the animation when the Zombie is dead.
+ */
 ZombieFemale.prototype.pausePlayMoveDead = function (ninjaStatus) {
     this.element.style.animationPlayState = (ninjaStatus == 'idle') ? 'paused' : 'running';
 }

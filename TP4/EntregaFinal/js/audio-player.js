@@ -38,10 +38,14 @@ muteSoundFX.addEventListener("click", function () {
 var soundsFX = new Array();
 
 var ninjaSwordFX = new Audio();
+var ninjaShortMoveFX = new Audio();
+var ninjaRunningFX = new Audio();
 var zombieFX = new Audio();
 
 ninjaSwordFX.src = "./soundfx/ninja-sword.mp3";
 zombieFX.src = "./soundfx/zombie.mp3";
+ninjaShortMoveFX.src = "./soundfx/ninja-short-move.mp3";
+ninjaRunningFX.src = "./soundfx/ninja-running.mp3";
 
 
 soundsFX.push(ninjaSwordFX);

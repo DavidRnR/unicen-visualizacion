@@ -1,4 +1,4 @@
-function Ninja () {
+function Ninja() {
     this.element = document.getElementById('ninja');
     this.status = 'idle';
     this.look = 'right';
@@ -6,31 +6,34 @@ function Ninja () {
 }
 
 Ninja.prototype.idle = function () {
-   this.element.className = 'ninja-idle';
-   this.status = 'idle';
+    ninjaRunningFX.pause();
+    this.element.className = 'ninja-idle';
+    this.status = 'idle';
 }
 
 Ninja.prototype.turnLeft = function () {
+    ninjaShortMoveFX.play();
     this.look = 'left';
     this.element.style.transform = 'scaleX(-0.5) scaleY(0.5)';
 }
 
 Ninja.prototype.turnRight = function () {
+    ninjaShortMoveFX.play();
     this.look = 'right';
     this.element.style.transform = 'scaleX(0.5) scaleY(0.5)';
 }
 
 Ninja.prototype.run = function () {
-    if(this.look == 'right') {
+    if (this.look == 'right') {
+        ninjaRunningFX.play();
         this.element.className = 'ninja-run';
         this.status = 'run';
     }
 }
 
 Ninja.prototype.attack = function () {
-    this.element.className = 'ninja-attack';
-    
     ninjaSwordFX.play();
+    this.element.className = 'ninja-attack';
     this.status = 'attack';
 
 }

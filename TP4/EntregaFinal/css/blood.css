@@ -1,0 +1,14 @@
+.blood {
+    width: 450px;
+    height: 500px;
+    position: absolute;
+    background: url('../img/sprites/blood.png') left center;
+    animation: blood 1s steps(6);
+    display: none;
+}
+
+@keyframes blood {     
+    100% {
+        background-position: -3072px;
+    }
+}
