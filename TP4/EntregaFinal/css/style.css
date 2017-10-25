@@ -22,15 +22,16 @@
 }
 
 .instructions {
-    margin-top: 40px;   
+    margin-top: 40px;
     margin-bottom: 60px;
 }
 
 .instructions .row {
     margin-top: 40px;
-} 
+}
 
-.instruction-block-right,.instruction-block-left {
+.instruction-block-right,
+.instruction-block-left {
     width: 300px;
 }
 
@@ -46,7 +47,8 @@
     height: 60px !important;
 }
 
-.btn-play,.btn-skip {
+.btn-play,
+.btn-skip {
     letter-spacing: 8px;
     text-align: center;
     font-family: ziperhead;
@@ -138,6 +140,7 @@
 
 
 /* Scores */
+
 .ninja-caos-score-list {
     font-size: 14px;
     max-height: 300px;
@@ -170,10 +173,13 @@
     background-color: rgba(255, 165, 0, 0.35);
 }
 
+
 /* Cursor Pointer */
+
 button:hover {
     cursor: pointer;
 }
+
 
 /*Media Queries*/
 
@@ -181,11 +187,21 @@ button:hover {
     .main-game {
         transform: scale(0.8);
     }
-
+    .logo-home{
+        margin-top: 35px;
+    }
     .main-loader {
         margin-top: -35px;
-        margin-bottom: -35px;
+        margin-bottom: -60px;
     }
+    .btn-skip {
+        margin-top: 0px;
+    }
+    .instructions {
+        margin-top: 5px;
+        margin-bottom: 45px;
+    }
+
 }
 
 
