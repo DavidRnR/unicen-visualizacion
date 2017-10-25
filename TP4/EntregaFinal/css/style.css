@@ -22,13 +22,28 @@
 }
 
 .instructions {
-    font-family: ziperhead;
-    font-size: 40px;
-    margin-top: 90px;   
+    margin-top: 40px;   
+    margin-bottom: 60px;
+}
+
+.instructions .row {
+    margin-top: 40px;
+} 
+
+.instruction-block-right,.instruction-block-left {
+    width: 300px;
+}
+
+.instruction-block-right {
+    text-align: right;
 }
 
 .instructions img {
-    height: 100px;
+    height: 160px;
+}
+
+.instructions-actions {
+    height: 60px !important;
 }
 
 .btn-play,.btn-skip {
