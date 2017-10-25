@@ -75,12 +75,12 @@ Game.prototype.update = function () {
 
 
             if (zombie.status != 'dead' && zombie.status != 'deadMoving') {
-                if (ninja.status == 'attack' && divsDistance < 230) {
+                if (ninja.status == 'attack' && ninja.look == 'right' && divsDistance < 230) {
                     // Zombie Die
                     zombie.die();
                     ninja.zombiesCounter++;
                 }
-                else if ((ninja.status == 'idle' || ninja.status == 'run') && divsDistance < 30) {
+                else if ((ninja.status == 'idle' || ninja.status == 'run' || ninja.look == 'left') && divsDistance < 30) {
                     // Ninja Die
                     ninja.die();
 
@@ -103,12 +103,12 @@ Game.prototype.update = function () {
             let divsDistanceFem = Math.abs(ninja.element.offsetLeft - zombieFemale.element.offsetLeft);
      
             if (zombieFemale.status != 'dead' && zombieFemale.status != 'deadMoving') {
-                if (ninja.status == 'attack' && divsDistanceFem < 150) {
+                if (ninja.status == 'attack' && ninja.look == 'left' && divsDistanceFem < 150) {
                     // Zombie Female Die
                     zombieFemale.die();
                     ninja.zombiesCounter++;
                 }
-                else if ((ninja.status == 'idle' || ninja.status == 'run') && divsDistanceFem < 210) {
+                else if ((ninja.status == 'idle' || ninja.status == 'run' || ninja.look == 'right') && divsDistanceFem < 210) {
                     // Ninja Die
                     ninja.die();
 
@@ -222,7 +222,16 @@ function onKeyUp(e) {
 
     // If the Game is Over prevent do actions
     if (!game.gameOver) {
-        game.ninja.idle();
+
+        if(game.ninja.status == 'attack') {
+            // Wait until finish the animation
+            setTimeout(function(){
+                game.ninja.idle();
+            },500);
+        }
+        else {
+            game.ninja.idle();
+        }
         game.parallaxLayer1.style.webkitAnimationPlayState = "paused";
         game.parallaxLayer2.style.webkitAnimationPlayState = "paused";
         game.parallaxLayer3.style.webkitAnimationPlayState = "paused";

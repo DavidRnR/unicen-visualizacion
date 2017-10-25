@@ -43,7 +43,7 @@
 .ninja-attack {
     width: 546px;
     height: 505px;
-    left: 300px !important;
+    left: 260px !important;
     top: 220px !important;
     background: url('../img/sprites/ninja-attack.png') left center;
     animation: attack 0.5s steps(10) infinite;
@@ -60,6 +60,7 @@
     height: 508px;
     background: url('../img/sprites/ninja-dead.png') left center;
     animation: die 1.3s steps(9) forwards;
+    z-index: 0 !important;
 }
 
 @keyframes die {

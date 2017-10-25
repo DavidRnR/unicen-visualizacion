@@ -39,47 +39,6 @@ function renderHtml(url) {
         }).catch(err => console.log(err));
 }
 
-/**
- * Preload Images - Sprites, etc
- */
-function preloadImages() {
-
-    var imagesPreloaded = new Array();
-
-    var ninjaIdle = new Image();
-    ninjaIdle.src = 'img/sprites/ninja-idle.png';
-    imagesPreloaded.push(ninjaIdle);
-
-    var ninjaRun = new Image();
-    ninjaRun.src = 'img/sprites/ninja-run.png';
-    imagesPreloaded.push(ninjaRun);
-
-    var ninjaAttack = new Image();
-    ninjaAttack.src = 'img/sprites/ninja-attack.png';
-    imagesPreloaded.push(ninjaAttack);
-
-    var ninjaDead = new Image();
-    ninjaDead.src = 'img/sprites/ninja-dead.png';
-    imagesPreloaded.push(ninjaDead);
-
-    var zombieDead = new Image();
-    zombieDead.src = 'img/sprites/zombie-dead.png';
-    imagesPreloaded.push(zombieDead);
-
-    var zombieWalk = new Image();
-    zombieWalk.src = 'img/sprites/zombie-walk.png';
-    imagesPreloaded.push(zombieWalk);
-    
-    // Create an hidden Element for every Image
-    imagesPreloaded.forEach((img) => {
-        img.onload = function () {
-           document.getElementById('pre-load-img').src = img.src;
-        }
-    });
-
-}
-preloadImages();
-
 var game = null;
 
 function startGame() {
