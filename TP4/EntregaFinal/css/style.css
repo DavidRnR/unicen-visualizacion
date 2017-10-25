@@ -21,7 +21,17 @@
     border-radius: 5px;
 }
 
-.btn-play {
+.instructions {
+    font-family: ziperhead;
+    font-size: 40px;
+    margin-top: 90px;   
+}
+
+.instructions img {
+    height: 100px;
+}
+
+.btn-play,.btn-skip {
     letter-spacing: 8px;
     text-align: center;
     font-family: ziperhead;

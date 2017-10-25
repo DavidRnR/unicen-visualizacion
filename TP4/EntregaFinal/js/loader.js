@@ -33,6 +33,9 @@ function renderHtml(url) {
                     // Start Game
                     startGame();
                     break;
+                case 'html/instructions.html':
+                    document.getElementById('app-loader').innerHTML = data;
+                    break;
                 default:
                     break;
             }

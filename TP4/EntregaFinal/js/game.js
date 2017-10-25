@@ -132,7 +132,7 @@ Game.prototype.update = function () {
             gameThis.onGameOver();
         }
 
-    }, 10);
+    }, 30);
 
 }
 
