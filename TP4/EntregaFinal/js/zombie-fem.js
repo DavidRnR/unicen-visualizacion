@@ -1,6 +1,6 @@
 function ZombieFemale() {
     this.element = document.getElementById('zombie-fem');
-    this.status = 'walk';
+    this.status = ZOMBIE_STATUS_WALK;
     this.blood = this.element.childNodes[1];
 }
 
@@ -9,10 +9,10 @@ function ZombieFemale() {
  */
 ZombieFemale.prototype.walk = function () {
     this.blood.style.display = 'none';
-    this.status = 'walk';
+    this.status = ZOMBIE_STATUS_WALK;
     this.element.className = 'zombie-fem-walk'; 
      
-    
+    //SoundFX
     zombieFX.loop = true;
     zombieFX.play();
 }
@@ -21,9 +21,11 @@ ZombieFemale.prototype.walk = function () {
  * Zombie Die
  */
 ZombieFemale.prototype.die = function () {
+    //SoundFX
     zombieFX.pause();
     zombieFX.load();
-    this.status = 'dead';
+
+    this.status = ZOMBIE_STATUS_DEAD;
     this.element.className = 'zombie-fem-die';
     this.blood.style.display = 'initial';
 
@@ -41,14 +43,13 @@ ZombieFemale.prototype.die = function () {
 ZombieFemale.prototype.moveDead = function () {
 
     this.blood.style.display = 'none';
-    this.status = 'deadMoving';
+    this.status = ZOMBIE_STATUS_DEADMOVING;
     this.element.className = 'zombie-fem-dead-moving';
 
     var that = this;
 
     this.element.addEventListener("animationend", function () {
-
-        that.status = 'walk';
+        
         // Wait 3s and show the Zombie walking again
         setTimeout(function(){
             that.walk();
@@ -61,7 +62,7 @@ ZombieFemale.prototype.moveDead = function () {
  * Play or Pause the animation when the Zombie is dead.
  */
 ZombieFemale.prototype.pausePlayMoveDead = function (ninjaStatus) {
-    this.element.style.animationPlayState = (ninjaStatus == 'idle') ? 'paused' : 'running';
+    this.element.style.animationPlayState = (ninjaStatus == NINJA_STATUS_IDLE) ? 'paused' : 'running';
 }
 
 

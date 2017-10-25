@@ -1,6 +1,6 @@
 function Zombie() {
     this.element = document.getElementById('zombie');
-    this.status = 'walk';
+    this.status = ZOMBIE_STATUS_WALK;
     this.blood = this.element.childNodes[1];
 }
 
@@ -9,10 +9,10 @@ function Zombie() {
  */
 Zombie.prototype.walk = function () {
     this.blood.style.display = 'none';
-    this.status = 'walk';
+    this.status = ZOMBIE_STATUS_WALK;
     this.element.className = 'zombie-walk'; 
      
-    
+    // SoundFX
     zombieFX.loop = true;
     zombieFX.play();
 }
@@ -21,9 +21,12 @@ Zombie.prototype.walk = function () {
  * Zombie die
  */
 Zombie.prototype.die = function () {
+
+    // SoundFX
     zombieFX.pause();
     zombieFX.load();
-    this.status = 'dead';
+    
+    this.status = ZOMBIE_STATUS_DEAD;
     this.element.className = 'zombie-die';
     this.blood.style.display = 'initial';
 
@@ -41,7 +44,7 @@ Zombie.prototype.die = function () {
 Zombie.prototype.moveDead = function () {
 
     this.blood.style.display = 'none';
-    this.status = 'deadMoving';
+    this.status = ZOMBIE_STATUS_DEADMOVING;
     this.element.className = 'zombie-dead-moving';
 
     var that = this;
