@@ -1,0 +1,53 @@
+.container-fluid {
+    background-color: #D7EFFE;
+    position: fixed;
+    height: 100%;
+}
+
+.main-loader {
+    width: 100%;
+}
+
+.pic-search {
+    min-width: 100px;
+    width: 30%;
+    margin-top: 150px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.about {
+  font-size: 20px;
+  line-height: 2;
+  font-variant: petite-caps;
+  font-weight: lighter;
+  text-align: center;
+  padding-top: 40px;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 40px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 40px;
+    line-height: 40px;
+    /* Vertically center the text there */
+    text-align: center;
+    font-weight: lighter;
+}
