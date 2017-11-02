@@ -2,6 +2,7 @@
     background-color: #D7EFFE;
     position: fixed;
     height: 100%;
+    overflow-y: auto;
 }
 
 .main-loader {

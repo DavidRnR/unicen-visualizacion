@@ -13,35 +13,46 @@ var imgCarousel;
 // Button Search
 $(document).on("click", '#search-button', (e) => {
     e.preventDefault();
-    renderHtml('html/carousel.html');
+
+    // renderHtml('html/carousel.html');
+
+    renderHtml('html/cards.html');
 
     loadMockPictures();
 });
 
 function loadMockPictures() {
 
-    // divCarousel = document.getElementsByClassName('carousel-img-container')[0];
-    // imgCarousel = document.getElementById('carousel-img');
-
     // Just to try render pictures on the carousel
     // TODO replace for TWITTER Pictures - API
     fetch('https://jsonplaceholder.typicode.com/photos').then(resp => {
         return resp.json();
-    }).then((data) => {
-        console.log(data);
-        for (var index = 0; index < 3; index++) {
+    }).then((data) => {   
 
             photos = data;
-            urlFullImage = photos[0].url;
-        
-
-            // Set divCarousel & imgCarousel
-            divCarousel = $('.carousel-img-container')[0];
-            imgCarousel = $('#carousel-img')[0];
+            
+            /*********Carousel*********** */
+            //urlFullImage = photos[0].url;
+            // // Set divCarousel & imgCarousel
+            // divCarousel = $('.carousel-img-container')[0];
+            // imgCarousel = $('#carousel-img')[0];
  
-            // Set Picture on the DOM
-            setPictureOnCarousel(urlFullImage);
-        }
+            // // Set Picture on the DOM
+            // setPictureOnCarousel(urlFullImage);
+            /*********Carousel*********** */
+
+
+            /************Cards************** */
+            for (var index = 0; index < 30; index++) {
+                let div = document.createElement('div');
+                div.className = "cards-view col-md-3";
+                div.style.backgroundImage = 'url("'+ photos[index].url +'")';
+                let img = new Image();
+                img.src = photos[index].url;
+                div.appendChild(img);
+                $('#cards-view')[0].append(div);                
+            }
+        
     });
 }
 
