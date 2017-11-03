@@ -1,33 +1,34 @@
 var cb = new Codebird;
 
-cb.setConsumerKey("qjpcbF9ou1A6RV2e1e35ZXMkx", "YlyDSCeyRRpG29MoYVHb4CPI0eU3AkEPjjDNLMhM5dOiNkrsRO");
-cb.setToken("83858181-MfGjHdyeKMfBrvmbhi6SyMa2Sk2gBJar49ZvgeQEv", "Wj7Z611pMRtWzn0wyE3GGFyVCgKClpcHGDhJx1vQ3kkdH");
+cb.setConsumerKey("I3CNZdD5D9JB0vVCUH52SrXWt", "K6ATzjMt6mDjpc7nWvmg0iMfbSFgK3tKz85YMFnFr4ixjvieKi");
+cb.setToken("926514036270882816-nycv2pNl1HrlkRpAGGpCo01R0XBfuUs", "2xoVC7Bvr1DKHQAkMDzdEzJw3Xzmo9XlYegnvK1dg1TWJ");
 
 function getTweets(hash) {
-  var params = {
-    q: hash
-  };
-  cb.__call(
-    "search_tweets",
-    params,
-    function (reply) {
-      // ...
-    }
-  );
+  return new Promise((resolve, reject)=>{
+    var params = {
+      q: hash,
+      include_entities: true,
+      count: 100
+    };
+    cb.__call(
+      "search_tweets",
+      params,
+      function (reply) {
+        resolve(reply);
+      }
+    );
+  })
 }
 
 function getReainingRequests() {
   return new Promise((resolve, reject)=>{
-  cb.__call(
-    "search_tweets",
-    "q=Twitter",
+    cb.__call(
+      "search_tweets",
+      "q=Twitter",
     ).then((resp)=>{
       resolve(resp.rate.remaining);
     }).catch((err)=>{
       reject(err);
     });
   });
-  }
-  getReainingRequests().then((resp)=>{
-    console.log(resp);
-  });
+}
