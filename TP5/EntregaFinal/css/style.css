@@ -1,13 +1,18 @@
-.container-fluid {
-    background-color: #D7EFFE;
-    position: fixed;
-    height: 100%;
-    overflow-y: auto;
+@font-face {
+    font-family: dense;
+    src: url(../fonts/dense/Dense-Regular.otf);
 }
 
-.main-loader {
-    width: 100%;
+.container-fluid {
+    background-color: #e0f3ff;
     height: 100%;
+
+}
+
+nav,footer {
+    letter-spacing: 2px;
+    font-weight: lighter;
+    font-family: dense;
 }
 
 .pic-search {
@@ -21,41 +26,30 @@ button:hover {
 }
 
 .about {
-    font-size: 20px;
+    font-size: 30px;
     line-height: 2;
+    letter-spacing: 2px;
     font-variant: petite-caps;
     font-weight: lighter;
+    font-weight: lighter;
+    font-family: dense;
     text-align: center;
     padding-top: 40px;
 }
 
-.pic-search input,button {
+.pic-search input,
+button {
     -moz-box-shadow: 0px 1px 1px 1px #ccc;
     -webkit-box-shadow: 0px 1px 1px 1px #ccc;
     box-shadow: 0px 1px 1px 1px #ccc;
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 40px;
-}
-
 .footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 40px;
-    line-height: 40px;
-    /* Vertically center the text there */
     text-align: center;
-    font-weight: lighter;
+    background-color: #e0f3ff;
 }
