@@ -18,7 +18,11 @@ $(document).on("click", '#search-button', (e) => {
 
     renderHtml('html/cards.html');
 
-    loadMockPictures();
+    //loadMockPictures();
+    var input = document.getElementById('hash-input');
+    if (input.value !== "") {
+      retrieveTweets(input.value);
+    }
 });
 
 function loadMockPictures() {
@@ -27,39 +31,30 @@ function loadMockPictures() {
     // TODO replace for TWITTER Pictures - API
     fetch('https://jsonplaceholder.typicode.com/photos').then(resp => {
         return resp.json();
-    }).then((data) => {   
+    }).then((data) => {
 
             photos = data;
-            
+
             /*********Carousel*********** */
             //urlFullImage = photos[0].url;
             // // Set divCarousel & imgCarousel
             // divCarousel = $('.carousel-img-container')[0];
             // imgCarousel = $('#carousel-img')[0];
- 
+
             // // Set Picture on the DOM
             // setPictureOnCarousel(urlFullImage);
             /*********Carousel*********** */
 
 
             /************Cards************** */
-            for (var index = 0; index < 30; index++) {
-                let div = document.createElement('div');
-                div.className = "cards-view col-md-3";
-                div.style.backgroundImage = 'url("'+ photos[index].url +'")';
-                let img = new Image();
-                img.src = photos[index].url;
-                div.appendChild(img);
-                $('#cards-view')[0].append(div);                
-            }
-        
+
     });
 }
 
 /**
  * Set Picture on the Carousel and Set Animation
- * @param {*} url 
- * @param {*} arrow 
+ * @param {*} url
+ * @param {*} arrow
  */
 function setPictureOnCarousel(url, arrow = null) {
 
@@ -119,7 +114,7 @@ renderHtml('html/home.html');
 
 /**
  * Render HTML
- * @param {url} url 
+ * @param {url} url
  */
 function renderHtml(url) {
     let headers = new Headers();
@@ -142,4 +137,3 @@ function renderHtml(url) {
 
         }).catch(err => console.log(err));
 }
-
