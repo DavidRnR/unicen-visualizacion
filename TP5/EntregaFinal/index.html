@@ -13,16 +13,24 @@
 </head>
 
 <body>
-    <!-- NavBar - Icon and Title -->
-    <nav class="navbar navbar-light bg-faded">
-        <a class="navbar-brand" href="./index.html" title="Home">
+    <div class="main-container">
+        <!-- NavBar - Icon and Title -->
+        <nav class="navbar navbar-light bg-faded">
+            <a class="navbar-brand" href="./index.html" title="Home">
                 <img src="img/logo.png" width="50" height="30" class="d-inline-block align-top" alt="">
-<<<<<<< HEAD
              <span class="tudai-title">PICHASH</span>
-=======
+
              <span class="pichash-title">PICHASH</span>
->>>>>>> master
+
             </a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" id="about">About</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- NavBar - Icon and Title -->
+        <div id="app-loader" class="container-fluid">
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
@@ -31,16 +39,27 @@
         </ul>
     </nav>
     <!-- NavBar - Icon and Title -->
+      
     <div id="app-loader" class="container-fluid">
 
+            <!-- Load Home First Time -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="pic-search input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                    <span class="input-group-btn">
+                     <button class="btn btn-secondary" type="button" id="search-button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </span>
+                </div>
+            </div>
 
-    </div>
-       <footer class="footer">
+        </div>
+        <footer class="footer">
             <span class="text-muted">Creado por Bollati Alfredo - David Martín - 2017 -
             <a href="https://github.com/DavidRnR/unicen-visualizacion/tree/master/TP5/EntregaFinal" target="_blank" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></span>
 
         </footer>
 
+    </div>
 
 </body>
 

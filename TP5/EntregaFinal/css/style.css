@@ -3,13 +3,29 @@
     src: url(../fonts/dense/Dense-Regular.otf);
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.main-container {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+#app-loader {
+    display: table-row;
+}
+
 .container-fluid {
     background-color: #e0f3ff;
     height: 100%;
-
 }
 
-nav,footer {
+nav,
+footer {
     letter-spacing: 2px;
     font-weight: lighter;
     font-family: dense;
@@ -34,7 +50,7 @@ button:hover {
     font-weight: lighter;
     font-family: dense;
     text-align: center;
-    padding-top: 40px;
+    margin-top: 25px;
 }
 
 .pic-search input,
