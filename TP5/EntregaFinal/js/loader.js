@@ -113,11 +113,6 @@ $(document).on("click", '#get-back-img', (e) => {
 
 
 /**
- * On load page, render the menu
- */
-renderHtml('html/home.html');
-
-/**
  * Render HTML
  * @param {url} url 
  */
