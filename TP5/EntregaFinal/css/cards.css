@@ -1,5 +1,6 @@
 .cards-view {
     background: no-repeat url('') 50% / 100%;
+    display: inline-table;
     -moz-box-shadow: 0px 1px 1px 1px #ccc;
     -webkit-box-shadow: 0px 1px 1px 1px #ccc;
     box-shadow: 0px 1px 1px 1px #ccc;

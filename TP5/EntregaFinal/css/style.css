@@ -31,6 +31,19 @@ footer {
     font-family: dense;
 }
 
+.welcome-pichash {
+    margin-top: 125px;  
+}
+
+.welcome-pichash p {
+    font-family: dense;
+    font-size: 80px;
+    letter-spacing: 5px;
+    font-weight: lighter;
+    color: rgb(107, 107, 107);
+    animation: float 4s infinite;
+}
+
 .pic-search {
     min-width: 100px;
     width: 30%;
@@ -47,7 +60,6 @@ button:hover {
     letter-spacing: 2px;
     font-variant: petite-caps;
     font-weight: lighter;
-    font-weight: lighter;
     font-family: dense;
     text-align: center;
     margin-top: 25px;
@@ -60,12 +72,61 @@ button {
     box-shadow: 0px 1px 1px 1px #ccc;
 }
 
+.display-buttons {
+    position: relative;
+    left: 90%;
+    margin-top: 20px;
+}
 
-/* Sticky footer styles
+.loading-spinner span{
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    font-family: dense;
+    text-align: center;
+}
+
+/* Footer styles
 -------------------------------------------------- */
 
 .footer {
     width: 100%;
     text-align: center;
     background-color: #e0f3ff;
+}
+
+/* Animations 
+----------------------------------------------------*/
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-10px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+/*Media Queries
+----------------------------------------------------*/
+@media only screen and (max-width: 1024px) {
+    .pic-search {
+        min-width: 100px;
+        width: 100%;
+        margin-top: 150px;
+    }
+
+    .welcome-pichash p {
+        font-size: 30px;
+    }
+
+    .about {
+        font-size: 20px;
+    }
+
+    .display-buttons {
+        left: 69%;
+    }
 }

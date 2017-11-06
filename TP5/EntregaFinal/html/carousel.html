@@ -1,16 +1,31 @@
+<!-- Buttons to display Carousel or Cards -->
+<div class="row display-buttons">
+    <button onclick="onSetView('cards')" type="button" class="btn btn-light"><i class="fa fa-list fa-fw" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-secondary active"> <i class="fa fa-sliders fa-fw" aria-hidden="true"></i></button>    
+</div>
+
 <div class="carousel-pichash d-flex align-items-center justify-content-center">
 
+    <!-- Arrow Back -->
     <div id="get-back-img" class="carousel-arrow-left">
         <i class="fa fa-chevron-left fa-3x" aria-hidden="true" style="color: white;"></i>
     </div>
 
 
+    <!-- Arrow Next -->
     <div id="get-next-img" class="carousel-arrow-right">
         <i class="fa fa-chevron-right fa-3x" aria-hidden="true" style="color: white;"></i>
     </div>
 
+    <!-- Pictures Container -->
     <div class="carousel-img-container">
         <img id="carousel-img" class="img-fluid" src="" alt="">
+    </div> 
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+        <span>Loading...</span>
     </div> 
     
 </div>
