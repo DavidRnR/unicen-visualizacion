@@ -5,6 +5,7 @@ buttonAbout.addEventListener('click', (e) => {
     renderHtml('html/about.html');
 });
 
+// Photos
 var photos;
 var urlFullImage = "";
 var divCarousel;
@@ -14,42 +15,19 @@ var imgCarousel;
 $(document).on("click", '#search-button', (e) => {
     e.preventDefault();
 
-    // renderHtml('html/carousel.html');
 
-    renderHtml('html/cards.html');
-
-    //loadMockPictures();
     var input = document.getElementById('hash-input');
     if (input.value !== "") {
-      retrieveTweets(input.value);
+
+        // Load Cards Gallery
+        renderHtml('html/cards.html');
+
+        // Get Tweets 
+        retrieveTweets(input.value);
+
     }
 });
 
-function loadMockPictures() {
-
-    // Just to try render pictures on the carousel
-    // TODO replace for TWITTER Pictures - API
-    fetch('https://jsonplaceholder.typicode.com/photos').then(resp => {
-        return resp.json();
-    }).then((data) => {
-
-            photos = data;
-
-            /*********Carousel*********** */
-            //urlFullImage = photos[0].url;
-            // // Set divCarousel & imgCarousel
-            // divCarousel = $('.carousel-img-container')[0];
-            // imgCarousel = $('#carousel-img')[0];
-
-            // // Set Picture on the DOM
-            // setPictureOnCarousel(urlFullImage);
-            /*********Carousel*********** */
-
-
-            /************Cards************** */
-
-    });
-}
 
 /**
  * Set Picture on the Carousel and Set Animation
@@ -73,13 +51,13 @@ function setPictureOnCarousel(url, arrow = null) {
 $(document).on("click", '#get-next-img', (e) => {
     e.preventDefault();
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < photos.length; i++) {
 
-        if (urlFullImage == photos[i].url) {
+        if (urlFullImage == photos[i]) {
             if (i + 1 == 10) {
                 return;
             }
-            urlFullImage = photos[i + 1].url;
+            urlFullImage = photos[i + 1];
             // Set Picture on the DOM
             setPictureOnCarousel(urlFullImage, 'next');
             return;
@@ -92,12 +70,12 @@ $(document).on("click", '#get-next-img', (e) => {
 $(document).on("click", '#get-back-img', (e) => {
     e.preventDefault();
 
-    for (let i = 0; i < 10; i++) {
-        if (urlFullImage == photos[i].url) {
+    for (let i = 0; i < photos.length; i++) {
+        if (urlFullImage == photos[i]) {
             if (i - 1 == -1) {
                 return;
             }
-            urlFullImage = photos[i - 1].url;
+            urlFullImage = photos[i - 1];
             // Set Picture on the DOM
             setPictureOnCarousel(urlFullImage, 'back');
             return;
@@ -106,6 +84,15 @@ $(document).on("click", '#get-back-img', (e) => {
 
 });
 
+/**
+ * On Set View -  Carousel or Cards Gallery
+ * @param {*} view 
+ */
+function onSetView(view) {
+
+    //TODO Change View Carousel or Cards
+    // Show or Hide Loading
+}
 
 /**
  * Render HTML
