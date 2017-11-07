@@ -12,18 +12,18 @@ var divCarousel;
 var imgCarousel;
 
 // Button Search
-$(document).on("click", '#search-button', (e) => {
+$(document).on("submit", '#search-button', (e) => {
     e.preventDefault();
 
 
-    var input = document.getElementById('hash-input');
-    if (input.value !== "") {
+    var input = e.target[0].value;
+    if (input !== "") {
 
         // Load Cards Gallery
         renderHtml('html/cards.html');
 
         // Get Tweets 
-        retrieveTweets(input.value);
+        retrieveTweets(input);
 
     }
 });

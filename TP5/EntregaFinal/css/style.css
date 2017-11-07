@@ -17,6 +17,9 @@ body {
 
 #app-loader {
     display: table-row;
+    background-image: url('../img/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .container-fluid {
@@ -32,7 +35,7 @@ footer {
 }
 
 .welcome-pichash {
-    margin-top: 125px;  
+    margin-top: 50px;  
 }
 
 .welcome-pichash p {
@@ -41,10 +44,22 @@ footer {
     letter-spacing: 5px;
     font-weight: lighter;
     color: rgb(107, 107, 107);
+    animation: fadeIn 1.5s;
+}
+
+.welcome-pichash p:nth-child(2) {
+    font-family: dense;
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-weight: lighter;
+    color: rgb(107, 107, 107);
+    text-align: center;
     animation: float 4s infinite;
 }
 
+
 .pic-search {
+    display: inline-flex;
     min-width: 100px;
     width: 30%;
     margin-top: 150px;
@@ -60,7 +75,7 @@ button:hover {
     letter-spacing: 2px;
     font-variant: petite-caps;
     font-weight: lighter;
-    font-family: dense;
+    font-family: Roboto;
     text-align: center;
     margin-top: 25px;
 }
@@ -109,17 +124,26 @@ button {
 	}
 }
 
+@keyframes fadeIn {
+   0% {opacity: 0;}
+   100% {opacity: 1;}
+} 
+
 /*Media Queries
 ----------------------------------------------------*/
 @media only screen and (max-width: 1024px) {
     .pic-search {
         min-width: 100px;
-        width: 100%;
-        margin-top: 150px;
+        width: 80%;
+        margin-top: 30px;
     }
 
     .welcome-pichash p {
         font-size: 30px;
+    }
+
+    .welcome-pichash p:nth-child(2) {
+        font-size: 20px;
     }
 
     .about {
