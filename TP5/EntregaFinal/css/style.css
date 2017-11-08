@@ -1,6 +1,11 @@
 @font-face {
-    font-family: dense;
+    font-family: Dense;
     src: url(../fonts/dense/Dense-Regular.otf);
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/roboto/Roboto-Light.ttf);
 }
 
 html,
@@ -31,15 +36,29 @@ nav,
 footer {
     letter-spacing: 2px;
     font-weight: lighter;
-    font-family: dense;
+    font-family: Roboto;
+}
+
+.navbar,
+.navbar-brand,
+.nav-link {
+    padding-bottom: 0px;
+}
+
+.pichash-title {
+    position: relative;
+    bottom: 6px;
+    font-family: Dense;
+    font-size: 40px;
+    color: rgb(107, 107, 107);
 }
 
 .welcome-pichash {
-    margin-top: 50px;  
+    margin-top: 20px;
 }
 
 .welcome-pichash p {
-    font-family: dense;
+    font-family: Dense;
     font-size: 80px;
     letter-spacing: 5px;
     font-weight: lighter;
@@ -48,7 +67,7 @@ footer {
 }
 
 .welcome-pichash p:nth-child(2) {
-    font-family: dense;
+    font-family: Dense;
     font-size: 40px;
     letter-spacing: 5px;
     font-weight: lighter;
@@ -57,12 +76,11 @@ footer {
     animation: float 4s infinite;
 }
 
-
 .pic-search {
     display: inline-flex;
     min-width: 100px;
     width: 30%;
-    margin-top: 150px;
+    margin-top: 20px;
 }
 
 button:hover {
@@ -72,12 +90,9 @@ button:hover {
 .about {
     font-size: 30px;
     line-height: 2;
-    letter-spacing: 2px;
-    font-variant: petite-caps;
-    font-weight: lighter;
+    letter-spacing: 2px; 
     font-family: Roboto;
     text-align: center;
-    margin-top: 25px;
 }
 
 .pic-search input,
@@ -88,18 +103,25 @@ button {
 }
 
 .display-buttons {
-    position: relative;
-    left: 90%;
-    margin-top: 20px;
+    position: fixed;
+    top: 40%;
+    display: grid;
+    right: 20px;
+    z-index: 9999;
 }
 
-.loading-spinner span{
+.display-buttons button {
+    margin: 2px;
+}
+
+.loading-spinner span {
     font-size: 30px;
     letter-spacing: 2px;
     font-weight: lighter;
-    font-family: dense;
+    font-family: Dense;
     text-align: center;
 }
+
 
 /* Footer styles
 -------------------------------------------------- */
@@ -108,48 +130,56 @@ button {
     width: 100%;
     text-align: center;
     background-color: #e0f3ff;
+    font-size: 12px;
 }
+
 
 /* Animations 
 ----------------------------------------------------*/
+
 @keyframes float {
-	0% {
-		transform: translatey(0px);
-	}
-	50% {
-		transform: translatey(-10px);
-	}
-	100% {
-		transform: translatey(0px);
-	}
+    0% {
+        transform: translatey(0px);
+    }
+    50% {
+        transform: translatey(-10px);
+    }
+    100% {
+        transform: translatey(0px);
+    }
 }
 
 @keyframes fadeIn {
-   0% {opacity: 0;}
-   100% {opacity: 1;}
-} 
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 
 /*Media Queries
 ----------------------------------------------------*/
+
 @media only screen and (max-width: 1024px) {
     .pic-search {
         min-width: 100px;
         width: 80%;
         margin-top: 30px;
     }
-
+    .welcome-pichash {
+        margin-top: 40px;
+    }
     .welcome-pichash p {
         font-size: 30px;
     }
-
     .welcome-pichash p:nth-child(2) {
         font-size: 20px;
     }
-
     .about {
         font-size: 20px;
     }
-
     .display-buttons {
         left: 69%;
     }
