@@ -1,3 +1,5 @@
+var heartInterval;
+
 /**
 * Get All Tweets
 * @param {*} hash
@@ -38,7 +40,7 @@ function retrieveTweets(hash) {
     photos = [
         {
             url: "http://images.samash.com/sa/T41/T410-P.fpx?cvt=jpg",
-            retweets: 22
+            retweets: 0
         },
         {
            url: "https://www.taylorguitars.com/sites/default/files/TaylorGuitars-New-for-17-Browse.jpg",
@@ -46,7 +48,7 @@ function retrieveTweets(hash) {
         },
         {
             url: "https://cdn-images-1.medium.com/max/2000/1*-vVeRVJfQZb2IgpH2RBJyQ.jpeg",
-            retweets: 55
+            retweets: 1500
         },
         {
             url:"http://data.whicdn.com/images/57303318/large.jpg",
@@ -76,52 +78,70 @@ function showHideLoadingSpinner() {
 * Create Gallery Cards
 */
 function createCards() {
-    for (var index = 0; index < photos.length; index++) {
-        let conteiner = document.createElement('div');
-        let card = document.createElement('div');
-        conteiner.append(card);
-        conteiner.className = "cardConteiner  col-md-3";
-        card.className = "cards-view";
-        
-        card.onclick = function (e) {
+  for (var index = 0; index < photos.length; index++) {
+    let conteiner = document.createElement('div');
+    let card = document.createElement('div');
+    conteiner.append(card);
+    conteiner.className = "cardConteiner  col-md-3";
+    card.className = "cards-view";
+
+      card.onclick = function (e) {
             // Show Modal
             $('#fullSizeModal').modal('show');
   
             let modalImage = document.getElementById('carousel-modal-img'); 
 
             modalImage.src = this.childNodes[0].src;
-        };
-        
-        conteiner.retweets = photos[index].retweets;
-        card.style.backgroundImage = 'url("' + photos[index].url + '")';
-        let img = new Image();
-        img.src = photos[index].url;
-        conteiner.onmouseenter = addFavFn;
-        conteiner.onmouseleave = function () {
-            conteiner.removeChild(conteiner.childNodes[1]);
-        }
-        card.appendChild(img);
-        let cardsConteiner = $('#cards-view')[0];
-        cardsConteiner.append(conteiner);
+    };
+
+    conteiner.retweets = photos[index].retweets;
+    card.style.backgroundImage = 'url("' + photos[index].url + '")';
+    let img = new Image();
+    img.src = photos[index].url;
+    conteiner.onmouseenter = addFavFn;
+    conteiner.onmouseleave = function(){
+      conteiner.removeChild(conteiner.childNodes[1]);
+      clearInterval(heartInterval);
     }
+    card.appendChild(img);
+    let cardsConteiner = $('#cards-view')[0];
+    cardsConteiner.append(conteiner);
+  }
 }
 
 function addFavFn() {
-    let favConteiner = document.createElement('div');
-    this.append(favConteiner);
-    this.favConteiner = favConteiner;
-    favConteiner.className = "favConteiner";
-    let div = document.createElement('div');
-    let retweet = document.createElement('div');
-    retweet.className = 'retweets-count';
-    retweet.innerHTML = this.retweets;
-    div.className = "favourite";
-    div.style.backgroundImage = 'url("img/heart.png")';
-    div.addEventListener("animationend", function () {
-        div.remove();
-    });
-    this.favConteiner.appendChild(div);
-    this.favConteiner.appendChild(retweet);
+  let favConteiner = document.createElement('div');
+  let heart = document.createElement('div');
+  let retweetCount = document.createElement('div');
+
+  favConteiner.className = "favConteiner";
+  retweetCount.className = 'retweets-count';
+  this.append(favConteiner);
+  this.favConteiner = favConteiner;
+  retweetCount.innerHTML = this.retweets;
+
+  if (this.retweets < 1000 && this.retweets !== 0) {
+    heart.style.backgroundImage = 'url("img/heart.png")';
+    heart.className = "favourite";
+    this.favConteiner.appendChild(heart);
+  } else if (this.retweets === 0) {
+    heart.style.backgroundImage = 'url("img/heart_b.png")';
+    heart.className = "favourite favourite_b";
+    this.favConteiner.appendChild(heart);
+  } else { // more than 1000 retweets
+    heart.style.backgroundImage = 'url("img/heart.png")';
+    heart.className = "favourite favourite_1000";
+    var count = 0;
+    heartInterval = setInterval(() => {
+      var cln = heart.cloneNode(true);
+      this.favConteiner.appendChild(cln);
+      count++;
+      if (count == 10) {
+        clearInterval(heartInterval);
+      }
+    }, 400);
+  }
+  this.favConteiner.appendChild(retweetCount);
 }
 
 
@@ -130,11 +150,11 @@ function addFavFn() {
 */
 function createCarousel() {
 
-    urlFullImage = photos[0].url;
-    // Set divCarousel & imgCarousel
-    divCarousel = $('.carousel-img-container')[0];
-    imgCarousel = $('#carousel-img')[0];
+  urlFullImage = photos[0].url;
+  // Set divCarousel & imgCarousel
+  divCarousel = $('.carousel-img-container')[0];
+  imgCarousel = $('#carousel-img')[0];
 
-    // Set Picture on the DOM
-    setPictureOnCarousel(urlFullImage);
+  // Set Picture on the DOM
+  setPictureOnCarousel(urlFullImage);
 }
