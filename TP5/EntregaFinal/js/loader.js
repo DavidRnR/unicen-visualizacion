@@ -5,6 +5,12 @@ buttonAbout.addEventListener('click', (e) => {
     renderHtml('html/about.html');
 });
 
+var buttonHome = document.getElementById('home');
+buttonHome.addEventListener('click', (e) => {
+    e.preventDefault();
+    renderHtml('html/home.html');
+});
+
 // Photos
 var photos;
 var urlFullImage = "";
@@ -20,7 +26,7 @@ $(document).on("submit", '#search-button', (e) => {
     if (input !== "") {
 
         // Load Cards Gallery
-        renderHtml('html/cards.html');
+        renderHtml('html/carousel.html');
 
         // Get Tweets 
         retrieveTweets(input);
@@ -40,7 +46,6 @@ function setPictureOnCarousel(url, arrow = null) {
     $(divCarousel).removeClass("slide-pic-next");
 
     setTimeout(() => {
-        divCarousel.style.backgroundImage = 'url("' + url + '")';
         imgCarousel.src = url;
         $(divCarousel).addClass("slide-pic-" + ((arrow) ? arrow : 'next'));
     }, 100);

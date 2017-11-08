@@ -19,9 +19,9 @@ function retrieveTweets(hash) {
     }
     photos = picsArray;
     
-    // createCarousel();
+    createCarousel();
   
-    createCards();
+    // createCards();
     // Show Spinner
     showHideLoadingSpinner();
 

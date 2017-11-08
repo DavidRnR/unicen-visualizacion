@@ -114,6 +114,10 @@ button {
     margin: 2px;
 }
 
+.loading-spinner {
+    position: absolute;
+}
+
 .loading-spinner span {
     font-size: 30px;
     letter-spacing: 2px;
@@ -180,7 +184,5 @@ button {
     .about {
         font-size: 20px;
     }
-    .display-buttons {
-        left: 69%;
-    }
+
 }
