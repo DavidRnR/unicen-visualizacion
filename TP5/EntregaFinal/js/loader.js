@@ -20,20 +20,20 @@ var imgCarousel;
 // Button Search
 $(document).on("submit", '#search-button', (e) => {
     e.preventDefault();
+    event.stopPropagation();
 
-
-    var input = e.target[0].value;
-    if (input !== "") {
-
+    var hash = e.target[0].value;
+    if (hash !== "") {           
         // Load Cards Gallery
         renderHtml('html/cards.html');
 
         // Get Tweets 
-        retrieveTweets(input);
-
+        retrieveTweets(hash);     
+      
     }
-});
+  
 
+});
 
 /**
  * Set Picture on the Carousel and Set Animation
@@ -95,8 +95,23 @@ $(document).on("click", '#get-back-img', (e) => {
  */
 function onSetView(view) {
 
-    //TODO Change View Carousel or Cards
-    // Show or Hide Loading
+    // Change View Carousel or Cards
+    if(view == 'carousel') {
+        renderHtml('html/carousel.html').then(() => {
+            createCarousel();
+             // Hioe Spinner
+            showHideLoadingSpinner();
+        });
+        
+    }
+    else if(view == 'cards') {
+        renderHtml('html/cards.html').then(()=> {
+            createCards();
+            // Hide Spinner
+            showHideLoadingSpinner();
+        });
+    }
+
 }
 
 /**
@@ -114,13 +129,13 @@ function renderHtml(url) {
     };
     let myRequest = new Request(url, options);
 
-    fetch(myRequest)
+    return fetch(myRequest)
         .then(response => {
             return response.text();
         }).then(data => {
 
             // Render Data
-            document.getElementById('app-loader').innerHTML = data;
+           return document.getElementById('app-loader').innerHTML = data;
 
         }).catch(err => console.log(err));
 }
