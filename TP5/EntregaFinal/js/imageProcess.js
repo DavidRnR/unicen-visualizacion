@@ -4,10 +4,14 @@
 */
 function retrieveTweets(hash) {
     getTweets(hash).then((resp) => {
+
         var urlArray = [];
         var tweetArray = [];
+
         for (var i = 0; i < resp.statuses.length; i++) {
+            // Set Tweet
             var tweet = resp.statuses[i];
+
             if (tweet.extended_entities && tweet.extended_entities.media) {
                 for (var j = 0; j < tweet.extended_entities.media.length; j++) {
                     if (tweet.extended_entities.media[j].type === "photo") {
@@ -15,7 +19,6 @@ function retrieveTweets(hash) {
                             var obj = {};
                             obj.url = tweet.extended_entities.media[j].media_url_https;
                             obj.likes = tweet.favorite_count;
-                            console.log(obj.likes);
                             obj.retweets = tweet.retweet_count;
                             urlArray.push(tweet.extended_entities.media[j].media_url_https);
                             tweetArray.push(obj);
@@ -26,9 +29,8 @@ function retrieveTweets(hash) {
         }
         photos = tweetArray;
 
-        // createCarousel();
-
         createCards();
+
         // Show Spinner
         showHideLoadingSpinner();
 

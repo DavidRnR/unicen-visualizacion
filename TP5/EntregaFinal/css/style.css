@@ -89,10 +89,21 @@ button:hover {
 
 .about {
     font-size: 30px;
+    color: rgb(107, 107, 107);
     line-height: 2;
     letter-spacing: 2px; 
     font-family: Roboto;
     text-align: center;
+}
+
+.about span { 
+    font-family: dense;
+    font-size: 50px;
+    letter-spacing: 7px;
+}
+
+.about p:nth-child(4) {
+    font-size: 20px;
 }
 
 .pic-search input,
