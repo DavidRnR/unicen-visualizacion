@@ -5,47 +5,73 @@ var heartInterval;
 * @param {*} hash
 */
 function retrieveTweets(hash) {
-  getTweets(hash).then((resp) => {
+    // getTweets(hash).then((resp) => {
 
-      var urlArray = [];
-      var tweetArray = [];
+    //     var urlArray = [];
+    //     var tweetArray = [];
 
-      for (var i = 0; i < resp.statuses.length; i++) {
-          // Set Tweet
-          var tweet = resp.statuses[i];
+    //     for (var i = 0; i < resp.statuses.length; i++) {
+    //         // Set Tweet
+    //         var tweet = resp.statuses[i];
 
-          if (tweet.extended_entities && tweet.extended_entities.media) {
-              for (var j = 0; j < tweet.extended_entities.media.length; j++) {
-                  if (tweet.extended_entities.media[j].type === "photo") {
-                      if (!urlArray.includes(tweet.extended_entities.media[j].media_url_https)) {
-                          var obj = {};
-                          obj.url = tweet.extended_entities.media[j].media_url_https;
-                          obj.likes = tweet.favorite_count;
-                          obj.retweets = tweet.retweet_count;
-                          urlArray.push(tweet.extended_entities.media[j].media_url_https);
-                          tweetArray.push(obj);
-                      }
-                  }
-              }
-          }
-      }
-      photos = tweetArray;
+    //         if (tweet.extended_entities && tweet.extended_entities.media) {
+    //             for (var j = 0; j < tweet.extended_entities.media.length; j++) {
+    //                 if (tweet.extended_entities.media[j].type === "photo") {
+    //                     if (!urlArray.includes(tweet.extended_entities.media[j].media_url_https)) {
+    //                         var obj = {};
+    //                         obj.url = tweet.extended_entities.media[j].media_url_https;
+    //                         obj.likes = tweet.favorite_count;
+    //                         obj.retweets = tweet.retweet_count;
+    //                         urlArray.push(tweet.extended_entities.media[j].media_url_https);
+    //                         tweetArray.push(obj);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     photos = tweetArray;
 
-      createCards();
+    //     createCards();
 
-      // Show Spinner
-      showHideLoadingSpinner();
+    //     // Show Spinner
+    //     showHideLoadingSpinner();
 
-  });
+    // });
+    photos = [
+        {
+            url: "http://images.samash.com/sa/T41/T410-P.fpx?cvt=jpg",
+            retweets: 0
+        },
+        {
+           url: "https://www.taylorguitars.com/sites/default/files/TaylorGuitars-New-for-17-Browse.jpg",
+           retweets: 44 
+        },
+        {
+            url: "https://cdn-images-1.medium.com/max/2000/1*-vVeRVJfQZb2IgpH2RBJyQ.jpeg",
+            retweets: 1500
+        },
+        {
+            url:"http://data.whicdn.com/images/57303318/large.jpg",
+            retweets: 3
+        },
+        {
+            url: "https://dncache-mauganscorp.netdna-ssl.com/thumbseg/856/856214-bigthumbnail.jpg",
+            retweets: 39
+        }
+    ];
+    createCards();
+
+    // Show Spinner
+    showHideLoadingSpinner();
 }
 
 /**
 * Show or Hide Loadibg Spinner
 */
 function showHideLoadingSpinner() {
-  let loadingSpinner = document.getElementsByClassName('loading-spinner')[0];
-
-  loadingSpinner.style.display = (loadingSpinner.style.display == 'none') ? 'initial' : 'none';
+    let loadingSpinner = document.getElementsByClassName('loading-spinner')[0];
+    
+    loadingSpinner.style.display = (loadingSpinner.style.display == 'none') ? 'initial' : 'none';
 }
 
 /**
@@ -58,6 +84,16 @@ function createCards() {
     conteiner.append(card);
     conteiner.className = "cardConteiner  col-md-3";
     card.className = "cards-view";
+
+      card.onclick = function (e) {
+            // Show Modal
+            $('#fullSizeModal').modal('show');
+  
+            let modalImage = document.getElementById('carousel-modal-img'); 
+
+            modalImage.src = this.childNodes[0].src;
+    };
+
     conteiner.retweets = photos[index].retweets;
     card.style.backgroundImage = 'url("' + photos[index].url + '")';
     let img = new Image();
@@ -107,6 +143,7 @@ function addFavFn() {
   }
   this.favConteiner.appendChild(retweetCount);
 }
+
 
 /**
 * Create Carousel
