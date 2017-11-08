@@ -5,64 +5,38 @@ var heartInterval;
 * @param {*} hash
 */
 function retrieveTweets(hash) {
-  // getTweets(hash).then((resp) => {
-  //
-  //     var urlArray = [];
-  //     var tweetArray = [];
-  //
-  //     for (var i = 0; i < resp.statuses.length; i++) {
-  //         // Set Tweet
-  //         var tweet = resp.statuses[i];
-  //
-  //         if (tweet.extended_entities && tweet.extended_entities.media) {
-  //             for (var j = 0; j < tweet.extended_entities.media.length; j++) {
-  //                 if (tweet.extended_entities.media[j].type === "photo") {
-  //                     if (!urlArray.includes(tweet.extended_entities.media[j].media_url_https)) {
-  //                         var obj = {};
-  //                         obj.url = tweet.extended_entities.media[j].media_url_https;
-  //                         obj.likes = tweet.favorite_count;
-  //                         obj.retweets = tweet.retweet_count;
-  //                         urlArray.push(tweet.extended_entities.media[j].media_url_https);
-  //                         tweetArray.push(obj);
-  //                     }
-  //                 }
-  //             }
-  //         }
-  //     }
-  //     photos = tweetArray;
-  //
-  //     createCards();
-  //
-  //     // Show Spinner
-  //     showHideLoadingSpinner();
-  //
-  // });
-  photos = [
-    {
-      "url": "http://images.performgroup.com/di/library/goal_es/74/85/lionel-messi-barcelona-psg-uefa-champions-league-08032016_feltmf12bt0f18v9iprtnl463.jpg",
-      "retweets": 658
-    },
-    {
-      "url": "http://images.performgroup.com/di/library/goal_es/74/85/lionel-messi-barcelona-psg-uefa-champions-league-08032016_feltmf12bt0f18v9iprtnl463.jpg",
-      "retweets": 6583
-    },
-    {
-      "url": "http://images.performgroup.com/di/library/goal_es/74/85/lionel-messi-barcelona-psg-uefa-champions-league-08032016_feltmf12bt0f18v9iprtnl463.jpg",
-      "retweets": 0
-    },
-    {
-      "url": "http://images.performgroup.com/di/library/goal_es/74/85/lionel-messi-barcelona-psg-uefa-champions-league-08032016_feltmf12bt0f18v9iprtnl463.jpg",
-      "retweets": 2222
-    },
-    {
-      "url": "http://images.performgroup.com/di/library/goal_es/74/85/lionel-messi-barcelona-psg-uefa-champions-league-08032016_feltmf12bt0f18v9iprtnl463.jpg",
-      "retweets": 0
-    },
-  ]
-  createCards();
+  getTweets(hash).then((resp) => {
 
-  // Show Spinner
-  showHideLoadingSpinner();
+      var urlArray = [];
+      var tweetArray = [];
+
+      for (var i = 0; i < resp.statuses.length; i++) {
+          // Set Tweet
+          var tweet = resp.statuses[i];
+
+          if (tweet.extended_entities && tweet.extended_entities.media) {
+              for (var j = 0; j < tweet.extended_entities.media.length; j++) {
+                  if (tweet.extended_entities.media[j].type === "photo") {
+                      if (!urlArray.includes(tweet.extended_entities.media[j].media_url_https)) {
+                          var obj = {};
+                          obj.url = tweet.extended_entities.media[j].media_url_https;
+                          obj.likes = tweet.favorite_count;
+                          obj.retweets = tweet.retweet_count;
+                          urlArray.push(tweet.extended_entities.media[j].media_url_https);
+                          tweetArray.push(obj);
+                      }
+                  }
+              }
+          }
+      }
+      photos = tweetArray;
+
+      createCards();
+
+      // Show Spinner
+      showHideLoadingSpinner();
+
+  });
 }
 
 /**
