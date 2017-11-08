@@ -26,7 +26,7 @@ $(document).on("submit", '#search-button', (e) => {
     if (input !== "") {
 
         // Load Cards Gallery
-        renderHtml('html/carousel.html');
+        renderHtml('html/cards.html');
 
         // Get Tweets 
         retrieveTweets(input);

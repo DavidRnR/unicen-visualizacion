@@ -1,17 +1,74 @@
 .cards-view {
     background: no-repeat url('') 50% / 100%;
-    display: inline-table;
+    display: table-row;
     -moz-box-shadow: 0px 1px 1px 1px #ccc;
     -webkit-box-shadow: 0px 1px 1px 1px #ccc;
     box-shadow: 0px 1px 1px 1px #ccc;
     border: 2px solid white;
     margin: 20px;
+    animation: carHoverAnimOut 0.5s ease;
+    animation-fill-mode:forwards;
+}
+
+.cards-view:hover {
+    animation: carHoverAnim 0.5s ease;
+    animation-fill-mode:forwards;
+}
+
+@keyframes carHoverAnim {
+    100% { transform: scale(1.01); filter: brightness(30%); }
+}
+@keyframes carHoverAnimOut {
+    100% { transform: scale(0.99); }
 }
 
 .cards-view img {
     vertical-align: top;
     width: 100%;
-    /* max width */
     opacity: 0;
     /* make it transparent */
+}
+
+.favourite {
+    position: absolute;
+    height: 121px;
+    width: 131px;
+    transform: scale(0.3);
+    bottom: -50px;
+    left: 10px;
+    animation: favAnim1 3.5s ease;
+    animation-fill-mode:forwards;
+}
+
+.favConteiner {
+    position: relative;
+    height: 1px;
+    width: 1px;
+}
+.cardConteiner {
+    display: table;
+    margin-top: 26px;
+}
+
+@keyframes favAnim1 {
+    10% { left: -10px }
+    30% { left:  30px }
+    50% { left: -10px }
+    80% { left:  40px }
+    100% {bottom: 200px; opacity: 0.1; left: 10px}
+}
+
+.retweets-count {
+    margin-left: 30px;
+    position: absolute;
+    top: -67px;
+    color: white;
+    font-size: 33px;
+    animation: retweetAnim 3s infinite;
+    font-family: Roboto;
+}
+
+@keyframes retweetAnim {
+    50% { transform: scale(1.5) }
+    100% { transform: scale(1) }
 }
