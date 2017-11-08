@@ -25,10 +25,12 @@ $(document).on("submit", '#search-button', (e) => {
     var hash = e.target[0].value;
     if (hash !== "") {           
         // Load Cards Gallery
-        renderHtml('html/cards.html');
+        renderHtml('html/cards.html').then(()=> {
+             // Get Tweets 
+        retrieveTweets(hash);
+        });
 
-        // Get Tweets 
-        retrieveTweets(hash);     
+       ;     
       
     }
   
@@ -55,14 +57,14 @@ function setPictureOnCarousel(url, arrow = null) {
 // Button Next Image - Carousel
 $(document).on("click", '#get-next-img', (e) => {
     e.preventDefault();
-
+ 
     for (let i = 0; i < photos.length; i++) {
 
-        if (urlFullImage == photos[i]) {
-            if (i + 1 == 10) {
+        if (urlFullImage == photos[i].url) {
+            if (i + 1 == photos.length) {
                 return;
             }
-            urlFullImage = photos[i + 1];
+            urlFullImage = photos[i + 1].url;
             // Set Picture on the DOM
             setPictureOnCarousel(urlFullImage, 'next');
             return;
@@ -76,11 +78,11 @@ $(document).on("click", '#get-back-img', (e) => {
     e.preventDefault();
 
     for (let i = 0; i < photos.length; i++) {
-        if (urlFullImage == photos[i]) {
+        if (urlFullImage == photos[i].url) {
             if (i - 1 == -1) {
                 return;
             }
-            urlFullImage = photos[i - 1];
+            urlFullImage = photos[i - 1].url;
             // Set Picture on the DOM
             setPictureOnCarousel(urlFullImage, 'back');
             return;
@@ -99,7 +101,7 @@ function onSetView(view) {
     if(view == 'carousel') {
         renderHtml('html/carousel.html').then(() => {
             createCarousel();
-             // Hioe Spinner
+             // Hide Spinner
             showHideLoadingSpinner();
         });
         
@@ -113,6 +115,7 @@ function onSetView(view) {
     }
 
 }
+
 
 /**
  * Render HTML
@@ -133,9 +136,9 @@ function renderHtml(url) {
         .then(response => {
             return response.text();
         }).then(data => {
-
-            // Render Data
-           return document.getElementById('app-loader').innerHTML = data;
-
+        
+             // Render Data
+             return document.getElementById('app-loader').innerHTML = data;
+            
         }).catch(err => console.log(err));
 }
