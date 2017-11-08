@@ -15,6 +15,7 @@ function retrieveTweets(hash) {
                             var obj = {};
                             obj.url = tweet.extended_entities.media[j].media_url_https;
                             obj.likes = tweet.favorite_count;
+                            console.log(obj.likes);
                             obj.retweets = tweet.retweet_count;
                             urlArray.push(tweet.extended_entities.media[j].media_url_https);
                             tweetArray.push(obj);
@@ -48,20 +49,19 @@ function showHideLoadingSpinner() {
 */
 function createCards() {
     for (var index = 0; index < photos.length; index++) {
-        let conteiner = document.createElement('span');
+        let conteiner = document.createElement('div');
         let card = document.createElement('div');
-        let favConteiner = document.createElement('div');
         conteiner.append(card);
-        conteiner.append(favConteiner);
-        favConteiner.className = "favConteiner";
-        conteiner.className = "cardConteiner";
-        conteiner.favConteiner = favConteiner;
-        card.className = "cards-view col-md-3";
+        conteiner.className = "cardConteiner  col-md-3";
+        card.className = "cards-view";
         conteiner.retweets = photos[index].retweets;
         card.style.backgroundImage = 'url("' + photos[index].url + '")';
         let img = new Image();
         img.src = photos[index].url;
         conteiner.onmouseenter = addFavFn;
+        conteiner.onmouseleave = function(){
+            conteiner.removeChild(conteiner.childNodes[1]);
+        }
         card.appendChild(img);
         let cardsConteiner = $('#cards-view')[0];
         cardsConteiner.append(conteiner);
@@ -69,18 +69,21 @@ function createCards() {
 }
 
 function addFavFn() {
-    this.favConteiner.appendChild(createFavElement());
-    console.log(this.retweets);
-}
-
-function createFavElement() {
+    let favConteiner = document.createElement('div');
+    this.append(favConteiner);
+    this.favConteiner = favConteiner;
+    favConteiner.className = "favConteiner";
     let div = document.createElement('div');
+    let retweet = document.createElement('div');
+    retweet.className = 'retweets-count';
+    retweet.innerHTML = this.retweets;
     div.className = "favourite";
     div.style.backgroundImage = 'url("img/heart.png")';
-    div.addEventListener("animationend", function(){
+    div.addEventListener("animationend", function () {
         div.remove();
     });
-    return div;
+    this.favConteiner.appendChild(div);
+    this.favConteiner.appendChild(retweet);
 }
 
 /**
