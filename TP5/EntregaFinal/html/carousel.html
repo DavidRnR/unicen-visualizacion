@@ -1,8 +1,17 @@
 <!-- Buttons to display Carousel or Cards -->
 <div class="row display-buttons">
     <button onclick="onSetView('cards')" type="button" class="btn btn-light" title="View Gallery"><i class="fa fa-th" aria-hidden="true"></i></button>
-    <button type="button" class="btn btn-secondary active"> <i class="fa fa-photo" aria-hidden="true"></i></button>    
+    <button type="button" class="btn btn-secondary active"> <i class="fa fa-photo" aria-hidden="true"></i></button>
 </div>
+
+<!-- Buttons to set animation style -->
+<div class="row display-buttons animation-buttons">
+    <button id="fullScreenBtn" onclick="toggleFullScreen()" type="button" class="btn btn-light" title="Full Screen"> <i class="fa fa-expand" aria-hidden="true"></i></button>
+    <button id="animBtnSlide" onclick="setCarouselAnim('slide', this)" type="button" class="btn btn-light active" title="Horizontal Slide"><i class="fa fa-arrows-h" aria-hidden="true"></i></button>
+    <button id="animBtnVer" onclick="setCarouselAnim('vertical', this)" type="button" class="btn btn-light" title="Vertical Slide"> <i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+    <button id="animBtnCust" onclick="setCarouselAnim('custom', this)" type="button" class="btn btn-light" title="Custom Slide"> <i class="fa fa-magic" aria-hidden="true"></i></button>
+</div>
+
 
 <div class="carousel-pichash d-flex align-items-center justify-content-center">
 

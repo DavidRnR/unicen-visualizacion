@@ -23,88 +23,34 @@ $(document).on("submit", '#search-button', (e) => {
     event.stopPropagation();
 
     var hash = e.target[0].value;
-    if (hash !== "") {           
+    if (hash !== "") {
         // Load Cards Gallery
         renderHtml('html/cards.html').then(()=> {
-             // Get Tweets 
+             // Get Tweets
         retrieveTweets(hash);
         });
 
-       ;     
-      
+       ;
+
     }
-  
 
-});
-
-/**
- * Set Picture on the Carousel and Set Animation
- * @param {*} url
- * @param {*} arrow
- */
-function setPictureOnCarousel(url, arrow = null) {
-
-    $(divCarousel).removeClass("slide-pic-back");
-    $(divCarousel).removeClass("slide-pic-next");
-
-    setTimeout(() => {
-        imgCarousel.src = url;
-        $(divCarousel).addClass("slide-pic-" + ((arrow) ? arrow : 'next'));
-    }, 100);
-
-}
-
-// Button Next Image - Carousel
-$(document).on("click", '#get-next-img', (e) => {
-    e.preventDefault();
- 
-    for (let i = 0; i < photos.length; i++) {
-
-        if (urlFullImage == photos[i].url) {
-            if (i + 1 == photos.length) {
-                return;
-            }
-            urlFullImage = photos[i + 1].url;
-            // Set Picture on the DOM
-            setPictureOnCarousel(urlFullImage, 'next');
-            return;
-        }
-    }
-});
-
-
-// Button Back Image - Carousel
-$(document).on("click", '#get-back-img', (e) => {
-    e.preventDefault();
-
-    for (let i = 0; i < photos.length; i++) {
-        if (urlFullImage == photos[i].url) {
-            if (i - 1 == -1) {
-                return;
-            }
-            urlFullImage = photos[i - 1].url;
-            // Set Picture on the DOM
-            setPictureOnCarousel(urlFullImage, 'back');
-            return;
-        }
-    }
 
 });
 
 /**
  * On Set View -  Carousel or Cards Gallery
- * @param {*} view 
+ * @param {*} view
  */
 function onSetView(view) {
-
     // Change View Carousel or Cards
     if(view == 'carousel') {
         renderHtml('html/carousel.html').then(() => {
             createCarousel();
+            setListeners();
              // Hide Spinner
             showHideLoadingSpinner();
         });
-        
+
     }
     else if(view == 'cards') {
         renderHtml('html/cards.html').then(()=> {
@@ -136,9 +82,9 @@ function renderHtml(url) {
         .then(response => {
             return response.text();
         }).then(data => {
-        
+
              // Render Data
              return document.getElementById('app-loader').innerHTML = data;
-            
+
         }).catch(err => console.log(err));
 }
