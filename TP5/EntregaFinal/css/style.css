@@ -91,12 +91,12 @@ button:hover {
     font-size: 30px;
     color: rgb(107, 107, 107);
     line-height: 2;
-    letter-spacing: 2px; 
+    letter-spacing: 2px;
     font-family: Roboto;
     text-align: center;
 }
 
-.about span { 
+.about span {
     font-family: dense;
     font-size: 50px;
     letter-spacing: 7px;
@@ -115,7 +115,7 @@ button {
 
 .display-buttons {
     position: fixed;
-    top: 40%;
+    top: 20%;
     display: grid;
     right: 20px;
     z-index: 1000;
@@ -149,7 +149,7 @@ button {
 }
 
 
-/* Animations 
+/* Animations
 ----------------------------------------------------*/
 
 @keyframes float {
