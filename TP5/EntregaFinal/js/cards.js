@@ -1,4 +1,5 @@
 var heartInterval;
+var imgPreloader = $('#imgPreLoader');
 
 /**
 * Create Gallery Cards
@@ -33,6 +34,9 @@ function createCards() {
     card.appendChild(img);
     let cardsConteiner = $('#cards-view')[0];
     cardsConteiner.append(conteiner);
+    // pre loads images
+    let cln = img.cloneNode(true);
+    imgPreloader.append(cln);
   }
 
   // Set Button to EXIT from the Modal

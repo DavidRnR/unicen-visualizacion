@@ -55,7 +55,7 @@
 
 @keyframes verticalPicBack {
     0% { margin-bottom: -100%; }
-    100% { margin-bottom: : 0%; }
+    100% { margin-bottom: 0%; }
 }
 
 .custom-pic-next {
@@ -63,8 +63,8 @@
 }
 
 @keyframes customPicNext {
-    0% { filter: blur(5px); }
-    100% { filter: blur(0px); }
+    0% { opacity: 0.2; filter: blur(15px);}
+    100% { opacity: 1; filter: blur(0px);}
 }
 
 .custom-pic-back {
@@ -72,8 +72,8 @@
 }
 
 @keyframes customPicBack {
-  0% { filter: blur(5px); }
-  100% { filter: blur(0px); }
+    0% { opacity: 0.2; filter: blur(15px);}
+    100% { opacity: 1; filter: blur(0px);}
 }
 
 .carousel-img-container img {
