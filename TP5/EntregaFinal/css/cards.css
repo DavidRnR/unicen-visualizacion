@@ -126,7 +126,8 @@
 
 .modal-exit {
   position: relative;
-  text-align: right;
+  margin-top: 8px;
+  text-align: center;
   color: white;
   cursor: pointer;
 }
@@ -140,3 +141,12 @@
   }
 
 }
+
+@media all and (min-width: 1367px) { 
+
+  .modal-content {
+    max-height: 800px;
+  }
+
+}
+

@@ -116,7 +116,7 @@ button {
 .display-buttons {
     position: fixed;
     top: 20%;
-    display: grid;
+    display: none;
     right: 20px;
     z-index: 1000;
 }
@@ -164,6 +164,10 @@ button {
     }
 }
 
+.fadeIn {
+    animation: fadeIn 1.5s;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -195,5 +199,4 @@ button {
     .about {
         font-size: 20px;
     }
-
 }

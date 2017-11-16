@@ -4,6 +4,7 @@ var animBtnVer;
 var animBtnCust;
 var fullScreenBtn;
 var fullScreenState = false;
+
 // Button Next Image - Carousel
 $(document).on("click", '#get-next-img', (e) => {
     e.preventDefault();
@@ -42,6 +43,20 @@ $(document).on("click", '#get-back-img', (e) => {
 });
 
 /**
+* Create Carousel
+*/
+function createCarousel() {
+
+    urlFullImage = photos[0].url;
+    // Set divCarousel & imgCarousel
+    divCarousel = $('.carousel-img-container')[0];
+    imgCarousel = $('#carousel-img')[0];
+
+    // Set Picture on the DOM
+    setPictureOnCarousel(urlFullImage);
+}
+
+/**
  * Set Picture on the Carousel and Set Animation
  * @param {*} url
  * @param {*} arrow
@@ -58,34 +73,36 @@ function setPictureOnCarousel(url, arrow = null) {
 }
 
 function setCarouselAnim(anim, button) {
-  removeAnimBtnClass();
-  this.anim = anim;
-  $(button).addClass('active');
+    removeAnimBtnClass();
+    this.anim = anim;
+    $(button).addClass('active');
 }
 
 function removeAllCarouselAnim() {
-  $(divCarousel).removeClass("slide-pic-back");
-  $(divCarousel).removeClass("slide-pic-next");
-  $(divCarousel).removeClass("vertical-pic-back");
-  $(divCarousel).removeClass("vertical-pic-next");
-  $(divCarousel).removeClass("custom-pic-back");
-  $(divCarousel).removeClass("custom-pic-next");
+    $(divCarousel).removeClass("slide-pic-back");
+    $(divCarousel).removeClass("slide-pic-next");
+    $(divCarousel).removeClass("vertical-pic-back");
+    $(divCarousel).removeClass("vertical-pic-next");
+    $(divCarousel).removeClass("custom-pic-back");
+    $(divCarousel).removeClass("custom-pic-next");
 }
 
 function setListeners() {
-  animBtnSlide = document.getElementById('animBtnSlide');
-  animBtnVer = document.getElementById('animBtnVer');
-  animBtnCust = document.getElementById('animBtnCust');
-  fullScreenBtn = document.getElementById('fullScreenBtn');
+    animBtnSlide = document.getElementById('animBtnSlide');
+    animBtnVer = document.getElementById('animBtnVer');
+    animBtnCust = document.getElementById('animBtnCust');
+    fullScreenBtn = document.getElementById('fullScreenBtn');
 }
 
 function removeAnimBtnClass() {
-  animBtnSlide.classList.remove("active");
-  animBtnVer.classList.remove("active");
-  animBtnCust.classList.remove("active");
+    animBtnSlide.classList.remove("active");
+    animBtnVer.classList.remove("active");
+    animBtnCust.classList.remove("active");
 }
 
-
+/**
+ * Toogle to Full Screen Presentation
+ */
 function toggleFullScreen() {
     // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
     if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
